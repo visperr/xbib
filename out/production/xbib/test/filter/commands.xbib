@@ -1,0 +1,7 @@
+input "src/test/filter/in.bib";
+
+go order(
+    action filter ('test1', 'test3')
+);
+
+output "src/test/filter/out.bib";

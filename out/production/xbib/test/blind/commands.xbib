@@ -1,0 +1,7 @@
+input "src/test/blind/in.bib";
+
+go content(
+    action blind ('test1', 'test3')
+);
+
+output "src/test/blind/out.bib";

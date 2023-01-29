@@ -1,0 +1,27 @@
+input "src/test/type_exception/in.bib";
+
+
+go format(
+    set indentation to (1, tab),
+    set string_identifier to 'quotes',
+    set line_wrap to eighty,
+    set indentation to (tab)
+);
+
+go order(
+    action filter (test, 1)
+);
+
+
+go content(
+    action rename_key (aaronson_s:2015a, 'aaronson_s'),
+    action rename_key ('aaronson_s:2015a', aaronson_s),
+
+    action change_type (book, 'article')
+);
+
+
+field address remove;
+
+
+output "src/test/type_exception/out.bib";

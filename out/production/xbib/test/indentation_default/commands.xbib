@@ -1,0 +1,2 @@
+input "src/test/indentation_default/in.bib";
+output "src/test/indentation_default/out.bib";

@@ -1,0 +1,19 @@
+input "src/test/missing_exception/in.bib";
+
+go format(
+    enable blabla
+);
+
+go order(
+    action fun ('test')
+);
+
+go content(
+    set test
+);
+
+field 'address' test2;
+
+field ('url', 'doi');
+
+output "src/test/missing_exception/out.bib";

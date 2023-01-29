@@ -1,0 +1,7 @@
+input "src/test/lastcomma_enable/in.bib";
+
+go format(
+    enable last_comma
+);
+
+output "src/test/lastcomma_enable/out.bib";

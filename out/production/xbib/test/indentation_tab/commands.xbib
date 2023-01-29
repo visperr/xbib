@@ -1,0 +1,7 @@
+input "src/test/indentation_tab/in.bib";
+
+go format(
+    set indentation to (tab, 4)
+);
+
+output "src/test/indentation_tab/out.bib";

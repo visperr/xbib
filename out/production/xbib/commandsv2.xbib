@@ -1,0 +1,50 @@
+input 'testcase.bib';
+message 'Imported bibTeX file';
+
+/*
+Test file used as example code for xbib
+
+credit: Pepijn Visser
+*/
+
+
+// The three categories
+
+go format (
+    set indentation to (tab, 1),
+    set string_identifier to quotes,
+    set line_wrap to 25,
+
+    enable last_comma,
+    disable long_lines
+);
+
+go order(
+    enable sort,
+    enable smart_filter,
+
+    action filter ('exampleKey', 'exampleKey2', 'exampleKey3')
+);
+
+go content(
+    action change_type ('book', 'article'),
+    action rename_key ('tolkien-hobbit', 'hobbit'),
+    action blind 'exampleKey',
+
+    set prefer_uri to doi,
+
+    enable remove_duplicates,
+    enable validate
+);
+
+
+// Field specifics
+
+field ('author','editor') (abbreviate, flip_name);
+field 'title' capitalise;
+field ('booktitle', 'journal', 'publisher') (abbreviate, declutter);
+field ('address', 'location') remove;
+
+
+message 'Transformations applied';
+output 'output.bib';

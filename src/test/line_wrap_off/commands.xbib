@@ -1,0 +1,3 @@
+input "src/test/line_wrap_off/in.bib";
+
+output "src/test/line_wrap_off/out.bib";

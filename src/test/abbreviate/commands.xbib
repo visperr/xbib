@@ -1,0 +1,6 @@
+input "src/test/abbreviate/in.bib";
+
+field ('journal', 'publisher') abbreviate;
+field ('title', 'series') abbreviate;
+
+output "src/test/abbreviate/out.bib";

@@ -1,0 +1,8 @@
+input "src/test/change_type/in.bib";
+
+go content(
+    action change_type ('book', 'article'),
+    action change_type ('journal', 'unpublished')
+);
+
+output "src/test/change_type/out.bib";

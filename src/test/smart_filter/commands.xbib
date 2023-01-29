@@ -1,0 +1,7 @@
+input "src/test/smart_filter/in.bib";
+
+go order(
+    action smart_filter "src/test/smart_filter/output.aux"
+);
+
+output "src/test/smart_filter/out.bib";

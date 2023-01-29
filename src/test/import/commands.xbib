@@ -1,0 +1,2 @@
+input "src/test/import/in.bib";
+output "src/test/import/out.bib";

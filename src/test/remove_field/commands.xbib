@@ -1,0 +1,6 @@
+input "src/test/remove_field/in.bib";
+
+field ('address', 'place') remove;
+field 'location' remove;
+
+output "src/test/remove_field/out.bib";

@@ -1,0 +1,32 @@
+do format(
+    set string = quotes,
+    set indentation = [tab, 1],
+    set lastcomma = true,
+    set longlines = false
+);
+
+do order(
+    set sort = true,
+    set filter = [true, ['exampleArticle','example2']],
+    set smartfilter = true
+);
+
+do change_type('unpublished','article');
+
+do rename_key('name','name2');
+
+do blind('name');
+
+do hide('address','location');
+
+do content(
+    set ('author', 'editor').abbreviation = true,
+    set ('author', 'editor').flip_surname = false,
+
+    set 'title'.capitalise = true,
+    set ('journal', 'publisher').abbreviation = true,
+    set uri = doi
+);
+
+do removeduplicates;
+do validate;

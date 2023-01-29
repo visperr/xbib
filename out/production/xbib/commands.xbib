@@ -1,0 +1,20 @@
+do remove_duplicates;
+
+do format(
+    set string = quotes,
+    set indentation = [tab, 1],
+    set lastcomma = true,
+    set longlines = false
+);
+
+do order(
+    set sort = true,
+    set filter = [true, ['exampleArticle','example2']],
+    set smartfilter = true
+);
+
+do change_type('unordered', 'article');
+do rename_key('exampleName', 'ExampleName2');
+do blind('exampleName');
+
+do validate;

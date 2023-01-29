@@ -1,0 +1,44 @@
+{
+  "abbreviations": [
+    {
+      "check" : ["Springer-Verlag", "Springer International Publishing", "Springer"],
+      "abbr" : "Springer"
+    } ,
+    {
+      "check": ["European Conference on Software Architecture"],
+      "abbr": "ECSA"
+    } ,
+    {
+      "check" : ["Lecture Notes in Computer Science"],
+      "abbr": "LNCS"
+    } ,
+    {
+      "check": ["International Conference on Software Architecture"],
+      "abbr": "ICSA"
+    } ,
+    {
+      "check": ["Component-Based Software Engineering"],
+      "abbr": "CBSE"
+    } ,
+    {
+      "check": ["IEEE Computer Society"],
+      "abbr": "IEEE CS"
+    } ,
+    {
+      "check" : ["ACM"],
+      "abbr": "ACM"
+    } ,
+    {
+      "check": ["Conference on Quality of Software Architectures"],
+      "abbr": "QoSA"
+    } ,
+    {
+      "check": ["IEEE/IFIP Conference on Software Architecture"],
+      "abbr": "WICSA"
+    } ,
+    {
+      "check": ["International Symposium on Architecting Critical Systems"],
+      "abbr": "ISARCS"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "format" : [
+    {
+      "function" : "last_comma",
+      "type": "flag"
+    }, {
+      "function" : "indentation",
+      "type" : "set",
+      "arguments": [
+        ["tab", "space"] , "Integer"
+      ]
+    }, {
+      "function" : "string_identifier",
+      "type" : "set",
+      "arguments": [
+        ["quotes", "curly"]
+      ]
+    }, {
+      "function" : "line_wrap",
+      "type" : "set",
+      "arguments": [
+        "Integer"
+      ]
+    }
+  ],
+  "order" : [
+    {
+      "function" : "filter",
+      "type": "action",
+      "arguments": [
+        "Word"
+      ]
+    }
+  ],
+  "content": [
+    {
+      "function": "blind",
+      "type": "action",
+      "arguments": [
+        "Word"
+      ]
+    }
+  ],
+  "field" : [
+    {
+      "function": "abbreviate",
+    }
+  ]
+}
