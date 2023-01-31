@@ -1,6 +1,5 @@
 package grammar;
 
-import exception.RunException;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
@@ -15,57 +14,24 @@ import representation.Item;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 public class bibTeXListener extends simpleBibTeXBaseListener {
 
     StringBuilder result;
-
     xBibCommands commands;
-
-    List<String> errors;
-
     int entryPointer;
-    int fieldPointer;
-    int valuePointer;
+
     Stack<String> stack;
     boolean blindFlag = false;
 
-    public void run(ParseTree tree, xBibCommands commands) throws RunException {
+    public void run(ParseTree tree, xBibCommands commands) {
         result = new StringBuilder();
         this.commands = commands;
-        this.errors = new ArrayList<>();
         this.stack = new Stack<>();
         new ParseTreeWalker().walk(this, tree);
-        if (hasErrors()) {
-            throw new RunException(getErrors());
-        }
     }
-
-    boolean hasErrors() {
-        return !getErrors().isEmpty();
-    }
-
-    public List<String> getErrors() {
-        return this.errors;
-    }
-
-    void addError(Token token, String message, Object... args) {
-        int line = token.getLine();
-        int column = token.getCharPositionInLine();
-        message = String.format(message, args);
-        message = String.format("Line %d:%d - %s", line, column, message);
-        this.errors.add(message);
-    }
-
-    private void addError(ParserRuleContext node, String message,
-                          Object... args) {
-        addError(node.getStart(), message, args);
-    }
-
     public String getResult() {
         return result.toString();
     }
@@ -122,7 +88,6 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
             try {
                 amount = Integer.parseInt(i.getArguments().toArray()[0].toString());
             } catch (NumberFormatException e) {
-                addError(ctx, "The argument %s is not a number", i.getArguments().toArray()[0].toString());
                 return null;
             }
             switch (i.getArguments().toArray()[1].toString()) {
@@ -137,7 +102,6 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
                     }
                     break;
                 default:
-                    addError(ctx, "The argument %s can only be of type (space, tab)", i.getArguments().toArray()[1]);
                     break;
             }
         } else
@@ -190,7 +154,6 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
             try {
                 cap = Integer.parseInt(i.getArguments().toArray()[0].toString());
             } catch (NumberFormatException e) {
-                addError(ctx, "The argument %s is not a number", i.getArguments().toArray()[0].toString());
                 return;
             }
             int breakoff = 0;
@@ -239,12 +202,12 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
             } else {
                 String from = i.getArguments().toArray()[1].toString();
                 if (from.charAt(0) != '\'' && '\'' != from.charAt(from.length() - 1)) {
-                    addError(ctx, "The argument %s should be of type: Word", from);
+//                    addError(ctx, "The argument %s should be of type: Word", from);
                 }
                 from = from.substring(1, from.length() - 1);
                 String to = i.getArguments().toArray()[0].toString();
                 if (to.charAt(0) != '\'' && '\'' != to.charAt(to.length() - 1)) {
-                    addError(ctx, "The argument %s should be of type: Word", to);
+//                    addError(ctx, "The argument %s should be of type: Word", to);
                     continue;
                 }
                 to = to.substring(1, to.length() - 1);
@@ -263,12 +226,12 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
             } else {
                 String from = i.getArguments().toArray()[1].toString();
                 if (from.charAt(0) != '\'' && '\'' != from.charAt(from.length() - 1)) {
-                    addError(ctx, "The argument %s should be of type: Word", from);
+//                    addError(ctx, "The argument %s should be of type: Word", from);
                 }
                 from = from.substring(1, from.length() - 1);
                 String to = i.getArguments().toArray()[0].toString();
                 if (to.charAt(0) != '\'' && '\'' != to.charAt(to.length() - 1)) {
-                    addError(ctx, "The argument %s should be of type: Word", to);
+//                    addError(ctx, "The argument %s should be of type: Word", to);
                     continue;
                 }
                 to = to.substring(1, to.length() - 1);
@@ -304,7 +267,7 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
             rem = true;
             for (Object k : i.getArguments()) {
                 if (k.toString().charAt(0) != '\'' && '\'' != k.toString().charAt(k.toString().length() - 1)) {
-                    addError(ctx, "The argument %s should be of type: Word", k.toString());
+//                    addError(ctx, "The argument %s should be of type: Word", k.toString());
                     continue;
                 }
                 String key = k.toString().substring(1, k.toString().length() - 1);

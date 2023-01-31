@@ -12,9 +12,9 @@ public class xBibCommands {
     Set<Field> fields;
 
     public xBibCommands() {
-        format = new Category();
-        order = new Category();
-        content = new Category();
+        format = new Category("Format");
+        order = new Category("Order");
+        content = new Category("Content");
         fields = new HashSet<Field>();
     }
 

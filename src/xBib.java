@@ -1,5 +1,4 @@
 import exception.ParseException;
-import exception.RunException;
 import grammar.xBibChecker;
 import grammar.xbibLexer;
 import grammar.xbibParser;
@@ -21,6 +20,7 @@ public class xBib {
         String f = args[0];
 
         File toTest = new File(f);
+        System.out.println(String.format("File %s found, parsing...", toTest.toString()));
 
         try {
             CharStream chars = CharStreams.fromPath(toTest.toPath());
@@ -30,9 +30,8 @@ public class xBib {
 
             xBibChecker listener = new xBibChecker();
             listener.run(tree);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException | RunException e) {
+            System.out.println("Successfully parsed, output has been written.");
+        } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
 

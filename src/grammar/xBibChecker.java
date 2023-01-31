@@ -1,7 +1,7 @@
 package grammar;
 
+import com.sun.tools.javac.Main;
 import exception.ParseException;
-import exception.RunException;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
@@ -10,8 +10,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import representation.*;
 
-import java.awt.*;
 import java.io.*;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -23,16 +23,13 @@ import static java.lang.Integer.parseInt;
 public class xBibChecker extends xbibBaseListener {
 
     xBibCommands commands;
-
     Stack<Object> mem;
     Stack<Item> items;
 
     private List<String> errors;
-    private RunException runException;
 
-    public void run(ParseTree tree) throws ParseException, RunException {
+    public void run(ParseTree tree) throws ParseException {
         this.errors = new ArrayList<>();
-        this.runException = null;
         new ParseTreeWalker().walk(this, tree);
         if (hasErrors()) {
             throw new ParseException(getErrors());
@@ -41,10 +38,6 @@ public class xBibChecker extends xbibBaseListener {
 
     boolean hasErrors() {
         return !getErrors().isEmpty();
-    }
-
-    boolean hasRunTimeError() {
-        return this.runException != null;
     }
 
     public List<String> getErrors() {
@@ -104,14 +97,8 @@ public class xBibChecker extends xbibBaseListener {
         ParseTree tree = parser.database();
 
         bibTeXListener listener = new bibTeXListener();
-        try {
-            listener.run(tree, commands);
-        } catch (RunException e) {
-            this.runException = e;
-        } finally {
-            if (this.runException == null)
-                this.runException = new RunException(List.of(new String[]{}));
-        }
+
+        listener.run(tree, commands);
 
         String res = listener.getResult();
 
@@ -176,6 +163,7 @@ public class xBibChecker extends xbibBaseListener {
     void validateCategory(Category cat, JSONArray funs, ParserRuleContext ctx) {
         // Loop through each item in the category
         while (!items.isEmpty()) {
+            Item prev = items.peek();
             for (Object f : funs) {
                 if (items.isEmpty())
                     return;
@@ -242,11 +230,15 @@ public class xBibChecker extends xbibBaseListener {
                             }
                             break;
                         case "action":
-
+                            cat.addItem(item);
                             break;
                     }
-
                 }
+            }
+            
+            if (!items.isEmpty() && prev == items.peek()) {
+                addError(ctx, "The function %s does not exist in the category %s", items.peek().getValue().toString(), cat.toString());
+                items.pop();
             }
         }
     }
@@ -256,7 +248,12 @@ public class xBibChecker extends xbibBaseListener {
 
         // Parsing the JSON file with all the function data
         try {
-            Object ob = new JSONParser().parse(new FileReader("src/data/allowed.json"));
+            ClassLoader classLoader = getClass().getClassLoader();
+
+            InputStream in = getClass().getResourceAsStream("/data/allowed.json");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            
+            Object ob = new JSONParser().parse(reader);
             JSONObject obj = (JSONObject) ob;
 
             switch (ctx.category.getText()) {
@@ -267,31 +264,21 @@ public class xBibChecker extends xbibBaseListener {
                     validateCategory(commands.getFormat(), funs, ctx);
                     break;
                 case "order":
-                    while (!items.isEmpty()) {
-                        String[] allowed = {"filter", "smart_filter"};
-                        if (Arrays.asList(allowed).contains(items.peek().getValue().toString()))
-                            commands.getOrder().addItem(items.pop());
-                        else {
-                            addError(ctx, "Function %s is currently not supported.", items.peek().getValue().toString());
-                            items.pop();
-                        }
-                    }
+
+                    funs = (JSONArray) obj.get("order");
+
+                    validateCategory(commands.getOrder(), funs, ctx);
                     break;
                 case "content":
-                    while (!items.isEmpty()) {
-                        String[] allowed = {"rename_key", "change_type", "blind"};
-                        if (Arrays.asList(allowed).contains(items.peek().getValue().toString()))
-                            commands.getContent().addItem(items.pop());
-                        else {
-                            addError(ctx, "Function %s is currently not supported.", items.peek().getValue().toString());
-                            items.pop();
-                        }
-                    }
+                    
+                    funs = (JSONArray) obj.get("content");
+
+                    validateCategory(commands.getContent(), funs, ctx);
                     break;
             }
         } catch (IOException | org.json.simple.parser.ParseException e) {
             throw new RuntimeException(e);
-        }
+        } 
     }
 
     @Override

@@ -1,33 +1,44 @@
 {
-  "format" : [
+  "format": [
     {
-      "function" : "last_comma",
+      "function": "last_comma",
       "type": "flag"
-    }, {
-      "function" : "indentation",
-      "type" : "set",
+    },
+    {
+      "function": "indentation",
+      "type": "set",
       "arguments": [
-        ["tab", "space"] , "Integer"
+        [
+          "tab",
+          "space"
+        ],
+        "Integer"
       ]
-    }, {
-      "function" : "string_identifier",
-      "type" : "set",
+    },
+    {
+      "function": "string_identifier",
+      "type": "set",
       "arguments": [
-        ["quotes", "curly"]
+        [
+          "quotes",
+          "curly"
+        ]
       ]
-    }, {
-      "function" : "line_wrap",
-      "type" : "set",
+    },
+    {
+      "function": "line_wrap",
+      "type": "set",
       "arguments": [
         "Integer"
       ]
     }
   ],
-  "order" : [
+  "order": [
     {
-      "function" : "filter",
+      "function": "filter",
       "type": "action",
       "arguments": [
+        "array",
         "Word"
       ]
     }
@@ -39,11 +50,27 @@
       "arguments": [
         "Word"
       ]
+    },
+    {
+      "function": "rename_key",
+      "type": "action",
+      "arguments": [
+        "Word",
+        "Word"
+      ]
+    },
+    {
+      "function": "change_type",
+      "type": "action",
+      "arguments": [
+        "Word",
+        "Word"
+      ]
     }
   ],
-  "field" : [
+  "field": [
     {
-      "function": "abbreviate",
+      "function": "abbreviate"
     }
   ]
 }
