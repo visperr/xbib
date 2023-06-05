@@ -1,5 +1,3 @@
-input "src/testcase.bib";
-
 go format (
     set indentation to (tab, 2)
 );
@@ -7,8 +5,3 @@ go format (
 go order (
     action filter ('ICPR-2018')
 );
-
-
-
-
-output "src/out.bib";

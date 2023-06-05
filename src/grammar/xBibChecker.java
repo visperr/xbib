@@ -1,6 +1,5 @@
 package grammar;
 
-import com.sun.tools.javac.Main;
 import exception.ParseException;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -11,13 +10,10 @@ import org.json.simple.parser.JSONParser;
 import representation.*;
 
 import java.io.*;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.List;
-
-import static java.lang.Integer.parseInt;
 
 
 public class xBibChecker extends xbibBaseListener {
@@ -28,12 +24,14 @@ public class xBibChecker extends xbibBaseListener {
 
     private List<String> errors;
 
-    public void run(ParseTree tree) throws ParseException {
+    public xBibCommands run(ParseTree tree) throws ParseException {
         this.errors = new ArrayList<>();
         new ParseTreeWalker().walk(this, tree);
         if (hasErrors()) {
             throw new ParseException(getErrors());
         }
+
+        return this.commands;
     }
 
     boolean hasErrors() {
@@ -87,32 +85,6 @@ public class xBibChecker extends xbibBaseListener {
 
     @Override
     public void exitMain(xbibParser.MainContext ctx) {
-        // Import file from the path given
-        String in = getFileContents(ctx.in.getText());
-
-        // Do stuff
-        CharStream chars = CharStreams.fromString(in);
-        Lexer lexer = new simpleBibTeXLexer(chars);
-        simpleBibTeXParser parser = new simpleBibTeXParser(new CommonTokenStream(lexer));
-        ParseTree tree = parser.database();
-
-        bibTeXListener listener = new bibTeXListener();
-
-        listener.run(tree, commands);
-
-        String res = listener.getResult();
-
-        Path out = getPath(ctx.out.getText());
-
-        FileWriter fileWriter = null;
-        try {
-            fileWriter = new FileWriter(out.toString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        PrintWriter printWriter = new PrintWriter(fileWriter);
-        printWriter.print(res);
-        printWriter.close();
     }
 
     @Override
@@ -248,8 +220,6 @@ public class xBibChecker extends xbibBaseListener {
 
         // Parsing the JSON file with all the function data
         try {
-            ClassLoader classLoader = getClass().getClassLoader();
-
             InputStream in = getClass().getResourceAsStream("/data/allowed.json");
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             

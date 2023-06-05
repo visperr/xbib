@@ -8,16 +8,13 @@ go format(
 );
 
 go order(
-    action filter ('aaronson_s:2015a', 'aaker_da:1981a')
+    action filter ('essay91890', 'essay92294')
 );
 
 go content(
-    action rename_key ('aaronson_s:2015a', 'aaronson_s'),
-    action rename_key ('aaker_da:1981a', 'aaker_da'),
-    
-    action change_type ('book', 'article')
+    action change_type ('misc', 'article')
 );
 
-field 'address' remove;
+field ('abstract', 'month') remove;
 
 output "out.bib";

@@ -53,37 +53,37 @@ public class xBibTest {
         testFolder("src/test/line_wrap_off");
         testFolder("src/test/line_wrap_on");
     }
-    
+
     @Test
     public void testFilter() throws ParseException {
         testFolder("src/test/filter");
     }
-    
+
     @Test
     public void testChangeType() throws ParseException {
         testFolder("src/test/change_type");
     }
-    
+
     @Test
     public void testRenameKey() throws ParseException {
         testFolder("src/test/rename_key");
     }
-    
+
     @Test
     public void testField() throws ParseException {
         testFolder("src/test/remove_field");
     }
-    
+
     @Test
     public void testBlind() throws ParseException {
         testFolder("src/test/blind");
     }
-    
+
     @Test
     public void testAbbreviate() throws ParseException {
         testFolder("src/test/abbreviate");
     }
-    
+
 //    @Test
     public void TestSmartFilter() throws ParseException {
         testFolder("src/test/smart_filter");

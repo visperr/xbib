@@ -12,8 +12,7 @@ import representation.Category;
 import representation.Field;
 import representation.Item;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -26,11 +25,13 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
     Stack<String> stack;
     boolean blindFlag = false;
 
-    public void run(ParseTree tree, xBibCommands commands) {
+    public String run(ParseTree tree, xBibCommands commands) {
         result = new StringBuilder();
         this.commands = commands;
         this.stack = new Stack<>();
         new ParseTreeWalker().walk(this, tree);
+
+        return getResult();
     }
     public String getResult() {
         return result.toString();
@@ -313,7 +314,10 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
                     return;
                 case "abbreviate":
                     try {
-                        JSONObject obj = (JSONObject) new JSONParser().parse(new FileReader("src/data/abbreviations.json"));
+                        InputStream in = getClass().getResourceAsStream("/data/abbreviations.json");
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                        JSONObject obj = (JSONObject) new JSONParser().parse(reader);
 
                         JSONArray abvs = (JSONArray) obj.get("abbreviations");
 

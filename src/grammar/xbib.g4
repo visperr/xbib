@@ -1,12 +1,12 @@
 grammar xbib;
 
 main
-    : INPUT in=String SEMI command* OUTPUT out=String SEMI EOF;
+    : command* EOF;
 
 command
-    : 'message' String SEMI #messageCommand
-    | 'go' category=Category '(' (item(','item)*)? ')' SEMI     #categoryCommand
-    | 'field' argument argument SEMI                            #fieldCommand
+    : 'message' String ';' #messageCommand
+    | 'go' category=Category '(' (item(','item)*)? ')' ';'     #categoryCommand
+    | 'field' argument argument ';'                            #fieldCommand
     ;
 
 item
@@ -27,9 +27,6 @@ primitive : prim_int=Integer
           ;
 
 
-INPUT : 'input';
-OUTPUT : 'output';
-
 Activate : ('enable' | 'disable');
 
 Category : ('format' | 'order' | 'content');
@@ -48,8 +45,6 @@ Boolean : 'true' | 'false';
 Identifier : (Letter)(Letter | Digit | '_' | '-' | ':')*;
 
 fragment Letter : [a-zA-Z];
-
-SEMI : ';';
 
 LineComment : '//' ~[\r\n]* -> skip;
 
