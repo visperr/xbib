@@ -1,8 +1,4 @@
-input "src/test/rename_key/in.bib";
-
 go content(
-    action rename_key ('test1', 'new_name'),
-    action rename_key ('test2', 'new_name2')
+    action rename_key ('aaker_da:1981a', 'aaker_da'),
+    action rename_key ('ICPR-2018', 'ICPR')
 );
-
-output "src/test/rename_key/out.bib";

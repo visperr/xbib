@@ -1,7 +1,0 @@
-input "src/test/string_quote/in.bib";
-
-go format(
-    set string_identifier to quotes
-);
-
-output "src/test/string_quote/out.bib";

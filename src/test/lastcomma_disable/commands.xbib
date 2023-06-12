@@ -1,7 +1,0 @@
-input "src/test/lastcomma_disable/in.bib";
-
-go format(
-    disable last_comma
-);
-
-output "src/test/lastcomma_disable/out.bib";

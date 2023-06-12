@@ -17,27 +17,28 @@ public class simpleBibTeXParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, Integer=6, Identifier=7, String=8, 
-		WS=9;
+		T__0=1, T__1=2, T__2=3, T__3=4, QuotedContent=5, BracedContent=6, StringType=7, 
+		PreambleType=8, CommentType=9, Type=10, Name=11, Number=12, Spaces=13;
 	public static final int
-		RULE_database = 0, RULE_entry = 1, RULE_data = 2, RULE_value = 3;
+		RULE_database = 0, RULE_entry = 1, RULE_tags = 2, RULE_tag = 3, RULE_content = 4, 
+		RULE_concatable = 5;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"database", "entry", "data", "value"
+			"database", "entry", "tags", "tag", "content", "concatable"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'@'", "'{'", "','", "'}'", "'='"
+			null, "','", "'}'", "'='", "'#'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, "Integer", "Identifier", "String", 
-			"WS"
+			null, null, null, null, null, "QuotedContent", "BracedContent", "StringType", 
+			"PreambleType", "CommentType", "Type", "Name", "Number", "Spaces"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -126,21 +127,21 @@ public class simpleBibTeXParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(11);
+			setState(15);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__0) {
+			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 1920L) != 0) {
 				{
 				{
-				setState(8);
+				setState(12);
 				entry();
 				}
 				}
-				setState(13);
+				setState(17);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(14);
+			setState(18);
 			match(EOF);
 			}
 		}
@@ -157,33 +158,98 @@ public class simpleBibTeXParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class EntryContext extends ParserRuleContext {
-		public Token entryType;
-		public Token key;
-		public List<DataContext> data() {
-			return getRuleContexts(DataContext.class);
-		}
-		public DataContext data(int i) {
-			return getRuleContext(DataContext.class,i);
-		}
-		public List<TerminalNode> Identifier() { return getTokens(simpleBibTeXParser.Identifier); }
-		public TerminalNode Identifier(int i) {
-			return getToken(simpleBibTeXParser.Identifier, i);
-		}
 		public EntryContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_entry; }
+	 
+		public EntryContext() { }
+		public void copyFrom(EntryContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class TagEntryContext extends EntryContext {
+		public Token entryType;
+		public Token key;
+		public TagsContext tags() {
+			return getRuleContext(TagsContext.class,0);
+		}
+		public TerminalNode Type() { return getToken(simpleBibTeXParser.Type, 0); }
+		public TerminalNode Name() { return getToken(simpleBibTeXParser.Name, 0); }
+		public TagEntryContext(EntryContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).enterEntry(this);
+			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).enterTagEntry(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).exitEntry(this);
+			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).exitTagEntry(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof simpleBibTeXVisitor ) return ((simpleBibTeXVisitor<? extends T>)visitor).visitEntry(this);
+			if ( visitor instanceof simpleBibTeXVisitor ) return ((simpleBibTeXVisitor<? extends T>)visitor).visitTagEntry(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class PreambleContext extends EntryContext {
+		public TerminalNode PreambleType() { return getToken(simpleBibTeXParser.PreambleType, 0); }
+		public ContentContext content() {
+			return getRuleContext(ContentContext.class,0);
+		}
+		public PreambleContext(EntryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).enterPreamble(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).exitPreamble(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof simpleBibTeXVisitor ) return ((simpleBibTeXVisitor<? extends T>)visitor).visitPreamble(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class StringDeclarationContext extends EntryContext {
+		public TerminalNode StringType() { return getToken(simpleBibTeXParser.StringType, 0); }
+		public TerminalNode Name() { return getToken(simpleBibTeXParser.Name, 0); }
+		public ContentContext content() {
+			return getRuleContext(ContentContext.class,0);
+		}
+		public StringDeclarationContext(EntryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).enterStringDeclaration(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).exitStringDeclaration(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof simpleBibTeXVisitor ) return ((simpleBibTeXVisitor<? extends T>)visitor).visitStringDeclaration(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class CommentContext extends EntryContext {
+		public TerminalNode CommentType() { return getToken(simpleBibTeXParser.CommentType, 0); }
+		public CommentContext(EntryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).enterComment(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).exitComment(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof simpleBibTeXVisitor ) return ((simpleBibTeXVisitor<? extends T>)visitor).visitComment(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -191,213 +257,60 @@ public class simpleBibTeXParser extends Parser {
 	public final EntryContext entry() throws RecognitionException {
 		EntryContext _localctx = new EntryContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_entry);
-		int _la;
 		try {
-			int _alt;
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(16);
-			match(T__0);
-			setState(17);
-			((EntryContext)_localctx).entryType = match(Identifier);
-			setState(18);
-			match(T__1);
-			setState(19);
-			((EntryContext)_localctx).key = match(Identifier);
-			setState(20);
-			match(T__2);
-			setState(26);
-			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					{
-					setState(21);
-					data();
-					setState(22);
-					match(T__2);
-					}
-					} 
-				}
-				setState(28);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
-			}
-			setState(29);
-			data();
-			setState(31);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==T__2) {
-				{
-				setState(30);
-				match(T__2);
-				}
-			}
-
-			setState(33);
-			match(T__3);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class DataContext extends ParserRuleContext {
-		public Token field;
-		public ValueContext value() {
-			return getRuleContext(ValueContext.class,0);
-		}
-		public TerminalNode Identifier() { return getToken(simpleBibTeXParser.Identifier, 0); }
-		public DataContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_data; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).enterData(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).exitData(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof simpleBibTeXVisitor ) return ((simpleBibTeXVisitor<? extends T>)visitor).visitData(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final DataContext data() throws RecognitionException {
-		DataContext _localctx = new DataContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_data);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(35);
-			((DataContext)_localctx).field = match(Identifier);
-			setState(36);
-			match(T__4);
 			setState(37);
-			value();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class ValueContext extends ParserRuleContext {
-		public ValueContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_value; }
-	 
-		public ValueContext() { }
-		public void copyFrom(ValueContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class StringValueContext extends ValueContext {
-		public TerminalNode String() { return getToken(simpleBibTeXParser.String, 0); }
-		public StringValueContext(ValueContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).enterStringValue(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).exitStringValue(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof simpleBibTeXVisitor ) return ((simpleBibTeXVisitor<? extends T>)visitor).visitStringValue(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class IntegerValueContext extends ValueContext {
-		public TerminalNode Integer() { return getToken(simpleBibTeXParser.Integer, 0); }
-		public IntegerValueContext(ValueContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).enterIntegerValue(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).exitIntegerValue(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof simpleBibTeXVisitor ) return ((simpleBibTeXVisitor<? extends T>)visitor).visitIntegerValue(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class IdValueContext extends ValueContext {
-		public TerminalNode Identifier() { return getToken(simpleBibTeXParser.Identifier, 0); }
-		public IdValueContext(ValueContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).enterIdValue(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).exitIdValue(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof simpleBibTeXVisitor ) return ((simpleBibTeXVisitor<? extends T>)visitor).visitIdValue(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final ValueContext value() throws RecognitionException {
-		ValueContext _localctx = new ValueContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_value);
-		try {
-			setState(42);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case Integer:
-				_localctx = new IntegerValueContext(_localctx);
+			case Type:
+				_localctx = new TagEntryContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(39);
-				match(Integer);
+				setState(20);
+				((TagEntryContext)_localctx).entryType = match(Type);
+				setState(21);
+				((TagEntryContext)_localctx).key = match(Name);
+				setState(22);
+				match(T__0);
+				setState(23);
+				tags();
+				setState(24);
+				match(T__1);
 				}
 				break;
-			case Identifier:
-				_localctx = new IdValueContext(_localctx);
+			case StringType:
+				_localctx = new StringDeclarationContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(40);
-				match(Identifier);
+				setState(26);
+				match(StringType);
+				setState(27);
+				match(Name);
+				setState(28);
+				match(T__2);
+				setState(29);
+				content();
+				setState(30);
+				match(T__1);
 				}
 				break;
-			case String:
-				_localctx = new StringValueContext(_localctx);
+			case PreambleType:
+				_localctx = new PreambleContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(41);
-				match(String);
+				setState(32);
+				match(PreambleType);
+				setState(33);
+				content();
+				setState(34);
+				match(T__1);
+				}
+				break;
+			case CommentType:
+				_localctx = new CommentContext(_localctx);
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(36);
+				match(CommentType);
 				}
 				break;
 			default:
@@ -415,36 +328,329 @@ public class simpleBibTeXParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
+	public static class TagsContext extends ParserRuleContext {
+		public List<TagContext> tag() {
+			return getRuleContexts(TagContext.class);
+		}
+		public TagContext tag(int i) {
+			return getRuleContext(TagContext.class,i);
+		}
+		public TagsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_tags; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).enterTags(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).exitTags(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof simpleBibTeXVisitor ) return ((simpleBibTeXVisitor<? extends T>)visitor).visitTags(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final TagsContext tags() throws RecognitionException {
+		TagsContext _localctx = new TagsContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_tags);
+		int _la;
+		try {
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(50);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==Name) {
+				{
+				setState(39);
+				tag();
+				setState(44);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
+				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+					if ( _alt==1 ) {
+						{
+						{
+						setState(40);
+						match(T__0);
+						setState(41);
+						tag();
+						}
+						} 
+					}
+					setState(46);
+					_errHandler.sync(this);
+					_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
+				}
+				setState(48);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				if (_la==T__0) {
+					{
+					setState(47);
+					match(T__0);
+					}
+				}
+
+				}
+			}
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class TagContext extends ParserRuleContext {
+		public TerminalNode Name() { return getToken(simpleBibTeXParser.Name, 0); }
+		public ContentContext content() {
+			return getRuleContext(ContentContext.class,0);
+		}
+		public TagContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_tag; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).enterTag(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).exitTag(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof simpleBibTeXVisitor ) return ((simpleBibTeXVisitor<? extends T>)visitor).visitTag(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final TagContext tag() throws RecognitionException {
+		TagContext _localctx = new TagContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_tag);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(52);
+			match(Name);
+			setState(53);
+			match(T__2);
+			setState(54);
+			content();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class ContentContext extends ParserRuleContext {
+		public List<ConcatableContext> concatable() {
+			return getRuleContexts(ConcatableContext.class);
+		}
+		public ConcatableContext concatable(int i) {
+			return getRuleContext(ConcatableContext.class,i);
+		}
+		public TerminalNode Number() { return getToken(simpleBibTeXParser.Number, 0); }
+		public TerminalNode BracedContent() { return getToken(simpleBibTeXParser.BracedContent, 0); }
+		public ContentContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_content; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).enterContent(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).exitContent(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof simpleBibTeXVisitor ) return ((simpleBibTeXVisitor<? extends T>)visitor).visitContent(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ContentContext content() throws RecognitionException {
+		ContentContext _localctx = new ContentContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_content);
+		int _la;
+		try {
+			setState(66);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case QuotedContent:
+			case Name:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(56);
+				concatable();
+				setState(61);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while (_la==T__3) {
+					{
+					{
+					setState(57);
+					match(T__3);
+					setState(58);
+					concatable();
+					}
+					}
+					setState(63);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
+				}
+				break;
+			case Number:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(64);
+				match(Number);
+				}
+				break;
+			case BracedContent:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(65);
+				match(BracedContent);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class ConcatableContext extends ParserRuleContext {
+		public TerminalNode QuotedContent() { return getToken(simpleBibTeXParser.QuotedContent, 0); }
+		public TerminalNode Name() { return getToken(simpleBibTeXParser.Name, 0); }
+		public ConcatableContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_concatable; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).enterConcatable(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof simpleBibTeXListener ) ((simpleBibTeXListener)listener).exitConcatable(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof simpleBibTeXVisitor ) return ((simpleBibTeXVisitor<? extends T>)visitor).visitConcatable(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ConcatableContext concatable() throws RecognitionException {
+		ConcatableContext _localctx = new ConcatableContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_concatable);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(68);
+			_la = _input.LA(1);
+			if ( !(_la==QuotedContent || _la==Name) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public static final String _serializedATN =
-		"\u0004\u0001\t-\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
-		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0001\u0000\u0005\u0000\n\b"+
-		"\u0000\n\u0000\f\u0000\r\t\u0000\u0001\u0000\u0001\u0000\u0001\u0001\u0001"+
+		"\u0004\u0001\rG\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
+		"\u0005\u0007\u0005\u0001\u0000\u0005\u0000\u000e\b\u0000\n\u0000\f\u0000"+
+		"\u0011\t\u0000\u0001\u0000\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0001"+
 		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
-		"\u0001\u0005\u0001\u0019\b\u0001\n\u0001\f\u0001\u001c\t\u0001\u0001\u0001"+
-		"\u0001\u0001\u0003\u0001 \b\u0001\u0001\u0001\u0001\u0001\u0001\u0002"+
-		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003\u0001\u0003"+
-		"\u0003\u0003+\b\u0003\u0001\u0003\u0000\u0000\u0004\u0000\u0002\u0004"+
-		"\u0006\u0000\u0000-\u0000\u000b\u0001\u0000\u0000\u0000\u0002\u0010\u0001"+
-		"\u0000\u0000\u0000\u0004#\u0001\u0000\u0000\u0000\u0006*\u0001\u0000\u0000"+
-		"\u0000\b\n\u0003\u0002\u0001\u0000\t\b\u0001\u0000\u0000\u0000\n\r\u0001"+
-		"\u0000\u0000\u0000\u000b\t\u0001\u0000\u0000\u0000\u000b\f\u0001\u0000"+
-		"\u0000\u0000\f\u000e\u0001\u0000\u0000\u0000\r\u000b\u0001\u0000\u0000"+
-		"\u0000\u000e\u000f\u0005\u0000\u0000\u0001\u000f\u0001\u0001\u0000\u0000"+
-		"\u0000\u0010\u0011\u0005\u0001\u0000\u0000\u0011\u0012\u0005\u0007\u0000"+
-		"\u0000\u0012\u0013\u0005\u0002\u0000\u0000\u0013\u0014\u0005\u0007\u0000"+
-		"\u0000\u0014\u001a\u0005\u0003\u0000\u0000\u0015\u0016\u0003\u0004\u0002"+
-		"\u0000\u0016\u0017\u0005\u0003\u0000\u0000\u0017\u0019\u0001\u0000\u0000"+
-		"\u0000\u0018\u0015\u0001\u0000\u0000\u0000\u0019\u001c\u0001\u0000\u0000"+
-		"\u0000\u001a\u0018\u0001\u0000\u0000\u0000\u001a\u001b\u0001\u0000\u0000"+
-		"\u0000\u001b\u001d\u0001\u0000\u0000\u0000\u001c\u001a\u0001\u0000\u0000"+
-		"\u0000\u001d\u001f\u0003\u0004\u0002\u0000\u001e \u0005\u0003\u0000\u0000"+
-		"\u001f\u001e\u0001\u0000\u0000\u0000\u001f \u0001\u0000\u0000\u0000 !"+
-		"\u0001\u0000\u0000\u0000!\"\u0005\u0004\u0000\u0000\"\u0003\u0001\u0000"+
-		"\u0000\u0000#$\u0005\u0007\u0000\u0000$%\u0005\u0005\u0000\u0000%&\u0003"+
-		"\u0006\u0003\u0000&\u0005\u0001\u0000\u0000\u0000\'+\u0005\u0006\u0000"+
-		"\u0000(+\u0005\u0007\u0000\u0000)+\u0005\b\u0000\u0000*\'\u0001\u0000"+
-		"\u0000\u0000*(\u0001\u0000\u0000\u0000*)\u0001\u0000\u0000\u0000+\u0007"+
-		"\u0001\u0000\u0000\u0000\u0004\u000b\u001a\u001f*";
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0003\u0001&\b\u0001\u0001\u0002\u0001\u0002"+
+		"\u0001\u0002\u0005\u0002+\b\u0002\n\u0002\f\u0002.\t\u0002\u0001\u0002"+
+		"\u0003\u00021\b\u0002\u0003\u00023\b\u0002\u0001\u0003\u0001\u0003\u0001"+
+		"\u0003\u0001\u0003\u0001\u0004\u0001\u0004\u0001\u0004\u0005\u0004<\b"+
+		"\u0004\n\u0004\f\u0004?\t\u0004\u0001\u0004\u0001\u0004\u0003\u0004C\b"+
+		"\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0000\u0000\u0006\u0000\u0002"+
+		"\u0004\u0006\b\n\u0000\u0001\u0002\u0000\u0005\u0005\u000b\u000bJ\u0000"+
+		"\u000f\u0001\u0000\u0000\u0000\u0002%\u0001\u0000\u0000\u0000\u00042\u0001"+
+		"\u0000\u0000\u0000\u00064\u0001\u0000\u0000\u0000\bB\u0001\u0000\u0000"+
+		"\u0000\nD\u0001\u0000\u0000\u0000\f\u000e\u0003\u0002\u0001\u0000\r\f"+
+		"\u0001\u0000\u0000\u0000\u000e\u0011\u0001\u0000\u0000\u0000\u000f\r\u0001"+
+		"\u0000\u0000\u0000\u000f\u0010\u0001\u0000\u0000\u0000\u0010\u0012\u0001"+
+		"\u0000\u0000\u0000\u0011\u000f\u0001\u0000\u0000\u0000\u0012\u0013\u0005"+
+		"\u0000\u0000\u0001\u0013\u0001\u0001\u0000\u0000\u0000\u0014\u0015\u0005"+
+		"\n\u0000\u0000\u0015\u0016\u0005\u000b\u0000\u0000\u0016\u0017\u0005\u0001"+
+		"\u0000\u0000\u0017\u0018\u0003\u0004\u0002\u0000\u0018\u0019\u0005\u0002"+
+		"\u0000\u0000\u0019&\u0001\u0000\u0000\u0000\u001a\u001b\u0005\u0007\u0000"+
+		"\u0000\u001b\u001c\u0005\u000b\u0000\u0000\u001c\u001d\u0005\u0003\u0000"+
+		"\u0000\u001d\u001e\u0003\b\u0004\u0000\u001e\u001f\u0005\u0002\u0000\u0000"+
+		"\u001f&\u0001\u0000\u0000\u0000 !\u0005\b\u0000\u0000!\"\u0003\b\u0004"+
+		"\u0000\"#\u0005\u0002\u0000\u0000#&\u0001\u0000\u0000\u0000$&\u0005\t"+
+		"\u0000\u0000%\u0014\u0001\u0000\u0000\u0000%\u001a\u0001\u0000\u0000\u0000"+
+		"% \u0001\u0000\u0000\u0000%$\u0001\u0000\u0000\u0000&\u0003\u0001\u0000"+
+		"\u0000\u0000\',\u0003\u0006\u0003\u0000()\u0005\u0001\u0000\u0000)+\u0003"+
+		"\u0006\u0003\u0000*(\u0001\u0000\u0000\u0000+.\u0001\u0000\u0000\u0000"+
+		",*\u0001\u0000\u0000\u0000,-\u0001\u0000\u0000\u0000-0\u0001\u0000\u0000"+
+		"\u0000.,\u0001\u0000\u0000\u0000/1\u0005\u0001\u0000\u00000/\u0001\u0000"+
+		"\u0000\u000001\u0001\u0000\u0000\u000013\u0001\u0000\u0000\u00002\'\u0001"+
+		"\u0000\u0000\u000023\u0001\u0000\u0000\u00003\u0005\u0001\u0000\u0000"+
+		"\u000045\u0005\u000b\u0000\u000056\u0005\u0003\u0000\u000067\u0003\b\u0004"+
+		"\u00007\u0007\u0001\u0000\u0000\u00008=\u0003\n\u0005\u00009:\u0005\u0004"+
+		"\u0000\u0000:<\u0003\n\u0005\u0000;9\u0001\u0000\u0000\u0000<?\u0001\u0000"+
+		"\u0000\u0000=;\u0001\u0000\u0000\u0000=>\u0001\u0000\u0000\u0000>C\u0001"+
+		"\u0000\u0000\u0000?=\u0001\u0000\u0000\u0000@C\u0005\f\u0000\u0000AC\u0005"+
+		"\u0006\u0000\u0000B8\u0001\u0000\u0000\u0000B@\u0001\u0000\u0000\u0000"+
+		"BA\u0001\u0000\u0000\u0000C\t\u0001\u0000\u0000\u0000DE\u0007\u0000\u0000"+
+		"\u0000E\u000b\u0001\u0000\u0000\u0000\u0007\u000f%,02=B";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -33,5 +33,9 @@ public class xBibCommands {
     public Set<Field> getFields() {
         return fields;
     }
+    
+    public boolean getFlagValue(Item flag) {
+        return Boolean.parseBoolean(flag.getArguments().toArray()[0].toString());
+    }
 
 }

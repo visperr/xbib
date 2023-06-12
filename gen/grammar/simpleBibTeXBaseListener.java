@@ -29,61 +29,97 @@ public class simpleBibTeXBaseListener implements simpleBibTeXListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEntry(simpleBibTeXParser.EntryContext ctx) { }
+	@Override public void enterTagEntry(simpleBibTeXParser.TagEntryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEntry(simpleBibTeXParser.EntryContext ctx) { }
+	@Override public void exitTagEntry(simpleBibTeXParser.TagEntryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterData(simpleBibTeXParser.DataContext ctx) { }
+	@Override public void enterStringDeclaration(simpleBibTeXParser.StringDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitData(simpleBibTeXParser.DataContext ctx) { }
+	@Override public void exitStringDeclaration(simpleBibTeXParser.StringDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntegerValue(simpleBibTeXParser.IntegerValueContext ctx) { }
+	@Override public void enterPreamble(simpleBibTeXParser.PreambleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIntegerValue(simpleBibTeXParser.IntegerValueContext ctx) { }
+	@Override public void exitPreamble(simpleBibTeXParser.PreambleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIdValue(simpleBibTeXParser.IdValueContext ctx) { }
+	@Override public void enterComment(simpleBibTeXParser.CommentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIdValue(simpleBibTeXParser.IdValueContext ctx) { }
+	@Override public void exitComment(simpleBibTeXParser.CommentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStringValue(simpleBibTeXParser.StringValueContext ctx) { }
+	@Override public void enterTags(simpleBibTeXParser.TagsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStringValue(simpleBibTeXParser.StringValueContext ctx) { }
+	@Override public void exitTags(simpleBibTeXParser.TagsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTag(simpleBibTeXParser.TagContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTag(simpleBibTeXParser.TagContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterContent(simpleBibTeXParser.ContentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitContent(simpleBibTeXParser.ContentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterConcatable(simpleBibTeXParser.ConcatableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConcatable(simpleBibTeXParser.ConcatableContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

@@ -1,7 +1,0 @@
-input "src/test/line_wrap_on/in.bib";
-
-go format(
-    set line_wrap to 120
-);
-
-output "src/test/line_wrap_on/out.bib";

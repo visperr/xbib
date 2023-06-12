@@ -1,7 +1,0 @@
-input "src/test/string_curly/in.bib";
-
-go format(
-    set string_identifier to curly
-);
-
-output "src/test/string_curly/out.bib";

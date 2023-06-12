@@ -25,33 +25,54 @@ public class simpleBibTeXBaseVisitor<T> extends AbstractParseTreeVisitor<T> impl
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitEntry(simpleBibTeXParser.EntryContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTagEntry(simpleBibTeXParser.TagEntryContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitData(simpleBibTeXParser.DataContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStringDeclaration(simpleBibTeXParser.StringDeclarationContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIntegerValue(simpleBibTeXParser.IntegerValueContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPreamble(simpleBibTeXParser.PreambleContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIdValue(simpleBibTeXParser.IdValueContext ctx) { return visitChildren(ctx); }
+	@Override public T visitComment(simpleBibTeXParser.CommentContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStringValue(simpleBibTeXParser.StringValueContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTags(simpleBibTeXParser.TagsContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitTag(simpleBibTeXParser.TagContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitContent(simpleBibTeXParser.ContentContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitConcatable(simpleBibTeXParser.ConcatableContext ctx) { return visitChildren(ctx); }
 }

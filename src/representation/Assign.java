@@ -26,4 +26,9 @@ public class Assign implements Item {
     public ArrayList<Object> getArguments() {
         return this.arguments;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s -> %s",getValue(), getArguments());
+    }
 }

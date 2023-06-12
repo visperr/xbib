@@ -19,4 +19,9 @@ public class Field {
     public ArrayList<Object> getActions() {
         return actions;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s -> %s",getNames(), getActions());
+    }
 }

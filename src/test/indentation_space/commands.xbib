@@ -1,7 +1,0 @@
-input "src/test/indentation_space/in.bib";
-
-go format(
-    set indentation to (space, 6)
-);
-
-output "src/test/indentation_space/out.bib";

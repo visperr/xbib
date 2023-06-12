@@ -18,59 +18,91 @@ public interface simpleBibTeXListener extends ParseTreeListener {
 	 */
 	void exitDatabase(simpleBibTeXParser.DatabaseContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleBibTeXParser#entry}.
+	 * Enter a parse tree produced by the {@code tagEntry}
+	 * labeled alternative in {@link simpleBibTeXParser#entry}.
 	 * @param ctx the parse tree
 	 */
-	void enterEntry(simpleBibTeXParser.EntryContext ctx);
+	void enterTagEntry(simpleBibTeXParser.TagEntryContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleBibTeXParser#entry}.
+	 * Exit a parse tree produced by the {@code tagEntry}
+	 * labeled alternative in {@link simpleBibTeXParser#entry}.
 	 * @param ctx the parse tree
 	 */
-	void exitEntry(simpleBibTeXParser.EntryContext ctx);
+	void exitTagEntry(simpleBibTeXParser.TagEntryContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleBibTeXParser#data}.
+	 * Enter a parse tree produced by the {@code stringDeclaration}
+	 * labeled alternative in {@link simpleBibTeXParser#entry}.
 	 * @param ctx the parse tree
 	 */
-	void enterData(simpleBibTeXParser.DataContext ctx);
+	void enterStringDeclaration(simpleBibTeXParser.StringDeclarationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleBibTeXParser#data}.
+	 * Exit a parse tree produced by the {@code stringDeclaration}
+	 * labeled alternative in {@link simpleBibTeXParser#entry}.
 	 * @param ctx the parse tree
 	 */
-	void exitData(simpleBibTeXParser.DataContext ctx);
+	void exitStringDeclaration(simpleBibTeXParser.StringDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code integerValue}
-	 * labeled alternative in {@link simpleBibTeXParser#value}.
+	 * Enter a parse tree produced by the {@code preamble}
+	 * labeled alternative in {@link simpleBibTeXParser#entry}.
 	 * @param ctx the parse tree
 	 */
-	void enterIntegerValue(simpleBibTeXParser.IntegerValueContext ctx);
+	void enterPreamble(simpleBibTeXParser.PreambleContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code integerValue}
-	 * labeled alternative in {@link simpleBibTeXParser#value}.
+	 * Exit a parse tree produced by the {@code preamble}
+	 * labeled alternative in {@link simpleBibTeXParser#entry}.
 	 * @param ctx the parse tree
 	 */
-	void exitIntegerValue(simpleBibTeXParser.IntegerValueContext ctx);
+	void exitPreamble(simpleBibTeXParser.PreambleContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code idValue}
-	 * labeled alternative in {@link simpleBibTeXParser#value}.
+	 * Enter a parse tree produced by the {@code comment}
+	 * labeled alternative in {@link simpleBibTeXParser#entry}.
 	 * @param ctx the parse tree
 	 */
-	void enterIdValue(simpleBibTeXParser.IdValueContext ctx);
+	void enterComment(simpleBibTeXParser.CommentContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code idValue}
-	 * labeled alternative in {@link simpleBibTeXParser#value}.
+	 * Exit a parse tree produced by the {@code comment}
+	 * labeled alternative in {@link simpleBibTeXParser#entry}.
 	 * @param ctx the parse tree
 	 */
-	void exitIdValue(simpleBibTeXParser.IdValueContext ctx);
+	void exitComment(simpleBibTeXParser.CommentContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code stringValue}
-	 * labeled alternative in {@link simpleBibTeXParser#value}.
+	 * Enter a parse tree produced by {@link simpleBibTeXParser#tags}.
 	 * @param ctx the parse tree
 	 */
-	void enterStringValue(simpleBibTeXParser.StringValueContext ctx);
+	void enterTags(simpleBibTeXParser.TagsContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code stringValue}
-	 * labeled alternative in {@link simpleBibTeXParser#value}.
+	 * Exit a parse tree produced by {@link simpleBibTeXParser#tags}.
 	 * @param ctx the parse tree
 	 */
-	void exitStringValue(simpleBibTeXParser.StringValueContext ctx);
+	void exitTags(simpleBibTeXParser.TagsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link simpleBibTeXParser#tag}.
+	 * @param ctx the parse tree
+	 */
+	void enterTag(simpleBibTeXParser.TagContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link simpleBibTeXParser#tag}.
+	 * @param ctx the parse tree
+	 */
+	void exitTag(simpleBibTeXParser.TagContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link simpleBibTeXParser#content}.
+	 * @param ctx the parse tree
+	 */
+	void enterContent(simpleBibTeXParser.ContentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link simpleBibTeXParser#content}.
+	 * @param ctx the parse tree
+	 */
+	void exitContent(simpleBibTeXParser.ContentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link simpleBibTeXParser#concatable}.
+	 * @param ctx the parse tree
+	 */
+	void enterConcatable(simpleBibTeXParser.ConcatableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link simpleBibTeXParser#concatable}.
+	 * @param ctx the parse tree
+	 */
+	void exitConcatable(simpleBibTeXParser.ConcatableContext ctx);
 }

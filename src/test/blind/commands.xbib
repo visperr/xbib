@@ -1,7 +1,3 @@
-input "src/test/blind/in.bib";
-
 go content(
-    action blind ('test1', 'test3')
+    action blind ('aaker_da:1981a', 'ICPR-2018')
 );
-
-output "src/test/blind/out.bib";

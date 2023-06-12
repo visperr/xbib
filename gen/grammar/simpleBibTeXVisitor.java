@@ -17,36 +17,55 @@ public interface simpleBibTeXVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDatabase(simpleBibTeXParser.DatabaseContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link simpleBibTeXParser#entry}.
+	 * Visit a parse tree produced by the {@code tagEntry}
+	 * labeled alternative in {@link simpleBibTeXParser#entry}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEntry(simpleBibTeXParser.EntryContext ctx);
+	T visitTagEntry(simpleBibTeXParser.TagEntryContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link simpleBibTeXParser#data}.
+	 * Visit a parse tree produced by the {@code stringDeclaration}
+	 * labeled alternative in {@link simpleBibTeXParser#entry}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitData(simpleBibTeXParser.DataContext ctx);
+	T visitStringDeclaration(simpleBibTeXParser.StringDeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code integerValue}
-	 * labeled alternative in {@link simpleBibTeXParser#value}.
+	 * Visit a parse tree produced by the {@code preamble}
+	 * labeled alternative in {@link simpleBibTeXParser#entry}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIntegerValue(simpleBibTeXParser.IntegerValueContext ctx);
+	T visitPreamble(simpleBibTeXParser.PreambleContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code idValue}
-	 * labeled alternative in {@link simpleBibTeXParser#value}.
+	 * Visit a parse tree produced by the {@code comment}
+	 * labeled alternative in {@link simpleBibTeXParser#entry}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIdValue(simpleBibTeXParser.IdValueContext ctx);
+	T visitComment(simpleBibTeXParser.CommentContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code stringValue}
-	 * labeled alternative in {@link simpleBibTeXParser#value}.
+	 * Visit a parse tree produced by {@link simpleBibTeXParser#tags}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStringValue(simpleBibTeXParser.StringValueContext ctx);
+	T visitTags(simpleBibTeXParser.TagsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link simpleBibTeXParser#tag}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTag(simpleBibTeXParser.TagContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link simpleBibTeXParser#content}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitContent(simpleBibTeXParser.ContentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link simpleBibTeXParser#concatable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConcatable(simpleBibTeXParser.ConcatableContext ctx);
 }

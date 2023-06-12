@@ -5,44 +5,80 @@ database
     ;
 
 entry
-    : '@' entryType=Identifier '{' key=Identifier ',' (data ',')*data ','? '}'
+    :  entryType=Type key=Name ',' tags '}'             #tagEntry
+    |  StringType Name '=' content '}'                  #stringDeclaration
+    |  PreambleType content '}'                         #preamble
+    |  CommentType                                      #comment
     ;
 
-data
-    : field=Identifier '=' value
+tags
+    : (tag (',' tag)* ','?)?
+    ;
+    
+tag
+    : Name '=' content
     ;
 
-value
-    : Integer       #integerValue
-    | Identifier    #idValue
-    | String        #stringValue
+content
+    : concatable ('#' concatable)*       
+    | Number        
+    | BracedContent        
+    ;
+    
+concatable
+    : QuotedContent
+    | Name
     ;
 
+// Lexer
 
-fragment Letter : [a-zA-Z];
+QuotedContent
+  :  '"' (~('\\' | '{' | '}' | '"') | '\\' . | BracedContent)* '"'
+  ;
 
-fragment ZeroDigit : [0];
-fragment NonZeroDigit : [1-9];
-fragment Digit : ZeroDigit | NonZeroDigit;
+BracedContent
+  :  '{' (~('\\' | '{' | '}') | '\\' . | BracedContent)* '}'
+  ;
 
-Integer : (ZeroDigit | NonZeroDigit Digit*);
 
-Identifier : (Letter | Digit | '_' | '-' | ':')+;
+StringType
+  :  '@' ('s'|'S') ('t'|'T') ('r'|'R') ('i'|'I') ('n'|'N') ('g'|'G') SP? '{'
+  ;
 
-String : '{' (ESC | BRACE_ENCLOSED_SAFECODEPOINT)* '}'
-       | '"' (ESC | QUOTE_ENCLOSED_SAFECODEPOINT)* '"'
-       ;
+PreambleType
+  :  '@' ('p'|'P') ('r'|'R') ('e'|'E') ('a'|'A') ('m'|'M') ('b'|'B') ('l'|'L') ('e'|'E') SP? '{'
+  ;
 
-fragment ESC
-   : '\\' (["\\/bfnrt])
-   ;
+CommentType
+  :  '@' ('c'|'C') ('o'|'O') ('m'|'M') ('m'|'M') ('e'|'E') ('n'|'N') ('t'|'T') SP? BracedContent
+  ;
 
-fragment QUOTE_ENCLOSED_SAFECODEPOINT
-   : ~ ["\\\u0000-\u001F]
-   ;
+Type
+    : '@' Letter+ SP? '{'
+    ;
 
-fragment BRACE_ENCLOSED_SAFECODEPOINT
-   : ~ [\\\u0000-\u001F]
-   ;
+Name
+    : Letter (Letter | Digit | ':' | '-' | '_')*
+    ;
 
-WS : [ \t\r\n]+ -> skip;
+Number
+    : Digit+
+    ;
+
+Spaces
+    : SP -> skip;
+    
+// Fragments
+
+fragment Letter
+    : [a-z]
+    | [A-Z]
+    ;
+
+fragment Digit
+    : [0-9]
+    ;
+
+fragment SP
+  :  (' ' | '\t' | '\r' | '\n' | '\f')+
+  ;

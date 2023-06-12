@@ -1,8 +1,0 @@
-input "src/test/rename_key/in.bib";
-
-go content(
-    action rename_key ('test1', 'new_name'),
-    action rename_key ('test2', 'new_name2')
-);
-
-output "src/test/rename_key/out.bib";

@@ -8,6 +8,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import representation.*;
+import tool.writeMode;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -24,7 +25,7 @@ public class xBibChecker extends xbibBaseListener {
 
     private List<String> errors;
 
-    public xBibCommands run(ParseTree tree) throws ParseException {
+    public xBibCommands run(ParseTree tree, writeMode writeMode) throws ParseException {
         this.errors = new ArrayList<>();
         new ParseTreeWalker().walk(this, tree);
         if (hasErrors()) {

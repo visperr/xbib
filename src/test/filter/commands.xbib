@@ -1,7 +1,3 @@
-input "src/test/filter/in.bib";
-
 go order(
-    action filter ('test1', 'test3')
+    action filter ('aaronson_s:2015a', 'ICPR-2018')
 );
-
-output "src/test/filter/out.bib";

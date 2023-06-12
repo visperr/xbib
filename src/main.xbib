@@ -5,3 +5,6 @@ go format (
 go order (
     action filter ('ICPR-2018')
 );
+
+field ('author','editor') (abbreviate);
+field 'date' remove;

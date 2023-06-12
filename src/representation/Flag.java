@@ -30,4 +30,9 @@ public class Flag implements Item {
         set.add(this.enable);
         return set;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s -> %s",getValue(), getArguments());
+    }
 }
