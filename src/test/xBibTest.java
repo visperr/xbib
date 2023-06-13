@@ -15,6 +15,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class xBibTest {
 
     @Test
+    public void TestGenerateKeys() {
+        testFolder("src/test/generate_keys", "src/test/generate_keys/custom.bib");
+    }
+    
+    @Test
+    public void TestSortByKey() {
+        testFolder("src/test/sort_by_key", "src/test/sort_by_key/sort_custom.bib");
+    }
+    
+    @Test
     public void TestAbbreviate() {
         testFolder("src/test/abbreviate", "src/test/abbreviate/custom.bib");
     }

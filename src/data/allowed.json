@@ -41,6 +41,10 @@
         "array",
         "Word"
       ]
+    },
+    {
+      "function": "sort",
+      "type": "flag",
     }
   ],
   "content": [
@@ -66,6 +70,10 @@
         "Word",
         "Word"
       ]
+    },
+    {
+      "function": "generate_keys",
+      "type": "flag"
     }
   ],
   "field": [

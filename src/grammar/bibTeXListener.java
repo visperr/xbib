@@ -1,8 +1,5 @@
 package grammar;
 
-import org.antlr.v4.runtime.CommonToken;
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -17,27 +14,27 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Stack;
+import java.util.*;
 
 public class bibTeXListener extends simpleBibTeXBaseListener {
 
     StringBuilder result;
     xBibCommands commands;
-    int entryPointer;
-    int tagPointer;
 
     HashMap<ArrayList<String>, String> abbreviations;
 
     Stack<String> stack;
+    LinkedHashMap<String, String> entries;
+
     boolean blindFlag = false;
+    boolean newKeyFlag = false;
+
 
     public String run(ParseTree tree, xBibCommands commands, writeMode writeMode) {
         result = new StringBuilder();
         this.commands = commands;
         this.stack = new Stack<>();
+        this.entries = new LinkedHashMap<>();
 
         this.abbreviations = getAbbreviations();
 
@@ -168,8 +165,8 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
             out.append("    ");
         return out.toString();
     }
-    
-    
+
+
     public String getStringType() {
         Item i = getCommand(commands.getFormat(), Item.Call.set, "string_identifier");
         if (i != null) {
@@ -181,9 +178,27 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
 
     @Override
     public void exitDatabase(simpleBibTeXParser.DatabaseContext ctx) {
+
+        ArrayList<String> allEntries = new ArrayList<>(entries.values());
+
+        //region Sorting by key
+        Item i = getCommand(commands.getOrder(), Item.Call.flag, "sort");
+        if (i != null && commands.getFlagValue(i)) {
+            ArrayList<String> sortedKeys = new ArrayList<>(entries.keySet());
+            sortedKeys.sort(Comparator.comparing(String::toLowerCase));
+
+            for (String key : entries.keySet()) {
+                allEntries.set(sortedKeys.indexOf(key), entries.get(key));
+            }
+        }
+        //endregion
+
+        for (String entry : allEntries)
+            result.append(entry);
+
         //region Line wrap
         //------------------------------------------------------------------------------------------------------------
-        Item i = getCommand(commands.getFormat(), Item.Call.set, "line_wrap");
+        i = getCommand(commands.getFormat(), Item.Call.set, "line_wrap");
         if (i != null) {
             int cap = 0;
             try {
@@ -216,11 +231,6 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
 
     @Override
     public void enterTagEntry(simpleBibTeXParser.TagEntryContext ctx) {
-        entryPointer = result.length();
-
-        String entryType = ctx.entryType.getText();
-        String entryKey = ctx.key.getText();
-
         //region Blinding
         Item j = getCommand(commands.getContent(), Item.Call.action, "blind");
         if (j != null) {
@@ -230,6 +240,13 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
             }
         }
         //endregion
+    }
+
+    @Override
+    public void exitTagEntry(simpleBibTeXParser.TagEntryContext ctx) {
+
+        String entryType = ctx.entryType.getText();
+        String entryKey = ctx.key.getText();
 
         //region Change type
         Item[] is = getCommands(commands.getContent(), Item.Call.action, "change_type");
@@ -281,16 +298,36 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
         }
         //endregion
 
-        result.append(String.format("%s %s,\n", entryType, entryKey));
-    }
+        StringBuilder res = new StringBuilder();
 
-    @Override
-    public void exitTagEntry(simpleBibTeXParser.TagEntryContext ctx) {
+        int pointer = res.length();
+        while (!stack.isEmpty()) {
+            String tag = stack.pop();
+            res.insert(pointer, tag);
+            
+            if (newKeyFlag && stack.size() == 1) {
+                entryKey = stack.pop();
+                
+                if (entries.containsKey(entryKey))
+                    entryKey += 'a';
+                            
+                char postfix = 'b';
+                while (entries.containsKey(entryKey)) {
+                    entryKey = entryKey.substring(0, entryKey.length() - 1);
+                    entryKey += postfix;
+                    postfix++;
+                }
+            }
+        }
+
+        res.insert(pointer, String.format("%s %s,\n", entryType, entryKey));
+        res.append("}\n");
+
         blindFlag = false;
-        result.append("}\n");
+        newKeyFlag = false;
 
         //region Filter
-        boolean rem = false;
+        boolean rem;
         Item i = getCommand(commands.getOrder(), Item.Call.action, "filter");
         if (i != null) {
             rem = true;
@@ -307,16 +344,12 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
 
             if (rem) {
                 // Remove the entry
-                result.replace(entryPointer, result.length(), "");
+                return;
             }
         }
         //endregion
 
-        // Smart Filter
-        i = getCommand(commands.getOrder(), Item.Call.action, "smart_filter");
-        if (i != null) {
-
-        }
+        entries.put(entryKey, res.toString());
     }
 
     @Override
@@ -336,22 +369,22 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
 
     @Override
     public void exitTags(simpleBibTeXParser.TagsContext ctx) {
+        if (stack.isEmpty())
+            return;
+
+        String content = stack.pop();
+
         //region Last comma
         Item i = getCommand(commands.getFormat(), Item.Call.flag, "last_comma");
         if (i != null) {
             if (!commands.getFlagValue(i)) {
                 // Remove last comma
-                result.deleteCharAt(result.length() - 2);
+                content = content.substring(0, content.length() - 2) + "\n";
             }
         }
         //endregion
-    }
 
-    @Override
-    public void enterTag(simpleBibTeXParser.TagContext ctx) {
-        tagPointer = result.length();
-
-        result.append(String.format("%s%s = ", getIndentation(), ctx.Name().getText()));
+        stack.push(content);
     }
 
     @Override
@@ -363,53 +396,95 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
         for (String action : getFieldActions(ctx.Name().getText())) {
             switch (action) {
                 case "remove":
-                    result.replace(tagPointer, result.length(), "");
                     return;
                 case "abbreviate":
-                    
-                    if (ctx.content().Number() != null) {
-                        result.append(stack.pop());
-                    } else {
-                        content = content.charAt(0) +
-                                abbreviateString(content.substring(1, content.length() - 1)) +
-                                content.charAt(content.length() - 1);
-                    }
+
+                    if (ctx.content().Number() != null)
+                        break;
+
+                    content = content.charAt(0) +
+                            abbreviateString(content.substring(1, content.length() - 1)) +
+                            content.charAt(content.length() - 1);
+
                     break;
             }
         }
         //endregion
 
-        result.append(content);
-        result.append(",\n");
+        String tagName = ctx.Name().getText();
+
+        //region Generate keys
+        Item i = getCommand(commands.getContent(), Item.Call.flag, "generate_keys");
+        if (i != null && commands.getFlagValue(i)) {
+
+            if (tagName.equals("author") || tagName.equals("year")) {
+                String filteredContent = content.toLowerCase().replaceAll("[{}\\\\\"/'-]", "");
+                String generatedKey = "";
+
+                if (tagName.equals("author")) {
+                    String[] authors = filteredContent.split("and");
+                    
+                    String[] firstAuthor = authors[0].split(" ");
+                    generatedKey = firstAuthor[firstAuthor.length - 1];
+                    
+                    if (authors.length == 2) {
+                        String[] secondAuthor = authors[1].split(" ");
+
+                        generatedKey = String.format("%s-%s",generatedKey, secondAuthor[secondAuthor.length-1]);
+                    } else if (authors.length > 2) {
+                        generatedKey = String.format("%s-%s", generatedKey, "etal");
+                    }
+                } else {
+                    generatedKey = filteredContent;
+                }
+
+                if (newKeyFlag) {
+                    String newKey = stack.remove(0);
+                    if (tagName.equals("author")) {
+                        newKey = String.format("%s-%s", generatedKey, newKey);
+                    } else {
+                        newKey = String.format("%s-%s", newKey, generatedKey);
+                    }
+                    stack.add(0, newKey);
+                } else {
+                    stack.add(0, generatedKey);
+                    newKeyFlag = true;
+                }
+            }
+        }
+        //endregion
+
+        String res = String.format("%s%s = %s,\n", getIndentation(), tagName, content);
+        stack.push(res);
     }
 
     @Override
     public void exitContent(simpleBibTeXParser.ContentContext ctx) {
-        if (blindFlag) {
-            stack.push("{Anonymous}");
-        } else {
-            if (ctx.concatable().size() != 0) {
-                StringBuilder res = new StringBuilder();
-                for (int i = 0; i < ctx.concatable().size(); i++) {
-                    res.append(stack.pop());
-                }
-                
-                stack.push(res.toString());
-            } else if (ctx.Number() != null) {
-                stack.push(ctx.Number().toString());
-            } else {
-                String contentString = ctx.BracedContent().toString();
-                
-                //region String type
-                if (getStringType().equals("quotes")) {
-                    contentString = (String.format("\"%s\"", contentString.substring(1, contentString.length() - 1)));
-                }
-                //endregion
-                
-                stack.push(contentString);
+        if (ctx.concatable().size() != 0) {
+            StringBuilder res = new StringBuilder();
+            for (int i = 0; i < ctx.concatable().size(); i++) {
+                res.append(stack.pop());
             }
+
+            stack.push(res.toString());
+        } else if (ctx.Number() != null) {
+            stack.push(ctx.Number().toString());
+        } else {
+            String contentString = ctx.BracedContent().toString();
+
+            //region String type
+            if (getStringType().equals("quotes")) {
+                contentString = (String.format("\"%s\"", contentString.substring(1, contentString.length() - 1)));
+            }
+            //endregion
+
+            stack.push(contentString);
         }
 
+        if (blindFlag) {
+            stack.pop();
+            stack.push("{Anonymous}");
+        }
     }
 
     @Override
