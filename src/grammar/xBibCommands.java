@@ -10,6 +10,7 @@ public class xBibCommands {
     Category order;
     Category content;
     Set<Field> fields;
+    Set<String> providedFilter;
 
     public xBibCommands() {
         format = new Category("Format");
@@ -37,5 +38,8 @@ public class xBibCommands {
     public boolean getFlagValue(Item flag) {
         return Boolean.parseBoolean(flag.getArguments().toArray()[0].toString());
     }
-
+    
+    public Set<String> getProvidedFilter() {return providedFilter;}
+    
+    public void setProvidedFilter(Set<String> filter) { this.providedFilter = filter;}
 }

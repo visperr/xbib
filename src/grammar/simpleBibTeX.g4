@@ -33,25 +33,26 @@ concatable
 // Lexer
 
 QuotedContent
-  :  '"' (~('\\' | '{' | '}' | '"') | '\\' . | BracedContent)* '"'
-  ;
+    : '"' (~('\\' | '{' | '}' | '"') | '\\' . | BracedContent)* '"'
+    ;
 
 BracedContent
-  :  '{' (~('\\' | '{' | '}') | '\\' . | BracedContent)* '}'
-  ;
+    : '{' (~('\\' | '{' | '}') | '\\' . | BracedContent)* '}'
+    ;
 
 
 StringType
-  :  '@' ('s'|'S') ('t'|'T') ('r'|'R') ('i'|'I') ('n'|'N') ('g'|'G') SP? '{'
-  ;
+    : '@' ('s'|'S') ('t'|'T') ('r'|'R') ('i'|'I') ('n'|'N') ('g'|'G') SP? '{'
+    ;
 
 PreambleType
-  :  '@' ('p'|'P') ('r'|'R') ('e'|'E') ('a'|'A') ('m'|'M') ('b'|'B') ('l'|'L') ('e'|'E') SP? '{'
-  ;
+    : '@' ('p'|'P') ('r'|'R') ('e'|'E') ('a'|'A') ('m'|'M') ('b'|'B') ('l'|'L') ('e'|'E') SP? '{'
+    ;
 
 CommentType
-  :  '@' ('c'|'C') ('o'|'O') ('m'|'M') ('m'|'M') ('e'|'E') ('n'|'N') ('t'|'T') SP? BracedContent
-  ;
+    : '@' ('c'|'C') ('o'|'O') ('m'|'M') ('m'|'M') ('e'|'E') ('n'|'N') ('t'|'T') SP? BracedContent
+    | '%' ~[\r\n]*
+    ;
 
 Type
     : '@' Letter+ SP? '{'

@@ -1,7 +1,3 @@
-input "src/test/smart_filter/in.bib";
-
 go order(
-    action smart_filter "src/test/smart_filter/output.aux"
+    enable smart_filter
 );
-
-output "src/test/smart_filter/out.bib";

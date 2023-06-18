@@ -327,10 +327,9 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
         newKeyFlag = false;
 
         //region Filter
-        boolean rem;
         Item i = getCommand(commands.getOrder(), Item.Call.action, "filter");
         if (i != null) {
-            rem = true;
+            boolean rem = true;
             for (Object k : i.getArguments()) {
                 if (k.toString().charAt(0) != '\'' && '\'' != k.toString().charAt(k.toString().length() - 1)) {
 //                    addError(ctx, "The argument %s should be of type: Word", k.toString());
@@ -348,23 +347,42 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
             }
         }
         //endregion
+        
+        //region Smart filter
+        i = getCommand(commands.getOrder(), Item.Call.flag, "smart_filter");
+        if (i != null) {
+            if (!commands.getProvidedFilter().contains(ctx.key.getText())) {
+                return;
+            }
+        }
+        //endregion
 
         entries.put(entryKey, res.toString());
     }
 
     @Override
     public void exitStringDeclaration(simpleBibTeXParser.StringDeclarationContext ctx) {
-        //TODO
+        String content = stack.pop();
+        
+        String decl = String.format("@string {\n%s%s = %s\n}\n",getIndentation(), ctx.Name().getText(), content);
+        
+        entries.put("stringdecl"+decl, decl);
     }
 
     @Override
     public void exitPreamble(simpleBibTeXParser.PreambleContext ctx) {
-        //TODO
+        String content = stack.pop();
+        
+        String preamble = String.format("@preamble {\n%s\n}\n", content, getIndentation());
+        
+        entries.put("preamble"+preamble, preamble);
     }
 
     @Override
     public void exitComment(simpleBibTeXParser.CommentContext ctx) {
-        //TODO
+        String comment = String.format("%s\n", ctx.getText());
+        
+        entries.put("comment"+comment, comment);
     }
 
     @Override
@@ -461,12 +479,15 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
     @Override
     public void exitContent(simpleBibTeXParser.ContentContext ctx) {
         if (ctx.concatable().size() != 0) {
-            StringBuilder res = new StringBuilder();
-            for (int i = 0; i < ctx.concatable().size(); i++) {
-                res.append(stack.pop());
-            }
-
-            stack.push(res.toString());
+            if (ctx.concatable().size() > 1) {
+                StringBuilder res = new StringBuilder();
+                
+                res.insert(0, stack.pop());
+                for (int i = 1; i < ctx.concatable().size(); i++) {
+                    res.insert(0, stack.pop() + " # ");
+                }
+                stack.push(res.toString());
+            } 
         } else if (ctx.Number() != null) {
             stack.push(ctx.Number().toString());
         } else {
@@ -499,7 +520,6 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
             }
             //endregion
         } else {
-            // String declaration TODO
             stack.push(ctx.Name().toString());
         }
     }

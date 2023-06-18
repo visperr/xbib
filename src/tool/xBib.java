@@ -10,12 +10,11 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import representation.Field;
 import representation.Item;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class xBib {
     public static void main(String[] args) {
@@ -48,7 +47,7 @@ public class xBib {
                 files.add(arg);
             }
         }
-        
+
         File xbib_commands = new File(files.get(0));
         File input_file = new File(files.get(1));
         File output_file = new File(files.get(2));
@@ -68,6 +67,7 @@ public class xBib {
     public static void run(File commands, File in, File out, File aux) {
         run(commands, in, out, aux, writeMode.NORMAL);
     }
+
     public static void run(File commands, File in, File out, writeMode flag) {
         run(commands, in, out, null, flag);
     }
@@ -133,7 +133,39 @@ public class xBib {
             if (writeMode == tool.writeMode.DEBUG) {
                 System.out.printf("Provided BibTeX file: %s \n", in.toPath());
             }
+
+            Set<String> filters = new HashSet<>();
+            if (aux != null) {
+
+                BufferedReader reader = new BufferedReader(new FileReader(aux));
+                String line = reader.readLine();
+
+                switch (writeMode) {
+                    case VERBOSE:
+                        System.out.printf("Parsed provided .AUX file %s. \n", aux.toPath());
+                        break;
+                    case DEBUG:
+                        System.out.printf("Provided .AUX file %s. \n", aux.toPath());
+                        System.out.println("Following citations found:");
+                        break;
+                }
+
+                while (line != null) {
+                    if (line.startsWith("\\citation{")) {
+                        String key = line.substring(10).substring(0, line.length() - 11);
+                        
+                        if (writeMode.equals(tool.writeMode.DEBUG))
+                            System.out.printf("\t%s\n", key);
+                        
+                        filters.add(key);
+                    }
+
+                    line = reader.readLine();
+                }
+            }
             
+            commands.setProvidedFilter(filters);
+
             String output_string = bib_listener.run(tree, commands, writeMode);
 
             switch (writeMode) {
@@ -158,7 +190,7 @@ public class xBib {
                     System.out.printf("Wrote the result to %s. \n", out.toPath());
                     break;
             }
-            
+
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }

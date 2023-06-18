@@ -13,6 +13,12 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class xBibTest {
+    
+    @Test
+    public void TestSmartFilter() {testFolder("src/test/smart_filter", "src/test/input_bib.bib", "src/test/smart_filter/output.aux");}
+    
+    @Test
+    public void TestCustomBibs() { testFolder("src/test/custombib", "src/test/custombib/custom.bib");}
 
     @Test
     public void TestGenerateKeys() {
@@ -74,7 +80,7 @@ public class xBibTest {
         testFolder("src/test/indentation", "src/test/input_bib.bib");
     }
 
-    void testFolder(String folder, String input) {
+    void testFolder(String folder, String input, String auxFile) {
         File dir = new File(folder);
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
@@ -92,7 +98,11 @@ public class xBibTest {
 
             try {
                 for (int i = 0; i < toTest.size(); i++) {
-                    xBib.run(toTest.get(i), new File(input), new File("out.bib"), writeMode.DEBUG);
+                    if (!auxFile.equals("null")) {
+                        xBib.run(toTest.get(i), new File(input), new File("out.bib"), new File(auxFile), writeMode.DEBUG);
+                    } else {
+                        xBib.run(toTest.get(i), new File(input), new File("out.bib"), writeMode.DEBUG);
+                    }
                     assertTrue(compareFiles(new File("out.bib"), expected.get(i)));
                 }
                 new File(("out.bib")).delete();
@@ -100,6 +110,10 @@ public class xBibTest {
                 throw new RuntimeException(e);
             }
         }
+    }
+    
+    void testFolder(String folder, String input) {
+        testFolder(folder, input, "null");
     }
 
     public Boolean compareFiles(File file1, File file2) throws IOException {
