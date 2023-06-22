@@ -13,9 +13,9 @@ public class xBibCommands {
     Set<String> providedFilter;
 
     public xBibCommands() {
-        format = new Category("Format");
-        order = new Category("Order");
-        content = new Category("Content");
+        format = new Category("format");
+        order = new Category("order");
+        content = new Category("content");
         fields = new HashSet<Field>();
     }
 

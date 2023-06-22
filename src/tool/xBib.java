@@ -34,11 +34,11 @@ public class xBib {
                     case "--silent":
                         flag = writeMode.SILENT;
                         break;
-                    case "--verbose":
-                        flag = writeMode.VERBOSE;
-                        break;
                     case "--debug":
                         flag = writeMode.DEBUG;
+                        break;
+                    case "--help":
+                        
                         break;
                     default:
                         System.out.printf("The flag provided (%s) does not exist", arg);
@@ -52,31 +52,35 @@ public class xBib {
         File input_file = new File(files.get(1));
         File output_file = new File(files.get(2));
 
-        if (args.length == 4) {
-            File aux = new File(args[3]);
-            run(xbib_commands, input_file, output_file, aux, flag);
-        } else {
-            run(xbib_commands, input_file, output_file, flag);
+        try {
+            if (args.length == 4) {
+                File aux = new File(args[3]);
+                run(xbib_commands, input_file, output_file, aux, flag);
+            } else {
+                run(xbib_commands, input_file, output_file, flag);
+            }
+        } catch (ParseException e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    public static void run(File commands, File in, File out) {
+    public static void run(File commands, File in, File out) throws ParseException {
         run(commands, in, out, null, writeMode.NORMAL);
     }
 
-    public static void run(File commands, File in, File out, File aux) {
+    public static void run(File commands, File in, File out, File aux) throws ParseException {
         run(commands, in, out, aux, writeMode.NORMAL);
     }
 
-    public static void run(File commands, File in, File out, writeMode flag) {
+    public static void run(File commands, File in, File out, writeMode flag) throws ParseException {
         run(commands, in, out, null, flag);
     }
 
-    public static void run(File command_file, File in, File out, File aux, writeMode writeMode) {
+    public static void run(File command_file, File in, File out, File aux, writeMode writeMode) throws ParseException {
         try {
 
             switch (writeMode) {
-                case VERBOSE:
+                case NORMAL:
                     System.out.println("Starting xBib.");
                     break;
                 case DEBUG:
@@ -101,7 +105,7 @@ public class xBib {
             xBibCommands commands = xbib_listener.run(tree, writeMode);
 
             switch (writeMode) {
-                case VERBOSE:
+                case NORMAL:
                     System.out.printf("Parsed file %s and compiled the code. \n", command_file.toPath());
                     break;
                 case DEBUG:
@@ -141,7 +145,7 @@ public class xBib {
                 String line = reader.readLine();
 
                 switch (writeMode) {
-                    case VERBOSE:
+                    case NORMAL:
                         System.out.printf("Parsed provided .AUX file %s. \n", aux.toPath());
                         break;
                     case DEBUG:
@@ -170,7 +174,7 @@ public class xBib {
 
             switch (writeMode) {
                 case DEBUG:
-                case VERBOSE:
+                case NORMAL:
                     System.out.printf("Applied the transformations to %s. \n", in.toPath());
                     break;
             }
@@ -186,13 +190,12 @@ public class xBib {
 
             switch (writeMode) {
                 case DEBUG:
-                case VERBOSE:
+                case NORMAL:
                     System.out.printf("Wrote the result to %s. \n", out.toPath());
                     break;
             }
-
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {
+            //TODO
         }
     }
 }

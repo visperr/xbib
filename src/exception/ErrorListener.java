@@ -15,7 +15,7 @@ public class ErrorListener extends BaseErrorListener {
     public void syntaxError(Recognizer<?, ?> recognizer,
                             Object offendingSymbol, int line, int charPositionInLine,
                             String msg, RecognitionException e) {
-        this.errors.add(String.format("line %d:%d - %s", line,
+        this.errors.add(String.format("Line %d:%d - %s", line,
                 charPositionInLine,
                 msg));
     }
@@ -29,15 +29,5 @@ public class ErrorListener extends BaseErrorListener {
     public List<String> getErrors() {
         return this.errors;
     }
-
-    /** Throws an exception if any errors were reported;
-     * does nothing otherwise.
-     * @throws ParseException an exception containing all errors found
-     * during listening
-     */
-    public void throwException() throws ParseException {
-        if (hasErrors()) {
-            throw new ParseException(getErrors());
-        }
-    }
+    
 }

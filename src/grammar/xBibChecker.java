@@ -23,52 +23,68 @@ public class xBibChecker extends xbibBaseListener {
     Stack<Object> mem;
     Stack<Item> items;
 
+    JSONObject allowedData;
+
+    writeMode writeMode;
+
+    Category currentCategory;
+
+    boolean errorFlag = false;
+    Stack<String> expectedTypes;
+
     private List<String> errors;
 
     public xBibCommands run(ParseTree tree, writeMode writeMode) throws ParseException {
         this.errors = new ArrayList<>();
+        this.expectedTypes = new Stack<>();
+
+        this.writeMode = writeMode;
+
+        try {
+            InputStream in = getClass().getResourceAsStream("/data/allowed.json");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            Object ob = new JSONParser().parse(reader);
+            allowedData = (JSONObject) ob;
+        } catch (IOException | org.json.simple.parser.ParseException e) {
+            throw new RuntimeException(e);
+        }
+
         new ParseTreeWalker().walk(this, tree);
         if (hasErrors()) {
-            throw new ParseException(getErrors());
+            throw new ParseException(getErrors()); 
         }
 
         return this.commands;
     }
 
     boolean hasErrors() {
-        return !getErrors().isEmpty();
+        return !getErrors().equals("");
+    }
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_RESET = "\u001B[0m";
+
+    public String getErrors() {
+        if (errors.size() == 0)
+            return "";
+        
+        StringBuilder res = new StringBuilder();
+        for (String er : this.errors)
+            res.append(ANSI_RED).append(er).append(",\n");
+        res.replace(res.length()-2,res.length(), ANSI_RESET);
+        
+        return res.toString();
     }
 
-    public List<String> getErrors() {
-        return this.errors;
-    }
+    private void addError(ParserRuleContext node, String message,
+                          Object... args) {
 
-    void addError(Token token, String message, Object... args) {
-        int line = token.getLine();
-        int column = token.getCharPositionInLine();
+        int line = node.getStart().getLine();
+        int column = node.getStart().getCharPositionInLine();
         message = String.format(message, args);
         message = String.format("Line %d:%d - %s", line, column, message);
         this.errors.add(message);
     }
 
-    private void addError(ParserRuleContext node, String message,
-                          Object... args) {
-        addError(node.getStart(), message, args);
-    }
-
-    String getFileContents(String path) {
-        Path read = getPath(path);
-        try {
-            return Files.readString(read);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    Path getPath(String path) {
-        String str = path.substring(1, path.length() - 1);
-        return Path.of(str);
-    }
 
     int countTerminalArguments(xbibParser.ArgumentContext t) {
         if (t.primitive() != null) return 1;
@@ -85,41 +101,55 @@ public class xBibChecker extends xbibBaseListener {
     }
 
     @Override
-    public void exitMain(xbibParser.MainContext ctx) {
-    }
-
-    @Override
     public void exitFieldCommand(xbibParser.FieldCommandContext ctx) {
         ArrayList<Object> arguments = new ArrayList<>();
         ArrayList<Object> actions = new ArrayList<>();
 
+        boolean foundError = false;
+
         if (ctx.argument(0).getChildCount() == 0 || ctx.argument(1).getChildCount() == 0) {
             addError(ctx, "Field should have 2 arguments.");
-            return;
+            foundError = true;
         }
+
+        JSONArray allowed = (JSONArray) allowedData.get("field");
+
         for (int x = 0; x < countTerminalArguments(ctx.argument(1)); x++) {
-            String[] allowed = {"remove", "abbreviate"};
-            if (Arrays.asList(allowed).contains(mem.peek().toString())) {
-                actions.add(mem.pop());
+
+            boolean foundFun = false;
+            String action = mem.pop().toString();
+
+            for (Object f : allowed) {
+                JSONObject fun = (JSONObject) f;
+
+                if (fun.get("function").equals(action)) {
+                    foundFun = true;
+                    break;
+                }
+            }
+
+            if (foundFun) {
+                actions.add(action);
             } else {
-                addError(ctx, "Action %s is currently not supported.", mem.peek().toString());
-                mem.pop();
+                foundError = true;
+                addError(ctx, "Action %s does not exist", action);
             }
         }
         for (int x = 0; x < countTerminalArguments(ctx.argument(0)); x++) {
             String arg = mem.pop().toString();
-            if (arg.charAt(0) != '\'' && '\'' != arg.charAt(arg.length() - 1)) {
-                addError(ctx, "The argument %s should be of type: Word", arg);
-                continue;
-            }
-            arguments.add(arg);
-        }
-        if (!mem.isEmpty()) {
-            addError(ctx, "Field should have 2 arguments, %d arguments found", ctx.argument().size());
-            System.out.println("error");
+
+            errorFlag = false;
+            checkType(ctx, "Word", arg);
+            foundError = errorFlag || foundError;
+
+            errorFlag = false;
+
+            if (!foundError)
+                arguments.add(arg);
         }
 
-        commands.getFields().add(new Field(arguments, actions));
+        if (!foundError)
+            commands.getFields().add(new Field(arguments, actions));
     }
 
     @Override
@@ -133,142 +163,154 @@ public class xBibChecker extends xbibBaseListener {
     }
 
 
-    void validateCategory(Category cat, JSONArray funs, ParserRuleContext ctx) {
-        // Loop through each item in the category
+    /*
+    boolean validateCategory(String category, ParserRuleContext ctx) {
+
+        JSONArray funs = (JSONArray) allowedData.get(category);
+
+        boolean foundError = false;
+
         while (!items.isEmpty()) {
-            Item prev = items.peek();
-            for (Object f : funs) {
-                if (items.isEmpty())
-                    return;
+            Item item = items.pop();
 
-                JSONObject fun = (JSONObject) f;
+            boolean foundFunction = false;
+            for (Object obj : funs) {
+                JSONObject function = (JSONObject) obj;
 
-                // Find the corresponding values
-                if (fun.get("function").toString().equals(items.peek().getValue().toString())) {
-                    Item item = items.pop();
-                    if (!item.getType().toString().equals(fun.get("type").toString())) {
-                        addError(ctx, "The function %s is of type %s, not the provided type: %s", fun.get("function"), fun.get("type"), item.getType().toString());
-                        break;
+                if (function.get("function").toString().equals(item.getValue().toString())) {
+                    foundFunction = true;
+
+                    if (!item.getType().toString().equals(function.get("type").toString())) {
+                        addError(ctx, "Unexpected type of %s (%s), expected %s", item.getValue().toString(), item.getType().toString(), function.get("type").toString());
+                        foundError = true;
                     }
-                    JSONArray arguments = (JSONArray) fun.get("arguments");
-                    switch (fun.get("type").toString()) {
-                        case "flag":
-                            if (item.getArguments().size() != 1) {
-                                addError(ctx, "A flag can only be enabled or disabled");
-                                break;
-                            }
-                            if (!(item.getArguments().get(0).toString().equals("true") || item.getArguments().get(0).toString().equals("false"))) {
-                                addError(ctx, "A flag can only be enabled or disabled, not %s", item.getArguments().get(0));
-                                break;
-                            }
-                            cat.addItem(item);
-                            break;
-                        case "set":
-                            if (arguments.size() != item.getArguments().size()) {
-                                addError(ctx, "%d arguments are required, %d provided", arguments.size(), item.getArguments().size());
-                                break;
-                            }
-                            for (int i = 0; i < arguments.size(); i++) {
-                                Object arg = arguments.get(i);
 
-                                if (arg.getClass().equals(String.class)) {
-                                    switch (arg.toString()) {
-                                        case "Integer":
-                                            try {
-                                                Integer.parseInt((String) item.getArguments().get(i));
-                                            } catch (NumberFormatException e) {
-                                                addError(ctx, "Argument %s should be of type Integer", item.getArguments().get(i).toString());
-                                                break;
-                                            }
-                                            cat.addItem(item);
-                                            break;
-                                        case "Word":
-                                            String w = item.getArguments().get(i).toString();
-                                            if (!(w.charAt(0) == '\'' && w.charAt(w.length() - 1) == '\'')) {
-                                                addError(ctx, "Argument %s should be of type Word", w);
-                                                break;
-                                            }
-                                            cat.addItem(item);
-                                            break;
-                                    }
-                                } else if (arg.getClass().equals(JSONArray.class)) {
-                                    JSONArray allowed = (JSONArray) arg;
-                                    if (!allowed.contains(item.getArguments().get(arguments.size() - i - 1).toString())) {
-                                        addError(ctx, "%s can only be of type: %s", item.getArguments().get(arguments.size() - i - 1).toString(), allowed);
-                                        break;
-                                    }
-                                    cat.addItem(item);
-                                }
-                                break;
+                    if (!function.get("type").toString().equals("flag")) {
+                        JSONArray funArgs = (JSONArray) function.get("arguments");
+
+                        if (!funArgs.get(0).getClass().equals(String.class) &&
+                                ((JSONObject) funArgs.get(0)).get("array") != null) {
+
+                            String argType = ((JSONObject) funArgs.get(0)).get("array").toString();
+
+                            for (int i = 0; i < item.getArguments().size(); i++) {
+                                foundError = !checkType(ctx, argType, item.getArguments().get(i).toString()) || foundError;
                             }
-                            break;
-                        case "action":
-                            cat.addItem(item);
-                            break;
+                        } else {
+                            if (funArgs.size() != item.getArguments().size()) {
+                                addError(ctx, "The amount of arguments provided (%d) does does not match the function (%d)", item.getArguments().size(), funArgs.size());
+                                foundError = true;
+                            }
+
+                            for (int i = 0; i < item.getArguments().size() && i < funArgs.size(); i++) {
+                                foundError = !checkType(ctx, funArgs.get(i), item.getArguments().get(i).toString()) || foundError;
+                            }
+                        }
                     }
+                    break;
                 }
             }
-            
-            if (!items.isEmpty() && prev == items.peek()) {
-                addError(ctx, "The function %s does not exist in the category %s", items.peek().getValue().toString(), cat.toString());
-                items.pop();
+
+            if (!foundFunction) {
+                addError(ctx, "The function %s does not exist in the current context", item.getValue().toString());
+                foundError = true;
+            }
+        }
+        return !foundError;
+    }
+    
+     */
+
+    JSONObject getFunction(String functionName) {
+        for (Object obj : (JSONArray) allowedData.get(currentCategory.toString())) {
+            JSONObject function = (JSONObject) obj;
+
+            if (function.get("function").toString().equals(functionName))
+                return function;
+        }
+        return null;
+    }
+
+    void fillExpectedTypes(JSONObject fun, xbibParser.ArgumentContext argument) {
+        int amountOfArguments = countTerminalArguments(argument);
+
+        JSONArray arguments = (JSONArray) fun.get("arguments");
+
+        if (arguments.size() == 1 && arguments.get(0).getClass().equals(JSONObject.class)
+                && ((JSONObject) arguments.get(0)).get("array") != null) {
+
+            String type = ((JSONObject) arguments.get(0)).get("array").toString();
+            for (int i = 0; i < amountOfArguments; i++)
+                expectedTypes.add(0, type);
+        } else {
+
+            if (amountOfArguments != arguments.size())
+                addError(argument, "The amount of arguments provided (%d) does does not match the function (%d)", amountOfArguments, arguments.size());
+
+            for (Object arg : arguments) {
+                if (arg.getClass().equals(JSONObject.class) && (((JSONObject) arg).get("enum") != null)) {
+                    StringBuilder enumVal = new StringBuilder();
+                    enumVal.append("enum:");
+                    for (Object en : (JSONArray) ((JSONObject) arg).get("enum")) {
+                        enumVal.append(en.toString()).append(",");
+                    }
+                    enumVal.replace(enumVal.length() - 1, enumVal.length(), "");
+                    expectedTypes.add(0, enumVal.toString());
+                } else {
+                    expectedTypes.add(0, arg.toString());
+                }
             }
         }
     }
 
-    @Override
-    public void exitCategoryCommand(xbibParser.CategoryCommandContext ctx) {
-
-        // Parsing the JSON file with all the function data
-        try {
-            InputStream in = getClass().getResourceAsStream("/data/allowed.json");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            
-            Object ob = new JSONParser().parse(reader);
-            JSONObject obj = (JSONObject) ob;
-
-            switch (ctx.category.getText()) {
-                case "format":
-
-                    JSONArray funs = (JSONArray) obj.get("format");
-
-                    validateCategory(commands.getFormat(), funs, ctx);
+    void checkType(ParserRuleContext ctx, String argType, String arg) {
+        if (argType.startsWith("enum:")) {
+            List<String> vals = List.of(argType.replace("enum:", "").split(","));
+            if (!vals.contains(arg)) {
+                addError(ctx, "The enumerator %s can only be of types %s", arg, vals.toString());
+            }
+        } else {
+            switch (argType) {
+                case "Word":
+                    if (arg.charAt(0) != '\'' && arg.charAt(arg.length() - 1) != '\'') {
+                        addError(ctx, "The argument %s should be a word (enclosed in single quotes)", arg);
+                        errorFlag = true;
+                    }
                     break;
-                case "order":
-
-                    funs = (JSONArray) obj.get("order");
-
-                    validateCategory(commands.getOrder(), funs, ctx);
-                    break;
-                case "content":
-                    
-                    funs = (JSONArray) obj.get("content");
-
-                    validateCategory(commands.getContent(), funs, ctx);
+                case "Integer":
+                    try {
+                        Integer.parseInt(arg);
+                    } catch (NumberFormatException e) {
+                        addError(ctx, "The argument %s should be an integer", arg);
+                        errorFlag = true;
+                    }
                     break;
             }
-        } catch (IOException | org.json.simple.parser.ParseException e) {
-            throw new RuntimeException(e);
-        } 
+        }
     }
 
     @Override
     public void exitSetItem(xbibParser.SetItemContext ctx) {
         ArrayList<Object> arguments = new ArrayList<>();
         while (!mem.isEmpty()) {
-            arguments.add(mem.pop());
+            arguments.add(0, mem.pop());
         }
 
-        items.push(new Assign(ctx.value.getText(), arguments));
+        if (!errorFlag)
+            currentCategory.addItem(new Assign(ctx.value.getText(), arguments));
+        errorFlag = false;
     }
 
     @Override
     public void exitActionItem(xbibParser.ActionItemContext ctx) {
         ArrayList<Object> arguments = new ArrayList<>();
         while (!mem.isEmpty()) {
-            arguments.add(mem.pop());
+            arguments.add(0, mem.pop());
         }
-        items.push(new Action(ctx.function.getText(), arguments));
+
+        if (!errorFlag)
+            currentCategory.addItem(new Action(ctx.function.getText(), arguments));
+        errorFlag = false;
     }
 
     @Override
@@ -277,11 +319,53 @@ public class xBibChecker extends xbibBaseListener {
             return;
         }
         Boolean val = ctx.call.getText().equals("enable");
-        items.push(new Flag(ctx.flag.getText(), val));
+
+        if (!errorFlag)
+            currentCategory.addItem(new Flag(ctx.flag.getText(), val));
+        errorFlag = false;
+    }
+
+    @Override
+    public void enterActionItem(xbibParser.ActionItemContext ctx) {
+        JSONObject fun = getFunction(ctx.function.getText());
+
+        if (fun != null)
+            fillExpectedTypes(fun, ctx.argument());
+        else {
+            addError(ctx, "The function %s does not exist in the current context", ctx.function.getText());
+        }
+    }
+
+    @Override
+    public void enterSetItem(xbibParser.SetItemContext ctx) {
+        JSONObject fun = getFunction(ctx.value.getText());
+
+        if (fun != null)
+            fillExpectedTypes(fun, ctx.argument());
+        else {
+            addError(ctx, "The function %s does not exist in the current context", ctx.value.getText());
+        }
     }
 
     @Override
     public void exitPrimitive(xbibParser.PrimitiveContext ctx) {
+        if (!expectedTypes.isEmpty())
+            checkType(ctx, expectedTypes.pop(), ctx.getText());
         mem.push(ctx.getText());
+    }
+
+    @Override
+    public void enterCategoryCommand(xbibParser.CategoryCommandContext ctx) {
+        switch (ctx.category.getText()) {
+            case "format":
+                currentCategory = commands.getFormat();
+                break;
+            case "order":
+                currentCategory = commands.getOrder();
+                break;
+            case "content":
+                currentCategory = commands.getContent();
+                break;
+        }
     }
 }

@@ -29,12 +29,16 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
     boolean blindFlag = false;
     boolean newKeyFlag = false;
 
+    writeMode writeMode;
+
 
     public String run(ParseTree tree, xBibCommands commands, writeMode writeMode) {
         result = new StringBuilder();
         this.commands = commands;
         this.stack = new Stack<>();
         this.entries = new LinkedHashMap<>();
+
+        this.writeMode = writeMode;
 
         this.abbreviations = getAbbreviations();
 
@@ -143,11 +147,11 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
         if (i != null) {
             int amount = 0;
             try {
-                amount = Integer.parseInt(i.getArguments().toArray()[0].toString());
+                amount = Integer.parseInt(i.getArguments().toArray()[1].toString());
             } catch (NumberFormatException e) {
                 return null;
             }
-            switch (i.getArguments().toArray()[1].toString()) {
+            switch (i.getArguments().toArray()[0].toString()) {
                 case "tab":
                     for (int a = 0; a < amount; a++) {
                         out.append("\t");
@@ -237,6 +241,10 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
             String test = String.format("'%s'", ctx.key.getText());
             if (j.getArguments().contains(test)) {
                 blindFlag = true;
+
+                if (writeMode == tool.writeMode.DEBUG) {
+                    System.out.printf("\tBLINDED entry %s.\n", ctx.key.getText());
+                }
             }
         }
         //endregion
@@ -251,23 +259,17 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
         //region Change type
         Item[] is = getCommands(commands.getContent(), Item.Call.action, "change_type");
         for (Item i : is) {
-            if (i.getArguments().size() != 2) {
-                // TODO: Error
-            } else {
-                String from = i.getArguments().toArray()[1].toString();
-                if (from.charAt(0) != '\'' && '\'' != from.charAt(from.length() - 1)) {
-//                    addError(ctx, "The argument %s should be of type: Word", from);
-                }
-                from = String.format("@%s{", from.substring(1, from.length() - 1));
-                String to = i.getArguments().toArray()[0].toString();
-                if (to.charAt(0) != '\'' && '\'' != to.charAt(to.length() - 1)) {
-//                    addError(ctx, "The argument %s should be of type: Word", to);
-                    continue;
-                }
-                to = String.format("@%s{", to.substring(1, to.length() - 1));
 
-                if (from.equals(entryType)) {
-                    entryType = to;
+            String from = i.getArguments().toArray()[0].toString();
+            from = String.format("@%s{", from.substring(1, from.length() - 1));
+            String to = i.getArguments().toArray()[1].toString();
+            to = String.format("@%s{", to.substring(1, to.length() - 1));
+
+            if (from.equals(entryType)) {
+                entryType = to;
+
+                if (writeMode == tool.writeMode.DEBUG) {
+                    System.out.printf("\tCHANGED TYPE %s to %s.\n", from, to);
                 }
             }
         }
@@ -276,23 +278,16 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
         //region Rename Key
         is = getCommands(commands.getContent(), Item.Call.action, "rename_key");
         for (Item i : is) {
-            if (i.getArguments().size() != 2) {
-                // TODO: Error
-            } else {
-                String from = i.getArguments().toArray()[1].toString();
-                if (from.charAt(0) != '\'' && '\'' != from.charAt(from.length() - 1)) {
-//                    addError(ctx, "The argument %s should be of type: Word", from);
-                }
-                from = from.substring(1, from.length() - 1);
-                String to = i.getArguments().toArray()[0].toString();
-                if (to.charAt(0) != '\'' && '\'' != to.charAt(to.length() - 1)) {
-//                    addError(ctx, "The argument %s should be of type: Word", to);
-                    continue;
-                }
-                to = to.substring(1, to.length() - 1);
+            String from = i.getArguments().toArray()[0].toString();
+            from = from.substring(1, from.length() - 1);
+            String to = i.getArguments().toArray()[1].toString();
+            to = to.substring(1, to.length() - 1);
 
-                if (from.equals(entryKey)) {
-                    entryKey = to;
+            if (from.equals(entryKey)) {
+                entryKey = to;
+
+                if (writeMode == tool.writeMode.DEBUG) {
+                    System.out.printf("\tRENAMED key %s to %s.\n", from, to);
                 }
             }
         }
@@ -304,20 +299,26 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
         while (!stack.isEmpty()) {
             String tag = stack.pop();
             res.insert(pointer, tag);
-            
+
+            //region Generate keys
             if (newKeyFlag && stack.size() == 1) {
                 entryKey = stack.pop();
-                
+
                 if (entries.containsKey(entryKey))
                     entryKey += 'a';
-                            
+
                 char postfix = 'b';
                 while (entries.containsKey(entryKey)) {
                     entryKey = entryKey.substring(0, entryKey.length() - 1);
                     entryKey += postfix;
                     postfix++;
                 }
+
+                if (writeMode == tool.writeMode.DEBUG) {
+                    System.out.printf("\tGENERATED KEY %s for %s.\n", entryKey, ctx.key.getText());
+                }
             }
+            //endregion
         }
 
         res.insert(pointer, String.format("%s %s,\n", entryType, entryKey));
@@ -332,7 +333,6 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
             boolean rem = true;
             for (Object k : i.getArguments()) {
                 if (k.toString().charAt(0) != '\'' && '\'' != k.toString().charAt(k.toString().length() - 1)) {
-//                    addError(ctx, "The argument %s should be of type: Word", k.toString());
                     continue;
                 }
                 String key = k.toString().substring(1, k.toString().length() - 1);
@@ -343,15 +343,22 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
 
             if (rem) {
                 // Remove the entry
+                if (writeMode == tool.writeMode.DEBUG) {
+                    System.out.printf("\tFILTER removed %s.\n", ctx.key.getText());
+                }
                 return;
             }
         }
         //endregion
-        
+
         //region Smart filter
         i = getCommand(commands.getOrder(), Item.Call.flag, "smart_filter");
         if (i != null) {
             if (!commands.getProvidedFilter().contains(ctx.key.getText())) {
+                if (writeMode == tool.writeMode.DEBUG) {
+                    System.out.printf("\tSMART FILTER removed %s.\n", ctx.key.getText());
+                }
+
                 return;
             }
         }
@@ -363,26 +370,26 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
     @Override
     public void exitStringDeclaration(simpleBibTeXParser.StringDeclarationContext ctx) {
         String content = stack.pop();
-        
-        String decl = String.format("@string {\n%s%s = %s\n}\n",getIndentation(), ctx.Name().getText(), content);
-        
-        entries.put("stringdecl"+decl, decl);
+
+        String decl = String.format("@string {\n%s%s = %s\n}\n", getIndentation(), ctx.Name().getText(), content);
+
+        entries.put("stringdecl" + decl, decl);
     }
 
     @Override
     public void exitPreamble(simpleBibTeXParser.PreambleContext ctx) {
         String content = stack.pop();
-        
+
         String preamble = String.format("@preamble {\n%s\n}\n", content, getIndentation());
-        
-        entries.put("preamble"+preamble, preamble);
+
+        entries.put("preamble" + preamble, preamble);
     }
 
     @Override
     public void exitComment(simpleBibTeXParser.CommentContext ctx) {
         String comment = String.format("%s\n", ctx.getText());
-        
-        entries.put("comment"+comment, comment);
+
+        entries.put("comment" + comment, comment);
     }
 
     @Override
@@ -397,6 +404,10 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
         if (i != null) {
             if (!commands.getFlagValue(i)) {
                 // Remove last comma
+                if (writeMode == tool.writeMode.DEBUG) {
+                    System.out.print("\tREMOVED last comma.\n");
+                }
+
                 content = content.substring(0, content.length() - 2) + "\n";
             }
         }
@@ -414,11 +425,17 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
         for (String action : getFieldActions(ctx.Name().getText())) {
             switch (action) {
                 case "remove":
+                    if (writeMode == tool.writeMode.DEBUG) {
+                        System.out.printf("\tREMOVED field %s.\n", ctx.Name().getText());
+                    }
                     return;
                 case "abbreviate":
-
                     if (ctx.content().Number() != null)
                         break;
+
+                    if (writeMode == tool.writeMode.DEBUG) {
+                        System.out.printf("\tABBREVIATING field %s.\n", ctx.Name().getText());
+                    }
 
                     content = content.charAt(0) +
                             abbreviateString(content.substring(1, content.length() - 1)) +
@@ -441,14 +458,14 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
 
                 if (tagName.equals("author")) {
                     String[] authors = filteredContent.split("and");
-                    
+
                     String[] firstAuthor = authors[0].split(" ");
                     generatedKey = firstAuthor[firstAuthor.length - 1];
-                    
+
                     if (authors.length == 2) {
                         String[] secondAuthor = authors[1].split(" ");
 
-                        generatedKey = String.format("%s-%s",generatedKey, secondAuthor[secondAuthor.length-1]);
+                        generatedKey = String.format("%s-%s", generatedKey, secondAuthor[secondAuthor.length - 1]);
                     } else if (authors.length > 2) {
                         generatedKey = String.format("%s-%s", generatedKey, "etal");
                     }
@@ -463,6 +480,7 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
                     } else {
                         newKey = String.format("%s-%s", newKey, generatedKey);
                     }
+
                     stack.add(0, newKey);
                 } else {
                     stack.add(0, generatedKey);
@@ -481,13 +499,13 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
         if (ctx.concatable().size() != 0) {
             if (ctx.concatable().size() > 1) {
                 StringBuilder res = new StringBuilder();
-                
+
                 res.insert(0, stack.pop());
                 for (int i = 1; i < ctx.concatable().size(); i++) {
                     res.insert(0, stack.pop() + " # ");
                 }
                 stack.push(res.toString());
-            } 
+            }
         } else if (ctx.Number() != null) {
             stack.push(ctx.Number().toString());
         } else {
@@ -495,6 +513,10 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
 
             //region String type
             if (getStringType().equals("quotes")) {
+                if (writeMode == tool.writeMode.DEBUG) {
+                    System.out.printf("\tCHANGED the string %s to use quotes.\n", contentString);
+                }
+
                 contentString = (String.format("\"%s\"", contentString.substring(1, contentString.length() - 1)));
             }
             //endregion
@@ -514,6 +536,11 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
             //region String type
             if (getStringType().equals("braces")) {
                 String newString = ctx.QuotedContent().toString();
+
+                if (writeMode == tool.writeMode.DEBUG) {
+                    System.out.printf("\tCHANGED the string %s to use braces.\n", newString);
+                }
+
                 stack.push(String.format("{%s}", newString.substring(1, newString.length() - 1)));
             } else {
                 stack.push(ctx.QuotedContent().toString());

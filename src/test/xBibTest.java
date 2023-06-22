@@ -1,5 +1,6 @@
 package test;
 
+import exception.ParseException;
 import org.junit.jupiter.api.Test;
 import tool.writeMode;
 import tool.xBib;
@@ -11,30 +12,57 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class xBibTest {
-    
+
     @Test
-    public void TestSmartFilter() {testFolder("src/test/smart_filter", "src/test/input_bib.bib", "src/test/smart_filter/output.aux");}
-    
+    public void TestValidation() {
+        File dir = new File("src/test/validation");
+        File[] directoryListing = dir.listFiles();
+        assert directoryListing != null;
+
+        ArrayList<File> toTest = new ArrayList<>();
+        for (File child : directoryListing)
+            if (child.toString().endsWith(".xbib"))
+                toTest.add(child);
+
+        for (int i = 0; i < toTest.size(); i++) {
+            try {
+                xBib.run(toTest.get(i), new File("src/test/input_bib.bib"), new File("out.bib"), writeMode.DEBUG);
+                fail();
+            } catch (ParseException e) {
+                System.out.println(e);
+            }
+        }
+        new File(("out.bib")).delete();
+    }
+
     @Test
-    public void TestCustomBibs() { testFolder("src/test/custombib", "src/test/custombib/custom.bib");}
+    public void TestSmartFilter() {
+        testFolder("src/test/smart_filter", "src/test/input_bib.bib", "src/test/smart_filter/output.aux");
+    }
+
+    @Test
+    public void TestCustomBibs() {
+        testFolder("src/test/custombib", "src/test/custombib/custom.bib");
+    }
 
     @Test
     public void TestGenerateKeys() {
         testFolder("src/test/generate_keys", "src/test/generate_keys/custom.bib");
     }
-    
+
     @Test
     public void TestSortByKey() {
         testFolder("src/test/sort_by_key", "src/test/sort_by_key/sort_custom.bib");
     }
-    
+
     @Test
     public void TestAbbreviate() {
         testFolder("src/test/abbreviate", "src/test/abbreviate/custom.bib");
     }
-    
+
     @Test
     public void TestLastComma() {
         testFolder("src/test/last_comma", "src/test/input_bib.bib");
@@ -80,6 +108,7 @@ public class xBibTest {
         testFolder("src/test/indentation", "src/test/input_bib.bib");
     }
 
+
     void testFolder(String folder, String input, String auxFile) {
         File dir = new File(folder);
         File[] directoryListing = dir.listFiles();
@@ -106,12 +135,12 @@ public class xBibTest {
                     assertTrue(compareFiles(new File("out.bib"), expected.get(i)));
                 }
                 new File(("out.bib")).delete();
-            } catch (IOException e) {
+            } catch (IOException | ParseException e) {
                 throw new RuntimeException(e);
             }
         }
     }
-    
+
     void testFolder(String folder, String input) {
         testFolder(folder, input, "null");
     }

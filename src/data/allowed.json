@@ -8,10 +8,12 @@
       "function": "indentation",
       "type": "set",
       "arguments": [
-        [
-          "tab",
-          "space"
-        ],
+        {
+          "enum": [
+            "tab",
+            "space"
+          ]
+        },
         "Integer"
       ]
     },
@@ -19,10 +21,12 @@
       "function": "string_identifier",
       "type": "set",
       "arguments": [
-        [
-          "quotes",
-          "braces"
-        ]
+        {
+          "enum": [
+            "quotes",
+            "braces"
+          ]
+        }
       ]
     },
     {
@@ -38,8 +42,9 @@
       "function": "filter",
       "type": "action",
       "arguments": [
-        "array",
-        "Word"
+        {
+          "array": "Word"
+        }
       ]
     },
     {
@@ -56,7 +61,9 @@
       "function": "blind",
       "type": "action",
       "arguments": [
-        "Word"
+        {
+          "array": "Word"
+        }
       ]
     },
     {
@@ -83,6 +90,9 @@
   "field": [
     {
       "function": "abbreviate"
+    },
+    {
+      "function": "remove"
     }
   ]
 }

@@ -9,7 +9,7 @@ command
     | 'field' argument argument ';'                            #fieldCommand
     ;
 
-item
+item    
     : call='set' value=Identifier 'to' argument                 #setItem
     | call='action' function=Identifier argument                #actionItem
     | call=Activate flag=Identifier                             #flagItem
