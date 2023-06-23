@@ -42,8 +42,65 @@ There are three write modes for the tool:
 
 A help menu can be displayed using `--help`
 
-****
 
-## Transformations
+### xBib syntax
+An .xbib file is used to store certain transformations and formatting rules, that can later be applied to BibTeX files.
+
+The transformations can be split up into **_categories_** and **_field actions_**. 
+
+The three categories are:
+- format
+- order
+- content
+
+The user can define a category using the `go` command, followed by the specific category. This category can then
+hold multiple transformations and rules that define it.
+
+Inside of a category, a user is able to choose from three different tags:
+- `[enable/disable] [flag]`
+- `set [constant] to [value(s)]`
+- `action [function] [arguments]`
+
+
+_example code_:
+```
+go format (
+    set indentation to (tab, 2),
+    enable last_comma
+);
+go order (
+    enable sort
+);
+go content (
+    action change_type ('unpublished', 'article')
+);
+```
+
+Lastly, field actions don't describe transformations for full entries, but change specific defined fields.
+
+A field action requires one or multiple field names, followed by any actions that are applied.
+```
+field 'publisher' abbreviate;
+field ('month','day') remove;
+```
+
+### Transformations
+| Transformation key | Category | Type   | Arguments       | Description                                                    |
+|:-------------------|----------|:-------|:----------------|:---------------------------------------------------------------|
+| last_comma         | format   | flag   | enable/disable  | Last comma is shown or not.                                    |
+| indentation        | format   | set    | tab/space , int | What, and how much indentation is used for each new line.      |
+| string_identifier  | format   | set    | quotes/braces   | What symbol is used to define a string.                        |
+| line_wrap          | format   | set    | int             | Line-wrap threshold.                                           |
+| filter             | order    | action | array:word      | Show only entries specified by key.                            |`
+| sort               | order    | flag   | enable/disable  | Sort entries alphabetically by key.                            |
+| smart_filter       | order    | flag   | enable/disable  | Show only cited entries using provided .aux file.              |
+| blind              | content  | action | array:word      | Blind specified entries, making them anonymous.                |
+| rename_key         | content  | action | word , word     | Rename key.                                                    |
+| change_type        | content  | action | word , word     | Change entry type.                                             |
+| generate_keys      | content  | flag   | enable/disable  | Change every key based on the authors and year of publication. |
+| abbreviate         | field    | action | array:word      | Try to abbreviate specified fields.                            |
+| remove             | field    | action | array:word      | Remove any specified fields.                                   |
 
 ## Acknowledgements
+- This project is part of a research conducted at the University of Twente, Enschede, The Netherlands.
+- This project was inspired by the work and research of [BibSLEIGH](http://grammarware.net/text/2017/bibsattose.pdf)
