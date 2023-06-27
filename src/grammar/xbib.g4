@@ -4,8 +4,7 @@ main
     : command* EOF;
 
 command
-    : 'message' String ';' #messageCommand
-    | 'go' category=Category '(' (item(','item)*)? ')' ';'     #categoryCommand
+    : 'go' category=Category '(' (item(','item)*)? ')' ';'     #categoryCommand
     | 'field' argument argument ';'                            #fieldCommand
     ;
 

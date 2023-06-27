@@ -25,13 +25,6 @@ public class xbibBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements x
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMessageCommand(xbibParser.MessageCommandContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitCategoryCommand(xbibParser.CategoryCommandContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

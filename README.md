@@ -100,6 +100,8 @@ field ('month','day') remove;
 | generate_keys      | content  | flag   | enable/disable  | Change every key based on the authors and year of publication. |
 | abbreviate         | field    | action | array:word      | Try to abbreviate specified fields.                            |
 | remove             | field    | action | array:word      | Remove any specified fields.                                   |
+| capitalize         | field    | action | array:word      | Capitalize everything.                                         |
+| lowercase          | field    | action | array:word      | Make everything lowercase.                                     |
 
 ## Acknowledgements
 - This project is part of a research conducted at the University of Twente, Enschede, The Netherlands.

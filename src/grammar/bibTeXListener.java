@@ -60,6 +60,28 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
         return null;
     }
 
+    String capitalizeWord(String word) {
+        if (word.startsWith("\"")) {
+            return String.format("\"%s",capitalizeWord(word.substring(1, word.length())));
+        } else if (word.startsWith("{")) {
+            return String.format("{%s",capitalizeWord(word.substring(1, word.length())));
+        }
+        
+        List<String> exceptions = Arrays.asList("a", "an", "the", "and", "but", "or", "nor", "for", "yet", "so",
+                "at", "by", "in", "of", "on", "to", "up", "as", "it", "is", "be", "into");
+        
+        String[] subWords = word.split("-");
+        StringBuilder capitalizedWord = new StringBuilder();
+        for (String subWord : subWords) {
+            if (exceptions.contains(subWord.toLowerCase())) {
+                capitalizedWord.append(subWord).append("-");
+            } else {
+                capitalizedWord.append(Character.toUpperCase(subWord.charAt(0))).append(subWord.substring(1)).append("-");
+            }
+        }
+        return capitalizedWord.substring(0, capitalizedWord.length() - 1);
+    }
+
     String abbreviateString(String content) {
         HashSet<String> hits = new HashSet<>();
         for (ArrayList<String> abrs : abbreviations.keySet()) {
@@ -380,7 +402,7 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
     public void exitPreamble(simpleBibTeXParser.PreambleContext ctx) {
         String content = stack.pop();
 
-        String preamble = String.format("@preamble {\n%s\n}\n", content, getIndentation());
+        String preamble = String.format("@preamble {\n%s\n}\n", content);
 
         entries.put("preamble" + preamble, preamble);
     }
@@ -441,6 +463,17 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
                             abbreviateString(content.substring(1, content.length() - 1)) +
                             content.charAt(content.length() - 1);
 
+                    break;
+                case "capitalize":
+                    String[] words = content.split("\\s+");
+
+                    StringBuilder capitalizedSentence = new StringBuilder();
+                    for (String word : words) {
+                       capitalizedSentence.append(capitalizeWord(word));
+                       capitalizedSentence.append(" ");
+                    }
+                    
+                    content = capitalizedSentence.toString().trim();
                     break;
             }
         }

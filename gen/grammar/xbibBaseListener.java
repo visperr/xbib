@@ -29,18 +29,6 @@ public class xbibBaseListener implements xbibListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMessageCommand(xbibParser.MessageCommandContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMessageCommand(xbibParser.MessageCommandContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterCategoryCommand(xbibParser.CategoryCommandContext ctx) { }
 	/**
 	 * {@inheritDoc}

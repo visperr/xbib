@@ -18,18 +18,6 @@ public interface xbibListener extends ParseTreeListener {
 	 */
 	void exitMain(xbibParser.MainContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code messageCommand}
-	 * labeled alternative in {@link xbibParser#command}.
-	 * @param ctx the parse tree
-	 */
-	void enterMessageCommand(xbibParser.MessageCommandContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code messageCommand}
-	 * labeled alternative in {@link xbibParser#command}.
-	 * @param ctx the parse tree
-	 */
-	void exitMessageCommand(xbibParser.MessageCommandContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code categoryCommand}
 	 * labeled alternative in {@link xbibParser#command}.
 	 * @param ctx the parse tree

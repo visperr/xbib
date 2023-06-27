@@ -17,13 +17,6 @@ public interface xbibVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMain(xbibParser.MainContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code messageCommand}
-	 * labeled alternative in {@link xbibParser#command}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMessageCommand(xbibParser.MessageCommandContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code categoryCommand}
 	 * labeled alternative in {@link xbibParser#command}.
 	 * @param ctx the parse tree

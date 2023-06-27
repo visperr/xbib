@@ -17,6 +17,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class xBibTest {
 
     @Test
+    public void TestCapitalisation(){
+        testFolder("src/test/capitalize", "src/test/capitalize/custom.bib");
+    }
+    
+    @Test
     public void TestValidation() {
         File dir = new File("src/test/validation");
         File[] directoryListing = dir.listFiles();

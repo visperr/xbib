@@ -93,6 +93,9 @@
     },
     {
       "function": "remove"
+    },
+    {
+      "function": "capitalize"
     }
   ]
 }
