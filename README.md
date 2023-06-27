@@ -16,7 +16,7 @@ This tool allows the user to create a more uniform BibTeX bibliography, and allo
 
 The language xBib reads the provided .xbib file, which describes the formatting and  transformations, and the tool can compile and execute the code to transform a .bib file.
 
-- The full argumentation and explanation is written as part of my [research paper.](https://essay.utwente.nl/94379/1/visser_BA_eemcs.pdf)
+- The full argumentation and explanation is written as part of my [research paper.](https://purl.utwente.nl/essays/94379)
 
 ## Features
 The language and tool allow the user to:
