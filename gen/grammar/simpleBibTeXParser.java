@@ -18,7 +18,8 @@ public class simpleBibTeXParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, QuotedContent=5, BracedContent=6, StringType=7, 
-		PreambleType=8, CommentType=9, Type=10, Name=11, Number=12, Spaces=13;
+		PreambleType=8, CommentType=9, Type=10, Name=11, Number=12, INACTIVE=13, 
+		Spaces=14;
 	public static final int
 		RULE_database = 0, RULE_entry = 1, RULE_tags = 2, RULE_tag = 3, RULE_content = 4, 
 		RULE_concatable = 5;
@@ -38,7 +39,8 @@ public class simpleBibTeXParser extends Parser {
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, "QuotedContent", "BracedContent", "StringType", 
-			"PreambleType", "CommentType", "Type", "Name", "Number", "Spaces"
+			"PreambleType", "CommentType", "Type", "Name", "Number", "INACTIVE", 
+			"Spaces"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -366,7 +368,7 @@ public class simpleBibTeXParser extends Parser {
 			setState(50);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==Name) {
+			if (_la==Name || _la==INACTIVE) {
 				{
 				setState(39);
 				tag();
@@ -420,6 +422,7 @@ public class simpleBibTeXParser extends Parser {
 		public ContentContext content() {
 			return getRuleContext(ContentContext.class,0);
 		}
+		public TerminalNode INACTIVE() { return getToken(simpleBibTeXParser.INACTIVE, 0); }
 		public TagContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -442,14 +445,25 @@ public class simpleBibTeXParser extends Parser {
 	public final TagContext tag() throws RecognitionException {
 		TagContext _localctx = new TagContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_tag);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(52);
-			match(Name);
 			setState(53);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==INACTIVE) {
+				{
+				setState(52);
+				match(INACTIVE);
+				}
+			}
+
+			setState(55);
+			match(Name);
+			setState(56);
 			match(T__2);
-			setState(54);
+			setState(57);
 			content();
 			}
 		}
@@ -498,28 +512,28 @@ public class simpleBibTeXParser extends Parser {
 		enterRule(_localctx, 8, RULE_content);
 		int _la;
 		try {
-			setState(66);
+			setState(69);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case QuotedContent:
 			case Name:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(56);
+				setState(59);
 				concatable();
-				setState(61);
+				setState(64);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==T__3) {
 					{
 					{
-					setState(57);
+					setState(60);
 					match(T__3);
-					setState(58);
+					setState(61);
 					concatable();
 					}
 					}
-					setState(63);
+					setState(66);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -528,14 +542,14 @@ public class simpleBibTeXParser extends Parser {
 			case Number:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(64);
+				setState(67);
 				match(Number);
 				}
 				break;
 			case BracedContent:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(65);
+				setState(68);
 				match(BracedContent);
 				}
 				break;
@@ -584,7 +598,7 @@ public class simpleBibTeXParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(68);
+			setState(71);
 			_la = _input.LA(1);
 			if ( !(_la==QuotedContent || _la==Name) ) {
 			_errHandler.recoverInline(this);
@@ -608,7 +622,7 @@ public class simpleBibTeXParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\rG\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001\u000eJ\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0001\u0000\u0005\u0000\u000e\b\u0000\n\u0000\f\u0000"+
 		"\u0011\t\u0000\u0001\u0000\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0001"+
@@ -616,41 +630,43 @@ public class simpleBibTeXParser extends Parser {
 		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
 		"\u0001\u0001\u0001\u0001\u0003\u0001&\b\u0001\u0001\u0002\u0001\u0002"+
 		"\u0001\u0002\u0005\u0002+\b\u0002\n\u0002\f\u0002.\t\u0002\u0001\u0002"+
-		"\u0003\u00021\b\u0002\u0003\u00023\b\u0002\u0001\u0003\u0001\u0003\u0001"+
-		"\u0003\u0001\u0003\u0001\u0004\u0001\u0004\u0001\u0004\u0005\u0004<\b"+
-		"\u0004\n\u0004\f\u0004?\t\u0004\u0001\u0004\u0001\u0004\u0003\u0004C\b"+
-		"\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0000\u0000\u0006\u0000\u0002"+
-		"\u0004\u0006\b\n\u0000\u0001\u0002\u0000\u0005\u0005\u000b\u000bJ\u0000"+
-		"\u000f\u0001\u0000\u0000\u0000\u0002%\u0001\u0000\u0000\u0000\u00042\u0001"+
-		"\u0000\u0000\u0000\u00064\u0001\u0000\u0000\u0000\bB\u0001\u0000\u0000"+
-		"\u0000\nD\u0001\u0000\u0000\u0000\f\u000e\u0003\u0002\u0001\u0000\r\f"+
-		"\u0001\u0000\u0000\u0000\u000e\u0011\u0001\u0000\u0000\u0000\u000f\r\u0001"+
-		"\u0000\u0000\u0000\u000f\u0010\u0001\u0000\u0000\u0000\u0010\u0012\u0001"+
-		"\u0000\u0000\u0000\u0011\u000f\u0001\u0000\u0000\u0000\u0012\u0013\u0005"+
-		"\u0000\u0000\u0001\u0013\u0001\u0001\u0000\u0000\u0000\u0014\u0015\u0005"+
-		"\n\u0000\u0000\u0015\u0016\u0005\u000b\u0000\u0000\u0016\u0017\u0005\u0001"+
-		"\u0000\u0000\u0017\u0018\u0003\u0004\u0002\u0000\u0018\u0019\u0005\u0002"+
-		"\u0000\u0000\u0019&\u0001\u0000\u0000\u0000\u001a\u001b\u0005\u0007\u0000"+
-		"\u0000\u001b\u001c\u0005\u000b\u0000\u0000\u001c\u001d\u0005\u0003\u0000"+
-		"\u0000\u001d\u001e\u0003\b\u0004\u0000\u001e\u001f\u0005\u0002\u0000\u0000"+
-		"\u001f&\u0001\u0000\u0000\u0000 !\u0005\b\u0000\u0000!\"\u0003\b\u0004"+
-		"\u0000\"#\u0005\u0002\u0000\u0000#&\u0001\u0000\u0000\u0000$&\u0005\t"+
-		"\u0000\u0000%\u0014\u0001\u0000\u0000\u0000%\u001a\u0001\u0000\u0000\u0000"+
-		"% \u0001\u0000\u0000\u0000%$\u0001\u0000\u0000\u0000&\u0003\u0001\u0000"+
-		"\u0000\u0000\',\u0003\u0006\u0003\u0000()\u0005\u0001\u0000\u0000)+\u0003"+
-		"\u0006\u0003\u0000*(\u0001\u0000\u0000\u0000+.\u0001\u0000\u0000\u0000"+
-		",*\u0001\u0000\u0000\u0000,-\u0001\u0000\u0000\u0000-0\u0001\u0000\u0000"+
-		"\u0000.,\u0001\u0000\u0000\u0000/1\u0005\u0001\u0000\u00000/\u0001\u0000"+
-		"\u0000\u000001\u0001\u0000\u0000\u000013\u0001\u0000\u0000\u00002\'\u0001"+
-		"\u0000\u0000\u000023\u0001\u0000\u0000\u00003\u0005\u0001\u0000\u0000"+
-		"\u000045\u0005\u000b\u0000\u000056\u0005\u0003\u0000\u000067\u0003\b\u0004"+
-		"\u00007\u0007\u0001\u0000\u0000\u00008=\u0003\n\u0005\u00009:\u0005\u0004"+
-		"\u0000\u0000:<\u0003\n\u0005\u0000;9\u0001\u0000\u0000\u0000<?\u0001\u0000"+
-		"\u0000\u0000=;\u0001\u0000\u0000\u0000=>\u0001\u0000\u0000\u0000>C\u0001"+
-		"\u0000\u0000\u0000?=\u0001\u0000\u0000\u0000@C\u0005\f\u0000\u0000AC\u0005"+
-		"\u0006\u0000\u0000B8\u0001\u0000\u0000\u0000B@\u0001\u0000\u0000\u0000"+
-		"BA\u0001\u0000\u0000\u0000C\t\u0001\u0000\u0000\u0000DE\u0007\u0000\u0000"+
-		"\u0000E\u000b\u0001\u0000\u0000\u0000\u0007\u000f%,02=B";
+		"\u0003\u00021\b\u0002\u0003\u00023\b\u0002\u0001\u0003\u0003\u00036\b"+
+		"\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0004\u0001"+
+		"\u0004\u0001\u0004\u0005\u0004?\b\u0004\n\u0004\f\u0004B\t\u0004\u0001"+
+		"\u0004\u0001\u0004\u0003\u0004F\b\u0004\u0001\u0005\u0001\u0005\u0001"+
+		"\u0005\u0000\u0000\u0006\u0000\u0002\u0004\u0006\b\n\u0000\u0001\u0002"+
+		"\u0000\u0005\u0005\u000b\u000bN\u0000\u000f\u0001\u0000\u0000\u0000\u0002"+
+		"%\u0001\u0000\u0000\u0000\u00042\u0001\u0000\u0000\u0000\u00065\u0001"+
+		"\u0000\u0000\u0000\bE\u0001\u0000\u0000\u0000\nG\u0001\u0000\u0000\u0000"+
+		"\f\u000e\u0003\u0002\u0001\u0000\r\f\u0001\u0000\u0000\u0000\u000e\u0011"+
+		"\u0001\u0000\u0000\u0000\u000f\r\u0001\u0000\u0000\u0000\u000f\u0010\u0001"+
+		"\u0000\u0000\u0000\u0010\u0012\u0001\u0000\u0000\u0000\u0011\u000f\u0001"+
+		"\u0000\u0000\u0000\u0012\u0013\u0005\u0000\u0000\u0001\u0013\u0001\u0001"+
+		"\u0000\u0000\u0000\u0014\u0015\u0005\n\u0000\u0000\u0015\u0016\u0005\u000b"+
+		"\u0000\u0000\u0016\u0017\u0005\u0001\u0000\u0000\u0017\u0018\u0003\u0004"+
+		"\u0002\u0000\u0018\u0019\u0005\u0002\u0000\u0000\u0019&\u0001\u0000\u0000"+
+		"\u0000\u001a\u001b\u0005\u0007\u0000\u0000\u001b\u001c\u0005\u000b\u0000"+
+		"\u0000\u001c\u001d\u0005\u0003\u0000\u0000\u001d\u001e\u0003\b\u0004\u0000"+
+		"\u001e\u001f\u0005\u0002\u0000\u0000\u001f&\u0001\u0000\u0000\u0000 !"+
+		"\u0005\b\u0000\u0000!\"\u0003\b\u0004\u0000\"#\u0005\u0002\u0000\u0000"+
+		"#&\u0001\u0000\u0000\u0000$&\u0005\t\u0000\u0000%\u0014\u0001\u0000\u0000"+
+		"\u0000%\u001a\u0001\u0000\u0000\u0000% \u0001\u0000\u0000\u0000%$\u0001"+
+		"\u0000\u0000\u0000&\u0003\u0001\u0000\u0000\u0000\',\u0003\u0006\u0003"+
+		"\u0000()\u0005\u0001\u0000\u0000)+\u0003\u0006\u0003\u0000*(\u0001\u0000"+
+		"\u0000\u0000+.\u0001\u0000\u0000\u0000,*\u0001\u0000\u0000\u0000,-\u0001"+
+		"\u0000\u0000\u0000-0\u0001\u0000\u0000\u0000.,\u0001\u0000\u0000\u0000"+
+		"/1\u0005\u0001\u0000\u00000/\u0001\u0000\u0000\u000001\u0001\u0000\u0000"+
+		"\u000013\u0001\u0000\u0000\u00002\'\u0001\u0000\u0000\u000023\u0001\u0000"+
+		"\u0000\u00003\u0005\u0001\u0000\u0000\u000046\u0005\r\u0000\u000054\u0001"+
+		"\u0000\u0000\u000056\u0001\u0000\u0000\u000067\u0001\u0000\u0000\u0000"+
+		"78\u0005\u000b\u0000\u000089\u0005\u0003\u0000\u00009:\u0003\b\u0004\u0000"+
+		":\u0007\u0001\u0000\u0000\u0000;@\u0003\n\u0005\u0000<=\u0005\u0004\u0000"+
+		"\u0000=?\u0003\n\u0005\u0000><\u0001\u0000\u0000\u0000?B\u0001\u0000\u0000"+
+		"\u0000@>\u0001\u0000\u0000\u0000@A\u0001\u0000\u0000\u0000AF\u0001\u0000"+
+		"\u0000\u0000B@\u0001\u0000\u0000\u0000CF\u0005\f\u0000\u0000DF\u0005\u0006"+
+		"\u0000\u0000E;\u0001\u0000\u0000\u0000EC\u0001\u0000\u0000\u0000ED\u0001"+
+		"\u0000\u0000\u0000F\t\u0001\u0000\u0000\u0000GH\u0007\u0000\u0000\u0000"+
+		"H\u000b\u0001\u0000\u0000\u0000\b\u000f%,025@E";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

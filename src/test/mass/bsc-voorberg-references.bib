@@ -1,0 +1,201 @@
+@article{Georges2007,
+abstract = {Java performance is far from being trivial to benchmark because it is affected by various factors such as the Java application, its input, the virtual machine, the garbage collector, the heap size, etc. In addition, non-determinism at run-time causes the execution time of a Java program to differ from run to run. There are a number of sources of non-determinism such as Just-In-Time (JIT) compilation and optimization in the virtual machine (VM) driven by timer-based method sampling, thread scheduling, garbage collection, and various system effects. There exist a wide variety of Java performance evaluation methodologies used by researchers and benchmarkers. These methodologies differ from each other in a number of ways. Some report average performance over a number of runs of the same experiment; others report the best or second best performance observed; yet others report the worst. Some iterate the benchmark multiple times within a single VM invocation; others consider multiple VM invocations and iterate a single benchmark execution; yet others consider multiple VM invocations and iterate the benchmark multiple times. This paper shows that prevalent methodologies can be misleading, and can even lead to incorrect conclusions. The reason is that the data analysis is not statistically rigorous. In this paper, we present a survey of existing Java performance evaluation methodologies and discuss the importance of statistically rigorous data analysis for dealing with non-determinism. We advocate approaches to quantify startup as well as steady-state performance, and, in addition, we provide the JavaStats software to automatically obtain performance numbers in a rigorous manner. Although this paper focuses on Java performance evaluation, many of the issues addressed in this paper also apply to other programming languages and systems that build on a managed runtime system. Copyright {\textcopyright} 2007 ACM.},
+author = {Georges, Andy and Buytaert, Dries and Eeckhout, Lieven},
+doi = {10.1145/1297105.1297033},
+file = {:home/marten/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Georges, Buytaert, Eeckhout - 2007 - Statistically rigorous Java performance evaluation.pdf:pdf},
+issn = {15232867},
+journal = {ACM SIGPLAN Notices},
+keywords = {Benchmarking,Data analysis,Java,Methodology,Statistics},
+mendeley-groups = {membership/performance-evaluation},
+month = {oct},
+number = {10},
+pages = {57--76},
+publisher = {Association for Computing Machinery},
+title = {{Statistically rigorous Java performance evaluation}},
+url = {https://dl.acm.org/doi/10.1145/1297105.1297033},
+volume = {42},
+year = {2007}
+}
+
+@article{Brodnik1999,
+abstract = {This paper deals with the problem of storing a subset of elements from the bounded universe M = {0,...,M - 1} so that membership queries can be performed efficiently. In particular, we introduce a data structure to represent a subset of N elements of M in a number of bits close to the information-theoretic minimum, B = [lg (NM)], and use the structure to answer membership queries in constant time.},
+annote = {I think this paper "fixes" the size of set you are storing},
+author = {Brodnik, Andrej and Munro, J. Ian},
+doi = {10.1137/S0097539795294165},
+file = {:home/marten/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Brodnik, Munro - 1999 - Membership in constant time and almost-minimum space.pdf:pdf},
+issn = {00975397},
+journal = {SIAM Journal on Computing},
+keywords = {68p05,68p10,68q20,ams subject classifications,data structures,dictionary,efficient algorithms hashing,information retrieval,lower bound,minimum space,pii,problem,s0097539795294165,search strategy},
+mendeley-groups = {membership},
+number = {5},
+pages = {1627--1640},
+title = {{Membership in constant time and almost-minimum space}},
+volume = {28},
+year = {1999}
+}
+
+@techreport{Cormen,
+author = {Cormen, Thomas H and Leiserson, Charles E and Rivest, Ronald L and Stein, Clifford},
+file = {:home/marten/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Cormen et al. - Unknown - Introduction to Algorithms, Third Edition.pdf:pdf},
+keywords = {0262033844
+9780262033848
+0262533057
+97802625330},
+mendeley-groups = {membership,membership/books},
+title = {{Introduction to Algorithms, Third Edition}}
+}
+@article{Sleator1985,
+abstract = {The splay tree, a self-adjusting form of binary search tree, is developed and analyzed. The binary search tree is a data structure for representing tables and lists so that accessing, inserting, and deleting items is easy. On an n-node splay tree, all the standard search tree operations have an amortized time bound of O(log n) per operation, where by “amortized time” is meant the time per operation averaged over a worst-case sequence of operations. Thus splay trees are as efficient as balanced trees when total running time is the measure of interest. In addition, for sufficiently long access sequences, splay trees are as efficient, to within a constant factor, as static optimum search trees. The efficiency of splay trees comes not from an explicit structural constraint, as with balanced trees, but from applying a simple restructuring heuristic, called splaying, whenever the tree is accessed. Extensions of splaying give simplified forms of two other data structures: lexicographic or multidimensional search trees and link/cut trees. {\textcopyright} 1985, ACM. All rights reserved.},
+author = {Sleator, Daniel Dominic and Tarjan, Robert Endre},
+doi = {10.1145/3828.3835},
+file = {:home/marten/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Sleator, Tarjan - 1985 - Self-Adjusting Binary Search Trees(2).pdf:pdf},
+issn = {1557735X},
+journal = {Journal of the ACM (JACM)},
+keywords = {E 1 [Data]: Data Structures-trees; F22 [Analysis of Algorithms and Problem Complexity]: Nonnumerical Algorithms and Problems-sorting and searching General Terms: Algorithms,Theory Additional Key Words and Phrases: Amortized complexity,balanced trees,multidimensional searching,network optimization,self-organizing data structures},
+mendeley-groups = {membership,membership/splay trees},
+month = {jul},
+number = {3},
+pages = {652--686},
+publisher = {
+		ACM
+		PUB27
+		New York, NY, USA
+	},
+title = {{Self-Adjusting Binary Search Trees}},
+url = {https://dl.acm.org/doi/10.1145/3828.3835},
+volume = {32},
+year = {1985}
+}
+
+@techreport{Nilsson,
+abstract = {We present an order-preserving general purpose data structure for binary data, the LPC-trie. The structure is a highly compressed trie, using both level and path compression. The memory usage is similar to that of a balanced binary search tree, but the expected average depth is smaller. The LPC-trie is well suited to modern language environments with eecient memory allocation and garbage collection. We present an implementation in the Java programming language and show that the structure compares favorably to a balanced binary search tree.},
+author = {Nilsson, Stefan and Fi, Stefan Nilsson@hut and Tikkanen, Matti},
+file = {:home/marten/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Nilsson, Fi, Tikkanen - Unknown - Implementing a dynamic compressed trie.pdf:pdf},
+mendeley-groups = {membership},
+pages = {1--3},
+title = {{Implementing a dynamic compressed trie}}
+}
+@article{VanEmdeBoas1976,
+abstract = {We present a data structure, based upon a hierarchically decomposed tree, which enables us to manipulate on-line a priority queue whose priorities are selected from the interval 1,⋯, n with a worst case processing time of {Mathematical expression} (log log n) per instruction. The structure can be used to obtain a mergeable heap whose time requirements are about as good. Full details are explained based upon an implementation of the structure in a PASCAL program contained in the paper. {\textcopyright} 1977 Springer-Verlag New York Inc.},
+author = {{van Emde Boas}, P. and Kaas, R. and Zijlstra, E.},
+doi = {10.1007/BF01683268},
+file = {:home/marten/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/van Emde Boas, Kaas, Zijlstra - 1976 - Design and implementation of an efficient priority queue.pdf:pdf},
+issn = {00255661},
+journal = {Mathematical Systems Theory},
+mendeley-groups = {old},
+number = {1},
+pages = {99--127},
+title = {{Design and implementation of an efficient priority queue}},
+volume = {10},
+year = {1976}
+}
+@article{Willard1983,
+abstract = {Let S denote a set of N records whose keys are distinct nonnegative integers less than some initially specified bound M. This paper introduces a new data structure, called the y-fast trie, which uses $\Theta$(N) space and $\Theta$(log log M) time for range queries on a random access machine. We will also define a simpler but less efficient structure, called the x-fast trie. {\textcopyright} 1983.},
+author = {Willard, Dan E.},
+doi = {10.1016/0020-0190(83)90075-3},
+file = {:home/marten/tcs/mod12/papers/1-s2.0-0020019083900753-main.pdf:pdf},
+issn = {00200190},
+journal = {Information Processing Letters},
+keywords = {Komol{\'{o}}s and Szemer{\'{e}}di,Priority queues,sparse tables,special search algorithm of Fredmann,stratified trees (often called 'Van Emde Boas tree},
+mendeley-groups = {membership},
+month = {aug},
+number = {2},
+pages = {81--84},
+publisher = {Elsevier},
+title = {{Log-logarithmic worst-case range queries are possible in space $\Theta$(N)}},
+volume = {17},
+year = {1983}
+}
+@misc{setimplementations,
+  title = {{Set Implementations}},
+  howpublished = "\url{hhttps://docs.oracle.com/javase/tutorial/collections/implementations/set.html}",
+  note = "[Online; accessed 23-april-2021]"
+}
+@misc{hashset,
+  title = {{HashSet Implementation in OpenJDK}},
+  howpublished = "\url{https://github.com/openjdk/jdk/blob/891f72fe6ea545cdf845d26157a64315a93f9a06/src/java.base/share/classes/java/util/HashSet.java#L90}",
+  note = "[Online; accessed 23-april-2021; line 107]"
+}@article{Bloom1970,
+abstract = {In this paper trade-offs among certain computational factors in hash coding are analyzed. The paradigm problem considered is that of testing a series of messages one-by-one for membership in a given set of messages. Two new hash-coding methods are examined and compared with a particular conventional hash-coding method. The computational factors considered are the size of the hash area (space), the time required to identify a message as a nonmember of the given set (reject time), and an allowable error frequency. The new methods are intended to reduce the amount of space required to contain the hash-coded information from that associated with conventional methods. The reduction in space is accomplished by exploiting the possibility that a small fraction of errors of commission may be tolerable in some applications, in particular, applications in which a large amount of data is involved and a core resident hash area is consequently not feasible using conventional methods. In such applications, it is envisaged that overall performance could be improved by using a smaller core resident hash area in conjunction with the new methods and, when necessary, by using some secondary and perhaps time-consuming test to “catch” the small fraction of errors associated with the new methods. An example is discussed which illustrates possible areas of application for the new methods. Analysis of the paradigm problem demonstrates that allowing a small number of test messages to be falsely identified as members of the given set will permit a much smaller hash area to be used without increasing reject time. {\textcopyright} 1970, ACM. All rights reserved.},
+author = {Bloom, Burton H.},
+doi = {10.1145/362686.362692},
+file = {:home/marten/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Bloom - 1970 - Spacetime trade-offs in hash coding with allowable errors.pdf:pdf},
+issn = {15577317},
+journal = {Communications of the ACM},
+keywords = {hash addressing,hash coding,retrieval efficiency,retrieval trade-offs,scatter storage,searching,storage efficiency,storage layout},
+month = {jul},
+number = {7},
+pages = {422--426},
+publisher = {
+		ACM
+		PUB27
+		New York, NY, USA
+	},
+title = {{Space/time trade-offs in hash coding with allowable errors}},
+url = {https://dl.acm.org/doi/10.1145/362686.362692},
+volume = {13},
+year = {1970}
+}
+@article{Fredman1984,
+abstract = {A data structure for representing a set of n items from a umverse of m items, which uses space n + o(n) and accommodates membership queries m constant time is described. Both the data structure and the query algorithm are easy to $\sim$mplement.},
+annote = {Static membership. This is relevant but pretty mathsy.},
+author = {Fredman, Michael L. and Koml{\'{o}}s, J{\'{a}}nos and Szemer{\'{e}}di, Endre},
+doi = {10.1145/828.1884},
+file = {:home/marten/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Fredman, Koml{\'{o}}s, Szemer{\'{e}}di - 1984 - Storing a Sparse Table with 0(1) Worst Case Access Time.pdf:pdf},
+issn = {1557735X},
+journal = {Journal of the ACM (JACM)},
+keywords = {Hashin,complexit,sparse tables},
+mendeley-groups = {membership,membership/static},
+month = {jun},
+number = {3},
+pages = {538--544},
+publisher = {
+		ACM
+		PUB27
+		New York, NY, USA
+	},
+title = {{Storing a Sparse Table with 0(1) Worst Case Access Time}},
+url = {https://dl.acm.org/doi/10.1145/828.1884},
+volume = {31},
+year = {1984}
+}
+@inproceedings{Radhakrishnan2001,
+abstract = {We look at time-space tradeoffs for the static membership problem in the bit-probe model. The problem is to represent a set of size up to n from a universe of size m using a small number of bits so that given an element of the universe, its membership in the set can be determined with as few bit probes to the representation as possible. We show several deterministic upper bounds for the case when the number of bit probes, is small, by explicit constructions, culminating in one that uses o(m) bits of space where membership can be determined with [lg lg n] + 2 adaptive bit probes. We also show two tight lower bounds on space for a restricted two probe adaptive scheme.},
+annote = {Paper is on the static membership problem},
+author = {Radhakrishnan, Jaikumar and Raman, Venkatesh and {Srinivasa Rao}, S.},
+booktitle = {Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)},
+doi = {10.1007/3-540-44676-1_24},
+file = {:home/marten/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Radhakrishnan, Raman, Srinivasa Rao - 2001 - Explicit deterministic constructions for membership in the bitprobe model.pdf:pdf},
+isbn = {9783540424932},
+issn = {16113349},
+mendeley-groups = {membership,membership/static},
+pages = {290--299},
+publisher = {Springer Verlag},
+title = {{Explicit deterministic constructions for membership in the bitprobe model}},
+volume = {2161},
+year = {2001}
+}
+@article{Tarjan1979,
+abstract = {The problem of storing and searching large sparse tables is ubiquitous in computer science. The standard technique for storing such tables is hashing, but hashing has poor worst-case performance. We propose a good worst-case method for storing a static table of n entries, each an integer between 0 and N - 1. The method requires O(n) words of storage and allows O(logn N) access time. Although our method is a little complicated to use in practice, our analysis shows why a simpler algorithm used for compressing LR parsing tables works so well. {\textcopyright} 1979, ACM. All rights reserved.},
+annote = {Static membership. Very interesting. The method given is unpractical but the introduction mentions a lot of easier methods that can be implemented.},
+author = {Tarjan, Robert Endre and Yao, Andrew Chi Chih},
+doi = {10.1145/359168.359175},
+file = {:home/marten/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Tarjan, Yao - 1979 - Storing a Sparse Table.pdf:pdf},
+issn = {15577317},
+journal = {Communications of the ACM},
+keywords = {Gaussian elimination,parsing,searching,sparse matrix,table compression,table lookup},
+mendeley-groups = {membership,membership/static},
+month = {nov},
+number = {11},
+pages = {606--611},
+publisher = {
+		ACM
+		PUB27
+		New York, NY, USA
+	},
+title = {{Storing a Sparse Table}},
+url = {https://dl.acm.org/doi/10.1145/359168.359175},
+volume = {22},
+year = {1979}
+}
+

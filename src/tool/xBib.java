@@ -18,7 +18,6 @@ import java.util.Set;
 
 public class xBib {
     public static void main(String[] args) {
-        runFiles(new File(args[0]), args[1], args[2]);
         if (args.length == 1 && args[0].equals("--help")) {
             printHelpMenu();
             return;
@@ -214,9 +213,5 @@ public class xBib {
         System.out.println("\t--debug \t executes the code and prints a more detailed trace");
         System.out.println("\t--help  \t shows the help menu");
         System.out.println("For a more detailed explanation: https://github.com/visperr/xbib");
-    }
-    
-    static void runFiles(File commands, String dirIn, String dirOut) {
-        
     }
 }

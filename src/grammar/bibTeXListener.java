@@ -61,6 +61,9 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
     }
 
     String capitalizeWord(String word) {
+        if (word.length() == 0)
+            return "";
+        
         if (word.startsWith("\"")) {
             return String.format("\"%s",capitalizeWord(word.substring(1, word.length())));
         } else if (word.startsWith("{")) {
@@ -76,9 +79,14 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
             if (exceptions.contains(subWord.toLowerCase())) {
                 capitalizedWord.append(subWord).append("-");
             } else {
-                capitalizedWord.append(Character.toUpperCase(subWord.charAt(0))).append(subWord.substring(1)).append("-");
+                if (subWord.length() != 0)
+                    capitalizedWord.append(Character.toUpperCase(subWord.charAt(0))).append(subWord.substring(1));
+                capitalizedWord.append("-");
             }
         }
+        if (capitalizedWord.length() == 0)
+            return "";
+        
         return capitalizedWord.substring(0, capitalizedWord.length() - 1);
     }
 
@@ -442,6 +450,9 @@ public class bibTeXListener extends simpleBibTeXBaseListener {
     public void exitTag(simpleBibTeXParser.TagContext ctx) {
 
         String content = stack.pop();
+        
+        if (ctx.INACTIVE() != null)
+            return;
 
         //region Remove and abbreviate field
         for (String action : getFieldActions(ctx.Name().getText())) {

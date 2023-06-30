@@ -1,7 +1,7 @@
 grammar simpleBibTeX;
 
 database
-    : entry* EOF
+    : (entry)* EOF
     ;
 
 entry
@@ -16,7 +16,7 @@ tags
     ;
     
 tag
-    : Name '=' content
+    : INACTIVE? Name '=' content
     ;
 
 content
@@ -54,16 +54,22 @@ CommentType
     | '%' ~[\r\n]*
     ;
 
+
 Type
     : '@' Letter+ SP? '{'
     ;
 
 Name
-    : Letter (Letter | Digit | ':' | '-' | '_')*
+    : (Letter | Digit) (Letter | Digit | ':' | '-' | '_' | '.' | '/' | '+')*
     ;
 
 Number
     : Digit+
+    ;
+
+INACTIVE
+    : '-'
+    | '_'
     ;
 
 Spaces

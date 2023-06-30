@@ -1,0 +1,1370 @@
+
+@inproceedings{weiser81slicing,
+author = {Weiser, Mark},
+title = {Program Slicing},
+year = {1981},
+isbn = {0897911466},
+publisher = {IEEE Press},
+abstract = {Program slicing is a method used by experienced computer programmers for abstracting from programs. Starting from a subset of a program's behavior, slicing reduces that program to a minimal form which still produces that behavior. The reduced program, called a �slice�, is an independent program guaranteed to faithfully represent the original program within the domain of the specified subset of behavior.Finding a slice is in general unsolvable. A dataflow algorithm is presented for approximating slices when the behavior subset is specified as the values of a set of variables at a statement. Experimental evidence is presented that these slices are used by programmers during debugging. Experience with two automatic slicing tools is summarized. New measures of program complexity are suggested based on the organization of a program's slices.},
+booktitle = {Proceedings of the 5th International Conference on Software Engineering},
+pages = {439--449},
+numpages = {11},
+keywords = {Debugging, Human factors, Software tools, Program maintenance, Data flow analysis, Program metrics},
+location = {San Diego, California, USA},
+series = {ICSE '81}
+}
+
+  
+
+
+%% LG:effectsystems
+@inproceedings{lucassen88effectsystems,
+	Address = {New York, NY, USA},
+	Author = {J. M. Lucassen and D. K. Gifford},
+	Booktitle = {POPL '88: Proceedings of the 15th ACM SIGPLAN-SIGACT symposium on Principles of programming languages},
+	Doi = {http://doi.acm.org/10.1145/73560.73564},
+	Isbn = {0-89791-252-7},
+	Location = {San Diego, California, United States},
+	Pages = {47--57},
+	Publisher = {ACM},
+	Title = {Polymorphic effect systems},
+	Year = {1988},
+	Bdsk-Url-1 = {http://doi.acm.org/10.1145/73560.73564}}
+
+@article{eremondi19framework,
+  author    = {Joseph Eremondi and
+               Wouter Swierstra and
+               Jurriaan Hage},
+  title     = {A framework for improving error messages in dependently-typed languages},
+  journal   = {Open Comput. Sci.},
+  volume    = {9},
+  number    = {1},
+  pages     = {1--32},
+  year      = {2019},
+  url       = {https://doi.org/10.1515/comp-2019-0001},
+  doi       = {10.1515/comp-2019-0001},
+  timestamp = {Wed, 04 Mar 2020 14:22:22 +0100},
+  biburl    = {https://dblp.org/rec/journals/cejcs/EremondiSH19.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{serrano19architecture,
+  author    = {Alejandro Serrano and
+               Jurriaan Hage},
+  title     = {A compiler architecture for domain-specific type error diagnosis},
+  journal   = {Open Comput. Sci.},
+  volume    = {9},
+  number    = {1},
+  pages     = {33--51},
+  year      = {2019},
+  url       = {https://doi.org/10.1515/comp-2019-0002},
+  doi       = {10.1515/comp-2019-0002},
+  timestamp = {Wed, 04 Mar 2020 14:22:24 +0100},
+  biburl    = {https://dblp.org/rec/journals/cejcs/SerranoH19.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@misc{burgers19msc,
+  author = {J. Burgers},
+  title = {Type error diagnosis for {O}utside{I}n({X}) in {H}elium},
+  year = {2019},
+  note = {\url{https://dspace.library.uu.nl/handle/1874/382127}}
+}
+
+@misc{heliumSite,
+  author = {J. Hage},
+  title  = {The {H}elium homepage},
+  year   = {2020},
+	Note = {\url{https://github.com/Helium4Haskell/}},
+}
+
+@inproceedings{Serrano:2017:TEC:3205368.3205370,
+ author = {Serrano, A. and Hage, J.},
+ title = {Type Error Customization in GHC: Controlling Expression-level Type Errors by Type-level Programming},
+ booktitle = {Proceedings of the 29th Symposium on the Implementation and Application of Functional Programming Languages},
+ series = {IFL 2017},
+ year = {2017},
+ isbn = {978-1-4503-6343-3},
+ location = {Bristol, United Kingdom},
+ pages = {2:1--2:15},
+ articleno = {2},
+ numpages = {15},
+ url = {http://doi.acm.org/10.1145/3205368.3205370},
+ doi = {10.1145/3205368.3205370},
+ acmid = {3205370},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+@article{vanhees16stable,
+title = "Stable and predictable Voronoi treemaps for software quality monitoring ",
+journal = "Information and Software Technology ",
+volume = "",
+number = "",
+pages = " - ",
+year = "2016",
+note = "",
+issn = "0950-5849",
+doi = "http://dx.doi.org/10.1016/j.infsof.2016.10.003",
+url = "http://www.sciencedirect.com/science/article/pii/S0950584916302828",
+author = "Rinse van Hees and Jurriaan Hage",
+keywords = "Software visualization",
+keywords = "Voronoi diagrams",
+keywords = "Hilbert curves",
+keywords = "Software quality monitoring",
+keywords = "Stable Voronoi treemaps ",
+abstract = "Abstract Context: Voronoi treemaps can be used to effectively visualize software quality attributes of a given software system. Algorithms for computing Voronoi treemaps are non-deterministic making them unsuited for monitoring the development of such attributes over time. Objective: We adapt an existing sweep line algorithm to efficiently compute Voronoi treemaps and we introduce a novel algorithm that adds stability and predictability. Method: We introduce stable and predictable Voronoi treemaps based on additively weighted power Voronoi diagrams. We employ scaled Hilbert curves to place Voronoi sites in the plane, retaining the order in which sites are placed along the curve for easy comparison with revisions of the same software system. Results: Our algorithm achieves a predictable first good approximation of the final location of the sites. We show that our algorithm not only provides more stability, but also that because of better placement it needs fewer iterations to compute its result. As part of our implementation we introduce a visualization to show the difference between two versions of a software system. We also present a small case study in which we use a web based application that implements our work to investigate the usefulness of stability and predictability of visualizations. Conclusion: It is possible to achieve stable and predictable visualizations of software system attributes, while, as a pleasant side effect, decreasing the number of iterations necessary to arrive at the visualization. "
+}
+
+@Article{brady13jfp,
+  Title                    = {Idris, a general-purpose dependently typed programming language: Design and implementation},
+  Author                   = {Brady, Edwin},
+  Journal                  = {Journal of Functional Programming},
+  Year                     = {2013},
+
+  Month                    = {9},
+  Pages                    = {552--593},
+  Volume                   = {23},
+
+  Abstract                 = {Many components of a dependently typed programming language are by now well understood, for example, the underlying type theory, type checking, unification and evaluation. How to combine these components into a realistic and usable high-level language is, however, folklore, discovered anew by successive language implementors. In this paper, I describe the implementation of Idris, a new dependently typed functional programming language. Idris is intended to be a general-purpose programming language and as such provides high-level concepts such as implicit syntax, type classes and do notation. I describe the high-level language and the underlying type theory, and present a tactic-based method for elaborating concrete high-level syntax with implicit arguments and type classes into a fully explicit type theory. Furthermore, I show how this method facilitates the implementation of new high-level language constructs.},
+  File                     = {:documents/Brady/brady13jfp-Idris, a general-purpose dependently typed programming language Design and implementation.pdf:PDF},
+  Issue                    = {05},
+  Numpages                 = {42},
+  Owner                    = {paba},
+  Timestamp                = {2014.06.10},
+}
+
+@Misc{idris14tutorial,
+  Title                    = {Programming in {I}dris: A Tutorial},
+
+  Author                   = {{The Idris Community}},
+  url                      = {http://eb.host.cs.st-andrews.ac.uk/writings/idris-tutorial.pdf},
+  Year                     = {2014},
+}
+
+
+@inproceedings{serrano16twostage,
+  author    = {Alejandro Serrano and
+               Jurriaan Hage},
+  title     = {Type Error Diagnosis for Embedded DSLs by Two-Stage Specialized Type
+               Rules},
+  booktitle = {Programming Languages and Systems - 25th European Symposium on Programming,
+               {ESOP} 2016, Proceedings},
+  pages     = {672--698},
+  year      = {2016},
+}
+
+@inproceedings{heeren05typeclassdirectives,
+	Address = {Berlin},
+	Author = {B. Heeren and J. Hage},
+	Booktitle = {Seventh International Symposium on Practical Aspects of Declarative Languages},
+	Date-Modified = {2008-07-15 23:13:08 +0200},
+	Keywords = {program analysis},
+	Pages = {253 -- 267},
+	Pubcat = {conference},
+	Publisher = {Springer Verlag},
+	Title = {Type Class Directives},
+	Year = {2005}}
+
+	
+@inproceedings{zhang15diagnosing,
+ author = {Zhang, Danfeng and Myers, Andrew C. and Vytiniotis, Dimitrios and Peyton-Jones, Simon},
+ title = {Diagnosing Type Errors with Class},
+ booktitle = {Proceedings of the 36th ACM SIGPLAN Conference on Programming Language Design and Implementation},
+ series = {PLDI 2015},
+ year = {2015},
+ location = {Portland, OR, USA},
+ pages = {12--21},
+ numpages = {10},
+ publisher = {ACM},
+ keywords = {Error diagnosis, Haskell, type inference},
+} 
+
+@article{outsidein,
+ author = {Vytiniotis, Dimitrios and Peyton Jones, Simon and Schrijvers, Tom and Sulzmann, Martin},
+ title = {{O}utside{I}n({X}): Modular Type Inference with Local Assumptions},
+ journal = {Journal of Functional Programming},
+ issue_date = {September 2011},
+ volume = {21},
+ number = {4-5},
+ month = sep,
+ year = {2011},
+ pages = {333--412},
+ numpages = {80},
+ acmid = {2139533},
+ publisher = {Cambridge University Press},
+}
+
+@inproceedings{zhang14towards,
+ author = {Zhang, Danfeng and Myers, Andrew C.},
+ title = {{T}oward {G}eneral {D}iagnosis of {S}tatic {E}rrors},
+ booktitle = {Proceedings of the 41st ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages},
+ series = {POPL '14},
+ year = {2014},
+ location = {San Diego, California, USA},
+ pages = {569--581},
+ numpages = {13},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {error diagnosis, information flow, static program analysis, type inference},
+}
+
+@article{rahli15skalpel,
+  author    = {Vincent Rahli and
+               Joe B. Wells and
+               John Pirie and
+               Fairouz Kamareddine},
+  title     = {Skalpel: {A} Type Error Slicer for Standard {ML}},
+  journal   = {Electr. Notes Theor. Comput. Sci.},
+  volume    = {312},
+  pages     = {197--213},
+  year      = {2015},
+  timestamp = {Thu, 30 Apr 2015 13:43:56 +0200},
+  biburl    = {http://dblp.uni-trier.de/rec/bib/journals/entcs/RahliWPK15},
+  bibsource = {dblp computer science bibliography, http://dblp.org}
+}
+
+
+@PhDThesis{plociniczak16decrypting,
+   address             = {Lausanne},
+   affiliation         = {EPFL},
+   author              = {Plociniczak, Hubert},
+   details             = {http://infoscience.epfl.ch/record/214757},
+   doctoral            = {EDIC-1},
+   documenturl         = {http://infoscience.epfl.ch/record/214757/files/EPFL_TH6741.pdf},
+   doi                 = {10.5075/epfl-thesis-6741},
+   extra-id            = {10572746},
+   institute           = {IIF},
+   keywords            = {type inference; type debugging; type errors; type checking},
+   language            = {eng},
+   oai-id              = {oai:infoscience.epfl.ch:214757},
+   oai-set             = {thesis},
+   original-unit       = {LAMP1},
+   pagecount           = {337},
+   production-date     = 2016,
+   public-defence-date = 2016,
+   publisher           = {EPFL},
+   school              = {IC},
+   status              = {PUBLISHED},
+   submitter           = {108898; 108898; 108898; 108898; 108898},
+   thesis-id           = {6741},
+   thesis-note         = {Prof. Alain Wegmann (président) ; Prof. Martin
+                         Odersky (directeur de thèse) ; Prof. Viktor
+                         Kuncak, Prof. Ondrej Lhoták, Prof. Jurriaan Hage
+                         (rapporteurs)},
+   title               = {Decrypting {L}ocal {T}ype {I}nference},
+   unit                = {LAMP},
+   urn                 = {urn:nbn:ch:bel-epfl-thesis6741-9},
+   year                = 2016
+}
+
+@misc{saeidi15multiview, 
+  author = {Saeidi, A.M. and Hage, J. and Khadka, R. and Jansen, S.},
+  title = {Multi-view Learning for Clustering of Software Systems},
+  note = {Submitted to SANER 2016}
+  }
+  
+@misc{saeidi15kernel,
+  author = {Saeidi, A.M. and Hage, J. and Khadka, R. and Jansen, S.},
+  title = {A Generic Framework for Model-driven Analysis of Heterogeneous 
+           Legacy Software Systems},
+  note = {Submitted to SANER 2016}
+  }
+  
+@inproceedings{saeidi15multi1, 
+  author = {Saeidi, A.M. and Hage, J. and Khadka, R. and Jansen, S.},
+  title = {Multi-view },
+  booktitle = {SANER 2015},
+  year = {2015},
+  pages = { -- }  
+  }
+    
+@inproceedings{saeidi15itmviz,  
+  author={Saeidi, A.M. and Hage, J. and Khadka, R. and Jansen, S.},
+  booktitle={Program Comprehension (ICPC), 2015 IEEE 23rd International Conference on},
+  title={ITMViz: Interactive Topic Modeling for Source Code Analysis},
+  year={2015},
+  pages={295--298},
+  keywords={program compilers;source code (software);ITMViz;Web based toolkit;interactive topic modeling;medium-sized Java project;software comprehension;software system;source code analysis;Analytical models;Conferences;Java;Software maintenance;Software systems;Visualization;LDA;Program Analysis;Topic Modeling},
+  doi={10.1109/ICPC.2015.44},
+  month={May},
+}
+
+@inproceedings{serrano15typefamilies,
+ author = {Serrano, A. and Hage, J. and Bahr, P.},
+ title = {Type Families with Class, Type Classes with Family},
+ booktitle = {Proceedings of the 8th ACM SIGPLAN Symposium on Haskell},
+ series = {Haskell 2015},
+ year = {2015},
+ isbn = {978-1-4503-3808-0},
+ location = {Vancouver, BC, Canada},
+ pages = {129--140},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/2804302.2804304},
+ doi = {10.1145/2804302.2804304},
+ acmid = {2804304},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {Directives, Elaboration, Functional dependencies, Haskell, Type classes, Type families},
+} 
+
+@inproceedings{verstoep15polyvariantcardinality,
+ author = {Verstoep, H. and Hage, J.},
+ title = {Polyvariant Cardinality Analysis for Non-strict Higher-order Functional Languages: Brief Announcement},
+ booktitle = {Proceedings of the 2015 Workshop on Partial Evaluation and Program Manipulation},
+ series = {PEPM '15},
+ year = {2015},
+ isbn = {978-1-4503-3297-2},
+ location = {Mumbai, India},
+ pages = {139--142},
+ numpages = {4},
+ url = {http://doi.acm.org/10.1145/2678015.2682536},
+ doi = {10.1145/2678015.2682536},
+ acmid = {2682536},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {absence analysis, cardinality analysis, polyvariance, sharing analysis, type-based program analysis, uniqueness typing, usage analysis},
+} 
+
+@inproceedings{koot15exception,
+ author = {Koot, R. and Hage, J.},
+ title = {Type-based Exception Analysis for Non-strict Higher-order Functional Languages with Imprecise Exception Semantics},
+ booktitle = {Proceedings of the 2015 Workshop on Partial Evaluation and Program Manipulation},
+ series = {PEPM '15},
+ year = {2015},
+ isbn = {978-1-4503-3297-2},
+ location = {Mumbai, India},
+ pages = {127--138},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/2678015.2682542},
+ doi = {10.1145/2678015.2682542},
+ acmid = {2682542},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {exception analysis, imprecise exceptions, pattern-matching, type-based program analysis},
+} 
+
+@article{milanova2005,
+  title={Parameterized object sensitivity for points-to analysis for {J}ava},
+  author={Milanova, A. and Rountev, A. and Ryder, B.G.},
+  journal={ACM Transactions on Software Engineering and Methodology (TOSEM)},
+  volume={14},
+  number={1},
+  pages={1--41},
+  year={2005},
+  publisher={ACM}
+}
+@inproceedings{vanderhoek15objectsensitive,
+ author = {Van der Hoek, H. E. and Hage, J.},
+ title = {Object-sensitive Type Analysis of PHP},
+ booktitle = {Proceedings of the 2015 Workshop on Partial Evaluation and Program Manipulation},
+ series = {PEPM '15},
+ year = {2015},
+ isbn = {978-1-4503-3297-2},
+ location = {Mumbai, India},
+ pages = {9--20},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/2678015.2682535},
+ doi = {10.1145/2678015.2682535},
+ acmid = {2682535},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {abstract garbage collection, cost and precision, monotone frameworks, object-sensitivity, php, static analysis},
+} 
+
+@article{weijers14securitytypeerrordiagnosis,
+  title = "Security type error diagnosis for higher-order, polymorphic languages ",
+  journal = "Science of Computer Programming ",
+  volume = "95, Part 2",
+  number = "0",
+  pages = "200 -- 218",
+  year = "2014",
+  note = "Selected and extended papers from Partial Evaluation and Program Manipulation 2013 ",
+  issn = "0167-6423",
+  doi = "http://dx.doi.org/10.1016/j.scico.2014.03.011",
+  url = "http://www.sciencedirect.com/science/article/pii/S0167642314001518",
+  author = "J. Weijers and J. Hage and S. Holdermans",
+  keywords = "Type-based program analysis",
+  keywords = "Security analysis",
+  keywords = "Error feedback "
+}
+
+%% asian2000
+@inproceedings{lee00generalization,
+	Address = {National university of Singapore, Singapore},
+	Author = {O. Lee and K. Yi},
+	Booktitle = {Proceedings of the First Asian Workshop on Programming Languages and Systems},
+	Month = {December},
+	Pages = {79--88},
+	Pubcat = {external},
+	Title = {A Generalization of Hybrid Let-Polymorphic Type Inference Algorithms},
+	Year = {2000}}
+
+
+@inproceedings{hage09neon,
+	Author = {J. Hage and P. van Keeken},
+	keywords = {program analysis, logging},
+  booktitle = {Proceedings of the 1st Conference on Software Language Engineering (SLE '08)},
+	title = {Neon: A Library for Language Usage Analysis},
+  editor = {D. Gasevic and
+           R. L{\"a}mmel and
+           E. Van Wyk},
+  publisher = {Springer},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {5452},
+	pages = {35 -- 53},
+  location = {Toulouse, France},
+	year = {2009},
+  note = {Revised selected papers}
+}
+
+
+@misc{hackSite,
+  title = {The {Hack} Programming Language},
+  howpublished = {\url{https://hacklang.org/}},
+  note = {Accessed: 2020-03-27}
+}
+
+@misc{coqSite,
+  title = {The {Coq} Proof Assistant},
+  howpublished = {\url{https://coq.inria.fr/}},
+  note = {Accessed: 2020-09-11}
+}
+
+@misc{idrisSite,
+  title = {The {Idris} Programming Language},
+  howpublished = {\url{https://www.idris-lang.org/}},
+  note = {Accessed: 2020-09-11}
+}
+
+@misc{agdaSite,
+  title = {The {Agda} Programming Language},
+  howpublished = {\url{http://wiki.portal.chalmers.se/agda/pmwiki.php}},
+  note = {Accessed: 2020-03-20}
+}
+
+@misc{ghcSite,
+  title = {The {G}lasgow {H}askell {C}ompiler, {GHC}},
+  howpublished = {\url{https://www.haskell.org/ghc/}},
+  note = {Accessed: 2020-03-27}
+}
+
+@misc{rustSite,
+  title = {The {Rust} Programming Language},
+  howpublished = {\url{https://www.rust-lang.org/}},
+  note = {Accessed: 2020-03-27}
+}
+
+@misc{goSite,
+  title = {The {Go} Programming Language},
+  howpublished = {\url{https://golang.org/}},
+  note = {Accessed: 2020-03-27}
+}
+
+@article{hudak96building,
+ author = {Hudak, Paul},
+ title = {Building domain-specific embedded languages},
+ journal = {ACM Comput. Surv.},
+ issue_date = {Dec. 1996},
+ volume = {28},
+ issue = {4es},
+ month = {December},
+ year = {1996},
+ issn = {0360-0300},
+ articleno = {196},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+}
+
+
+@book{mcconnell,
+  author = {S. McConnell},
+  title = {Code Complete. A Practical Handbook of Software Construction},
+  edition = {2nd},
+  year = {2015}
+}
+ 
+@misc{art1,
+  title = {When code can kill or care},
+  note = {Tech. Quarterly (Economist), Q2.2012}
+}
+
+@misc{art2,
+  author = {B. Cipra}, 
+  title = {How number theory got the best of the Pentium chip},
+  note = {Science, 267:5195, pp.170-175, 1995}
+}
+
+@misc{art3,
+  author = {J. Gleick},
+  title = {A bug and a crash},
+  year = {1996},
+  note = {\url{http://www.around.com/ariane.html}}
+}
+
+@misc{art4,
+  author = {Reuters},
+  title = {Toyota to recall 436,000 hybrids globally},
+  note = {Feb. 2010}
+}
+
+@misc{art5,
+  author = {Ars Technica},
+  title = {Airbus confirms software configuration error caused plane crash},
+  note = {2015}
+}
+
+@inproceedings{serrano2017type,
+  title={Type Error Customization in GHC: Controlling expression-level type errors by type-level programming},
+  author={Serrano, Alejandro and Hage, Jurriaan},
+  booktitle={Proceedings of the 29th Symposium on Implementation and Application of Functional Programming Languages},
+  pages={2},
+  year={2017},
+  organization={ACM}
+}
+
+
+
+@inproceedings{DBLP:conf/icfp/McDonellCKL13,
+  author    = {Trevor L. McDonell and
+               Manuel M. T. Chakravarty and
+               Gabriele Keller and
+               Ben Lippmeier},
+  title     = {Optimising purely functional {GPU} programs},
+  booktitle = {{ACM} {SIGPLAN} International Conference on Functional Programming,
+               ICFP'13, Boston, MA, {USA} - September 25 - 27, 2013},
+  pages     = {49--60},
+  year      = {2013},
+  url       = {https://doi.org/10.1145/2500365.2500595},
+  doi       = {10.1145/2500365.2500595},
+  timestamp = {Sat, 19 Oct 2019 20:03:54 +0200},
+  biburl    = {https://dblp.org/rec/bib/conf/icfp/McDonellCKL13},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{PeytonJones:2006:SUT:1159803.1159811,
+ author = {Peyton Jones, Simon and Vytiniotis, Dimitrios and Weirich, Stephanie and Washburn, Geoffrey},
+ title = {Simple Unification-based Type Inference for GADTs},
+ booktitle = {Proceedings of the Eleventh ACM SIGPLAN International Conference on Functional Programming},
+ series = {ICFP '06},
+ year = {2006},
+ isbn = {1-59593-309-3},
+ location = {Portland, Oregon, USA},
+ pages = {50--61},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/1159803.1159811},
+ doi = {10.1145/1159803.1159811},
+ acmid = {1159811},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {generalized algebraic data types, type inference},
+} 
+
+
+@inproceedings{Damas:1982:PTF:582153.582176,
+ author = {Damas, Luis and Milner, Robin},
+ title = {{Principal Type-schemes for Functional Programs}},
+ booktitle = {Proceedings of the 9th ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages},
+ series = {POPL '82},
+ year = {1982},
+ isbn = {0-89791-065-6},
+ location = {Albuquerque, New Mexico},
+ pages = {207--212},
+ numpages = {6},
+ url = {http://doi.acm.org/10.1145/582153.582176},
+ doi = {10.1145/582153.582176},
+ acmid = {582176},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+
+%% stuckey:interactive
+@inproceedings{stuckey03interactive,
+	Address = {New York},
+	Author = {P. J. Stuckey and M. Sulzmann and J. Wazny},
+	Booktitle = haskell03,
+	Pages = {72--83},
+	Pubcat = {external},
+	Publisher = acm,
+	Title = {Interactive Type Debugging in {H}askell},
+	Year = {2003}}
+
+%% stuckey04improving
+@inproceedings{stuckey04improving,
+	Author = {P. J. Stuckey and M. Sulzmann and J. Wazny},
+	Booktitle = haskell04,
+	Isbn = {1-58113-850-4},
+	Location = {Snowbird, Utah, USA},
+	Pages = {80--91},
+	Publisher = acm,
+	Title = {Improving type error diagnosis},
+	Year = {2004}}
+
+%% yang01explaining
+@article{yang01explaining,
+	Author = {J. Yang and G. Michaelson and P. Trinder},
+	Journal = {The Computer Journal},
+	Number = {4},
+	Pages = {436--452},
+	Pubcat = {external},
+	Publisher = {Oxford University Press},
+	Title = {Explaining Polymorphic Types},
+	Volume = {45},
+	Year = {2002}}
+	
+@inproceedings{heeren03heliumlearning,
+	Address = {New York},
+	Author = {B. Heeren and D. Leijen and A. van IJzendoorn},
+	Booktitle = {ACM Sigplan 2003 Haskell Workshop},
+	Pages = {62 -- 71},
+	Pubcat = {external},
+	Publisher = {ACM Press},
+	Title = {Helium, for learning {H}askell},
+	Year = {2003}}
+
+	
+@inproceedings{peijnenburg16elm,
+  author    = {Falco Peijnenburg and
+               Jurriaan Hage and
+               Alejandro Serrano},
+  title     = {Type Directives and Type Graphs in Elm},
+  booktitle = {Proceedings of the 28th Symposium on the Implementation and Application
+               of Functional Programming Languages, {IFL} 2016, Leuven, Belgium,
+               August 31 - September 2, 2016},
+  pages     = {2:1--2:12},
+  year      = {2016},
+  url       = {https://doi.org/10.1145/3064899.3064907},
+  doi       = {10.1145/3064899.3064907},
+  timestamp = {Tue, 19 Feb 2019 13:37:49 +0100},
+  biburl    = {https://dblp.org/rec/bib/conf/ifl/PeijnenburgHS16},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@misc{haskell2010,
+  author = {Simon Marlow and others},
+  title = {{Haskell} 2010 {L}anguage {R}eport},
+  note = {\url{https://www.haskell.org/onlinereport/haskell2010/}},
+  year = 2010
+}
+
+@article{Lee:1998:PFL:291891.291892,
+ author = {Lee, Oukseh and Yi, Kwangkeun},
+ title = {{Proofs About a Folklore Let-polymorphic Type Inference Algorithm}},
+ journal = {ACM Trans. Program. Lang. Syst.},
+ issue_date = {July 1998},
+ volume = {20},
+ number = {4},
+ month = jul,
+ year = {1998},
+ issn = {0164-0925},
+ pages = {707--723},
+ numpages = {17},
+ url = {http://doi.acm.org/10.1145/291891.291892},
+ doi = {10.1145/291891.291892},
+ acmid = {291892},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {type error, type inference algorithm},
+} 
+
+@incollection{Pottier-Remy,
+  author = {Fran{\c{c}}ois Pottier and Didier R{\'{e}}my},
+  title = {{he Essence of ML Type Inference}},
+  booktitle = {Advanced Topics in Types and Programming Languages},
+  pages = {389--489},
+  publisher = {MIT Press},
+  year = {2005},
+  editor = {Benjamin C. Pierce},
+  chapter = {10},
+  url = {http://cristal.inria.fr/attapl/},
+  category = {A}
+}
+
+@Misc{swift,
+  author = {Swift{\ }Team},
+  title  = "Type Checker Design and Implementation",
+  url = {https://github.com/apple/swift/blob/master/docs/TypeChecker.rst},
+  year = 2016
+}
+
+@article{Vytiniotis:2011:OMT:2139531.2139533,
+ author = {Vytiniotis, Dimitrios and Peyton Jones, Simon and Schrijvers, Tom and Sulzmann, Martin},
+ title = {{{\sc OutsideIn(x)}: Modular Type Inference with Local Assumptions}},
+ journal = {J. Funct. Program.},
+ issue_date = {September 2011},
+ volume = {21},
+ number = {4-5},
+ month = sep,
+ year = {2011},
+ issn = {0956-7968},
+ pages = {333--412},
+ numpages = {80},
+ url = {http://dx.doi.org/10.1017/S0956796811000098},
+ doi = {10.1017/S0956796811000098},
+ acmid = {2139533},
+ publisher = {Cambridge University Press},
+ address = {New York, NY, USA},
+} 
+
+@article{Heeren:2003:STI:944746.944707,
+ author = {Heeren, Bastiaan and Hage, Jurriaan and Swierstra, S. Doaitse},
+ title = {Scripting the Type Inference Process},
+ journal = {SIGPLAN Not.},
+ issue_date = {September 2003},
+ volume = {38},
+ number = {9},
+ month = aug,
+ year = {2003},
+ issn = {0362-1340},
+ pages = {3--13},
+ numpages = {11},
+ url = {http://doi.acm.org/10.1145/944746.944707},
+ doi = {10.1145/944746.944707},
+ acmid = {944707},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {constraints, directives, domain-specific programming, type errors, type inference},
+} 
+
+@article{hage09strategies,
+	author = "J. Hage and B. Heeren",
+  title = "Strategies for Solving Constraints in Type and Effect Systems",
+  journal = "Electronic Notes in Theoretical Computer Science",
+  volume = "236",
+  number = "",
+  pages = "163 -- 183",
+  year = "2009",
+  place = "Bertinoro, Italy",
+  issn = "1571-0661",
+  note = "Proceedings of the 3rd International Workshop on Views On Designing Complex Architectures (VODCA 2008)",
+  keywords = "type and effect systems",
+  keywords = "inference algorithms",
+  keywords = "constraints",
+  keywords = "solving strategies",
+}
+
+@inproceedings{boustani10correctivehints,
+	Author = {N. el Boustani and J. Hage},
+  Booktitle = {Proceedings of the ACM SIGPLAN 2010 Workshop on Partial Evaluation and Program Manipulation (PEPM '10)},
+	Keywords = {program analysis, type error messages, generics},
+	Editor = {J. Gallagher and J. Voigtl\"ander},
+	Pages = {5--14},
+	location = {Madrid, Spain},
+	Pubcat = {conference},
+	Publisher = {ACM Press},
+	Title = {Corrective Hints for Type Incorrect {G}eneric {J}ava Programs},
+	Year = {2010}
+}
+
+
+@article{boustani11improving,
+   author = {el Boustani, N. and Hage, J.},
+   affiliation = {Center for Software Technology, Department of Information and Computing Sciences, Universiteit Utrecht, P.O. Box 80.089, 3508 TB Utrecht, The Netherlands},
+   title = {Improving type error messages for generic Java},
+   journal = {Higher-Order and Symbolic Computation},
+   publisher = {Springer Netherlands},
+   issn = {1388-3690},
+   keyword = {Computer Science},
+   volume = {24},
+   number = {1},
+   pages = {3--39},
+   url = {http://dx.doi.org/10.1007/s10990-011-9070-3},
+   note = {10.1007/s10990-011-9070-3},
+   year = {2012}
+}
+
+@inproceedings{boustani09javagenerics,
+	Author = {N. el Boustani and J. Hage},
+  Booktitle = {Proceedings of the ACM SIGPLAN 2009 Symposium on Partial Evaluation and Semantics-Based Program Manipulation (PEPM '09)},
+	Keywords = {program analysis, type error messages, generics},
+	Editor = {G. Puebla and G. Vidal},
+	Pages = {131--140},
+	location = {Savannah, USA},
+	Pubcat = {conference},
+	Publisher = {ACM Press},
+	Title = {Improving Type Error Messages for {G}eneric {J}ava},
+	Year = {2009}
+}
+
+@inproceedings{hage08heap,
+	Author = {J. Hage and S. Holdermans},
+	Booktitle = {Proceedings of the ACM SIGPLAN 2008 Symposium on Partial Evaluation and Semantics-Based Program Manipulation (PEPM '08)},
+	Date-Modified = {2008-07-15 23:13:21 +0200},
+	Editor = {J. Hatcliff and R. Gl{\"u}ck and O. de Moor},
+	Keywords = {program analysis},
+	Pages = {189 -- 198},
+	Place = {San Francisco, USA},
+	Pubcat = {conference},
+	Publisher = {ACM Press},
+	Title = {Heap recycling for lazy languages},
+	Year = {2008}
+}
+
+
+@inproceedings{pottier02informationflow-popl,
+  author = {Pottier, F. and Simonet, V.},
+  title = {Information flow inference for ML},
+  booktitle = {POPL '02: Proceedings of the 29th ACM SIGPLAN-SIGACT symposium on Principles of programming languages},
+  year = {2002},
+  isbn = {1-58113-450-9},
+  pages = {319--330},
+  location = {Portland, Oregon},
+  doi = {http://doi.acm.org/10.1145/503272.503302},
+  publisher = {ACM},
+  address = {New York, NY, USA},
+}
+@phdthesis{kennedy95dimensions,
+  author = {A. J. Kennedy},
+  title  = {Programming Languages and Dimensions},
+  school = {Computer Laboratory, University of Cambridge},
+  year = {1995},
+  note = {Available as Technical Report No. 391}
+}
+ 
+
+@incollection{kennedy10typesforunitsofmeasure,
+   author = {A. Kennedy},
+   title = {Types for Units-of-Measure: Theory and Practice},
+   booktitle = {Central European Functional Programming School (CEFP)},
+   series = {Lecture Notes in Computer Science},
+   editor = {Z. Horv\'ath and R. Plasmeijer and V. Zs\'ok},
+   publisher = {Springer Verlag},
+   pages = {268 -- 305},
+   volume = {6299},
+   year = {2010}
+}
+%% HH:heuristics
+@inproceedings{hage07heuristics,
+	Address = {Heidelberg},
+	Author = {J. Hage and B. Heeren},
+	Booktitle = {Implementation of Functional Languages -- IFL 2006},
+	Date-Modified = {2008-07-15 23:13:17 +0200},
+	Editor = {Z. Horv\'{a}th and V. Zs\'{o}k and A. Butterfield},
+	Keywords = {program analysis},
+	Pages = {199 -- 216},
+	Pubcat = {conference},
+	Publisher = {Springer Verlag},
+	Title = {Heuristics for type error discovery and recovery},
+	Volume = {4449},
+	Year = {2007}}
+	
+
+	%% HHS:constraint
+@inproceedings{heeren03constraint,
+	Address = {Cork},
+	Author = {B. Heeren and J. Hage and S. D. Swierstra},
+	Booktitle = {Workshop Proceedings of Immediate Applications of Constraint Programming},
+	Date-Modified = {2008-07-15 23:13:35 +0200},
+	Editor = {M.-C.~Silaghi and M.~Zanker},
+	Keywords = {program analysis},
+	Month = {September},
+	Notes = {Based on \cite{heeren2002parametric} and \cite{heeren2002generalizing}},
+	Pages = {59 -- 80},
+	Pubcat = {workshop},
+	Title = {Constraint based type inferencing in {H}elium},
+	Year = {2003}}
+
+	
+%% HHS:scripting
+@inproceedings{heeren03scripting,
+	Address = {New York},
+	Author = {B. Heeren and J. Hage and S. D. Swierstra},
+	Booktitle = {Eighth International Conference on Functional Programming},
+	Date-Modified = {2008-07-15 23:13:14 +0200},
+	Keywords = {program analysis},
+	Pages = {3 -- 13},
+	Pubcat = {conference},
+	Publisher = {ACM Press},
+	Title = {Scripting the type inference process},
+	Year = {2003}}
+
+@inproceedings{freeman91refinementtypes,
+ author = {Freeman, T. and Pfenning, F.},
+ title = {Refinement types for {ML}},
+ booktitle = {Proceedings of the ACM SIGPLAN 1991 conference on Programming language design and implementation},
+ series = {PLDI '91},
+ year = {1991},
+ DISABLEDisbn = {0-89791-428-7},
+ location = {Toronto, Ontario, Canada},
+ pages = {268--277},
+ numpages = {10},
+ DISABLEDurl = {http://doi.acm.org/10.1145/113445.113468},
+ DISABLEDdoi = {10.1145/113445.113468},
+ acmid = {113468},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+}
+
+
+@inproceedings{mitchell08pattern,
+ author = {Mitchell, N. and Runciman, C.},
+ title = {Not all patterns, but enough: an automatic verifier for partial but sufficient pattern matching},
+ booktitle = {Proceedings of the first ACM SIGPLAN symposium on Haskell},
+ series = {Haskell '08},
+ year = {2008},
+ DISABLEDisbn = {978-1-60558-064-7},
+ location = {Victoria, BC, Canada},
+ pages = {49--60},
+ numpages = {12},
+ DISABLEDurl = {http://doi.acm.org/10.1145/1411286.1411293},
+ DISABLEDdoi = {10.1145/1411286.1411293},
+ acmid = {1411293},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {automatic verification, functional programming, haskell, pattern-match errors, preconditions},
+}
+
+@inproceedings{mitchell05pattern,
+  author    = {Neil Mitchell and
+               Colin Runciman},
+  title     = {A static checker for safe pattern matching in {H}askell},
+  booktitle = {Trends in Functional Programming},
+  year      = {2005},
+  pages     = {15-30},
+  crossref  = {DBLP:conf/sfp/2005},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+
+@inproceedings{delaBanda:2003:FMU:888251.888256,
+ author = {Garc\'{i}a de la Banda, Mar\'{i}a and Stuckey, Peter J. and Wazny, Jeremy},
+ title = {{Finding All Minimal Unsatisfiable Subsets}},
+ booktitle = {Proceedings of the 5th ACM SIGPLAN International Conference on Principles and Practice of Declaritive Programming},
+ series = {PPDP '03},
+ year = {2003},
+ isbn = {1-58113-705-2},
+ location = {Uppsala, Sweden},
+ pages = {32--43},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/888251.888256},
+ doi = {10.1145/888251.888256},
+ acmid = {888256},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {constraint solving, minimal unsatisfiable subsets},
+} 
+
+@inproceedings{Serrano:2016:TED:3089528.3089554,
+ author = {Serrano, Alejandro and Hage, Jurriaan},
+ title = {{Type Error Diagnosis for Embedded DSLs by Two-Stage Specialized Type Rules}},
+ booktitle = {Proceedings of the 25th European Symposium on Programming Languages and Systems - Volume 9632},
+ year = {2016},
+ isbn = {978-3-662-49497-4},
+ pages = {672--698},
+ numpages = {27},
+ url = {https://doi.org/10.1007/978-3-662-49498-1_26},
+ doi = {10.1007/978-3-662-49498-1\_26},
+ acmid = {3089554},
+ publisher = {Springer-Verlag New York, Inc.},
+ address = {New York, NY, USA},
+} 
+
+@inproceedings{Vazou:2014:RTH:2628136.2628161,
+ author = {Vazou, Niki and Seidel, Eric L. and Jhala, Ranjit and Vytiniotis, Dimitrios and Peyton Jones, Simon},
+ title = {{Refinement Types for Haskell}},
+ booktitle = {Proceedings of the 19th ACM SIGPLAN International Conference on Functional Programming},
+ series = {ICFP '14},
+ year = {2014},
+ isbn = {978-1-4503-2873-9},
+ location = {Gothenburg, Sweden},
+ pages = {269--282},
+ numpages = {14},
+ url = {http://doi.acm.org/10.1145/2628136.2628161},
+ doi = {10.1145/2628136.2628161},
+ acmid = {2628161},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+
+@article{Sulzmann:2007:UFD:1194875.1194877,
+ author = {Sulzmann, Martin and Duck, Gregory J. and Peyton Jones, Simon and Stuckey, Peter J.},
+ title = {{Understanding Functional Dependencies via Constraint Handling Rules}},
+ journal = {J. Funct. Program.},
+ issue_date = {January 2007},
+ volume = {17},
+ number = {1},
+ month = jan,
+ year = {2007},
+ issn = {0956-7968},
+ pages = {83--129},
+ numpages = {47},
+ url = {http://dx.doi.org/10.1017/S0956796806006137},
+ doi = {10.1017/S0956796806006137},
+ acmid = {1194877},
+ publisher = {Cambridge University Press},
+ address = {New York, NY, USA},
+} 
+
+@phdthesis{ heeren05TopQuality,
+   author = "Bastiaan J. Heeren",
+   school = "Universiteit Utrecht, The Netherlands",
+   title  = "Top Quality Type Error Messages",
+   year   = "2005",
+   month  = sep,
+}
+
+@inproceedings{HHS:constraint,
+  author    = {Bastiaan Heeren and Jurriaan Hage and S. Doaitse Swierstra},
+  title     = {{Constraint based type inferencing in {H}elium}},
+  month     = {September},
+  year      = {2003},
+  editor    = {M.-C.~Silaghi and M.~Zanker},
+  pages     = {59 -- 80},
+  booktitle = {Workshop Proceedings of Immediate Applications of Constraint Programming},
+  address   = {Cork},
+  pubcat    = {workshop},
+  notes     = {Based on \cite{heeren2002parametric} and \cite{heeren2002generalizing}},
+}
+
+@article{Hage:2009:SSC:1519534.1519622,
+ author = {Hage, Jurriaan and Heeren, Bastiaan},
+ title = {{Strategies for Solving Constraints in Type and Effect Systems}},
+ journal = {Electron. Notes Theor. Comput. Sci.},
+ issue_date = {April, 2009},
+ volume = {236},
+ month = apr,
+ year = {2009},
+ issn = {1571-0661},
+ pages = {163--183},
+ numpages = {21},
+ url = {http://dx.doi.org/10.1016/j.entcs.2009.03.021},
+ doi = {10.1016/j.entcs.2009.03.021},
+ acmid = {1519622},
+ publisher = {Elsevier Science Publishers B. V.},
+ address = {Amsterdam, The Netherlands, The Netherlands},
+ keywords = {constraints, inference algorithms, solving strategies, type and effect systems},
+} 
+
+@inproceedings{Zhang:2015:DTE:2737924.2738009,
+ author = {Zhang, Danfeng and Myers, Andrew C. and Vytiniotis, Dimitrios and Peyton Jones, Simon},
+ title = {{Diagnosing Type Errors with Class}},
+ booktitle = {Proceedings of the 36th ACM SIGPLAN Conference on Programming Language Design and Implementation},
+ series = {PLDI '15},
+ year = {2015},
+ isbn = {978-1-4503-3468-6},
+ location = {Portland, OR, USA},
+ pages = {12--21},
+ numpages = {10},
+ url = {http://doi.acm.org/10.1145/2737924.2738009},
+ doi = {10.1145/2737924.2738009},
+ acmid = {2738009},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {Error diagnosis, Haskell, type inference},
+} 
+
+@article{WEIJERS2014200,
+title = "Security type error diagnosis for higher-order, polymorphic languages",
+journal = "Science of Computer Programming",
+volume = "95",
+pages = "200 - 218",
+year = "2014",
+note = "Selected and extended papers from Partial Evaluation and Program Manipulation 2013",
+issn = "0167-6423",
+doi = "https://doi.org/10.1016/j.scico.2014.03.011",
+url = "http://www.sciencedirect.com/science/article/pii/S0167642314001518",
+author = "Jeroen Weijers and Jurriaan Hage and Stefan Holdermans",
+keywords = "Type-based program analysis, Security analysis, Error feedback",
+abstract = "We combine the type error slicing and heuristics based approaches to type error diagnostic improvement within the context of type based security analysis on a let-polymorphic call by value lambda calculus extended with lists, pairs and the security specific constructs declassify and protect. We define and motivate four classes of heuristics that help diagnose inconsistencies among the constraints, and show their effect on a selection of security incorrect programs."
+}
+
+@inproceedings{Lerner:2007:STM:1250734.1250783,
+ author = {Lerner, Benjamin S. and Flower, Matthew and Grossman, Dan and Chambers, Craig},
+ title = {{Searching for Type-error Messages}},
+ booktitle = {Proceedings of the 28th ACM SIGPLAN Conference on Programming Language Design and Implementation},
+ series = {PLDI '07},
+ year = {2007},
+ isbn = {978-1-59593-633-2},
+ location = {San Diego, California, USA},
+ pages = {425--434},
+ numpages = {10},
+ url = {http://doi.acm.org/10.1145/1250734.1250783},
+ doi = {10.1145/1250734.1250783},
+ acmid = {1250783},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {error messages, objective Caml, seminal, type-checking, type-inference},
+}
+
+@inproceedings{Chitil:2001:CET:507635.507659,
+ author = {Chitil, Olaf},
+ title = {Compositional Explanation of Types and Algorithmic Debugging of Type Errors},
+ booktitle = {Proceedings of the Sixth ACM SIGPLAN International Conference on Functional Programming},
+ series = {ICFP '01},
+ year = {2001},
+ isbn = {1-58113-415-0},
+ location = {Florence, Italy},
+ pages = {193--204},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/507635.507659},
+ doi = {10.1145/507635.507659},
+ acmid = {507659},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+}
+
+@inproceedings{Plociniczak:2013:SIT:2489837.2489845,
+ author = {Plociniczak, Hubert},
+ title = {{Scalad: An Interactive Type-level Debugger}},
+ booktitle = {Proceedings of the 4th Workshop on Scala},
+ series = {SCALA '13},
+ year = {2013},
+ isbn = {978-1-4503-2064-1},
+ location = {Montpellier, France},
+ pages = {8:1--8:4},
+ articleno = {8},
+ numpages = {4},
+ url = {http://doi.acm.org/10.1145/2489837.2489845},
+ doi = {10.1145/2489837.2489845},
+ acmid = {2489845},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {debugging, errors, type system, visualization},
+} 
+
+@InProceedings{10.1007/978-3-642-41582-1_12,
+author="Tsushima, Kanae
+and Asai, Kenichi",
+editor="Hinze, Ralf",
+title="An Embedded Type Debugger",
+booktitle="Implementation and Application of Functional Languages",
+year="2013",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="190--206",
+abstract="This paper presents how to build a type debugger without implementing any dedicated type inferencer. Previous type debuggers required their own type inferencers apart from the compiler's type inferencer. The advantage of our approach is threefold. First, by not implementing a type inferencer, it is guaranteed that the debugger's type inference never disagrees with the compiler's type inference. Secondly, we can avoid the pointless reproduction of a type inferencer that should work precisely as the compiler's type inferencer. Thirdly, our approach is robust to updates of the underlying language. The key observation of our approach is that the interactive type debugging, as proposed by Chitil, does not require a type inference tree but only a tree with a certain simple property. We identify the property and present how to construct a tree that satisfies this property using the compiler's type inferencer. The property guides us how to build a type debugger for various language constructs. In this paper, we describe our idea and first apply it to the simply-typed lambda calculus. After that, we extend it with let-polymorphism and objects to see how our technique scales.",
+isbn="978-3-642-41582-1"
+}
+
+@article{Rahli:2017:SKA:3030643.3030946,
+ author = {Rahli, Vincent and Wells, Joe and Pirie, John and Kamareddine, Fairouz},
+ title = {{Skalpel: A constraint-based type error slicer for Standard ML}},
+ journal = {J. Symb. Comput.},
+ issue_date = {May 2017},
+ volume = {80},
+ number = {P1},
+ month = may,
+ year = {2017},
+ issn = {0747-7171},
+ pages = {164--208},
+ numpages = {45},
+ url = {https://doi.org/10.1016/j.jsc.2016.07.013},
+ doi = {10.1016/j.jsc.2016.07.013},
+ acmid = {3030946},
+ publisher = {Academic Press, Inc.},
+ address = {Duluth, MN, USA},
+ keywords = {Automated error diagnosis, Automated type inference, Constraint-based type inference, Improved error reports, Type error slicing},
+} 
+
+@inproceedings{Christiansen2014ReflectOY,
+  title={Reflect on Your Mistakes ! Lightweight Domain-Specific Error Messages},
+  author={David Raymond Christiansen},
+  year={2014}
+}
+@article{Haack:2004:TES:989777.989786,
+ author = {Haack, Christian and Wells, J. B.},
+ title = {{Type Error Slicing in Implicitly Typed Higher-order Languages}},
+ journal = {Sci. Comput. Program.},
+ issue_date = {March 2004},
+ volume = {50},
+ number = {1-3},
+ month = mar,
+ year = {2004},
+ issn = {0167-6423},
+ pages = {189--224},
+ numpages = {36},
+ url = {http://dx.doi.org/10.1016/j.scico.2004.01.004},
+ doi = {10.1016/j.scico.2004.01.004},
+ acmid = {989786},
+ publisher = {Elsevier North-Holland, Inc.},
+ address = {Amsterdam, The Netherlands, The Netherlands},
+ keywords = {intersection types, type error location, type inference},
+}
+
+@inproceedings{Schilling:2011:CTE:2362963.2362965,
+ author = {Schilling, Thomas},
+ title = {{Constraint-free Type Error Slicing}},
+ booktitle = {Proceedings of the 12th International Conference on Trends in Functional Programming},
+ series = {TFP'11},
+ year = {2012},
+ isbn = {978-3-642-32036-1},
+ location = {Madrid, Spain},
+ pages = {1--16},
+ numpages = {16},
+ url = {http://dx.doi.org/10.1007/978-3-642-32037-8_1},
+ doi = {10.1007/978-3-642-32037-8\_1},
+ acmid = {2362965},
+ publisher = {Springer-Verlag},
+ address = {Berlin, Heidelberg},
+} 
+
+@inproceedings{Chen:2014:CTD:2535838.2535863,
+ author = {Chen, Sheng and Erwig, Martin},
+ title = {{Counter-factual Typing for Debugging Type Errors}},
+ booktitle = {Proceedings of the 41st ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages},
+ series = {POPL '14},
+ year = {2014},
+ isbn = {978-1-4503-2544-8},
+ location = {San Diego, California, USA},
+ pages = {583--594},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/2535838.2535863},
+ doi = {10.1145/2535838.2535863},
+ acmid = {2535863},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {change suggestions, choice types, error localization, type error messages, type inference, type-error debugging},
+}
+
+@inproceedings{Pavlinovic:2015:PST:2784731.2784765,
+ author = {Pavlinovic, Zvonimir and King, Tim and Wies, Thomas},
+ title = {{Practical SMT-based Type Error Localization}},
+ booktitle = {Proceedings of the 20th ACM SIGPLAN International Conference on Functional Programming},
+ series = {ICFP 2015},
+ year = {2015},
+ isbn = {978-1-4503-3669-7},
+ location = {Vancouver, BC, Canada},
+ pages = {412--423},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/2784731.2784765},
+ doi = {10.1145/2784731.2784765},
+ acmid = {2784765},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {Polymorphic Types, Satisfiability Modulo Theories, Type Error Localization},
+} 
+
+@InProceedings{10.1007/978-3-540-24730-2_2,
+author="McMillan, K. L.",
+editor="Jensen, Kurt
+and Podelski, Andreas",
+title="An Interpolating Theorem Prover",
+booktitle="Tools and Algorithms for the Construction and Analysis of Systems",
+year="2004",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="16--30",
+abstract="We present a method of deriving Craig interpolants from proofs in the quantifier-free theory of linear inequality and uninterpreted function symbols, and an interpolating theorem prover based on this method. The prover has been used for predicate refinement in the Blast software model checker, and can also be used directly for model checking infinite-state systems, using interpolation-based image approximation.",
+isbn="978-3-540-24730-2"
+}
+
+@InProceedings{10.1007/11924661_1,
+author="Stuckey, Peter J.
+and Sulzmann, Martin
+and Wazny, Jeremy",
+editor="Kobayashi, Naoki",
+title={{Type Processing by Constraint Reasoning}},
+booktitle="Programming Languages and Systems",
+year="2006",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="1--25",
+abstract="Herbrand constraint solving or unification has long been understood as an efficient mechanism for type checking and inference for programs using Hindley/Milner types. If we step back from the particular solving mechanisms used for Hindley/Milner types, and understand type operations in terms of constraints we not only give a basis for handling Hindley/Milner extensions, but also gain insight into type reasoning even on pure Hindley/Milner types, particularly for type errors. In this paper we consider typing problems as constraint problems and show which constraint algorithms are required to support various typing questions. We use a light weight constraint reasoning formalism, Constraint Handling Rules, to generate suitable algorithms for many popular extensions to Hindley/Milner types. The algorithms we discuss are all implemented as part of the freely available Chameleon system.",
+isbn="978-3-540-48938-2"
+}
+
+@InProceedings{10.1007/BFb0038698,
+author="Miller, Dale",
+editor="Schroeder-Heister, Peter",
+title="A logic programming language with lambda-abstraction, function variables, and simple unification",
+booktitle="Extensions of Logic Programming",
+year="1991",
+publisher="Springer Berlin Heidelberg",
+address="Berlin, Heidelberg",
+pages="253--281",
+abstract="It has been argued elsewhere that a logic programming language with function variables and $\lambda$-abstractions within terms makes a very good meta-programming language, especially when an object language contains notions of bound variables and scope. The $\lambda$Prolog logic programming language and the closely related Elf and Isabelle systems provide meta-programs with both function variables and $\lambda$-abstractions by containing implementations of higher-order unification. In this paper, we present a logic programming language, called L$\lambda$, that also contains both function variables and $\lambda$-abstractions, but certain restriction are placed on occurrences of function variables. As a result, an implementation of L$\lambda$ does not need to implement full higher-order unification. Instead, an extension to first-order unification that respects bound variable names and scopes is all that is required. Such unification problems are shown to be decidable and to possess most general unifiers when unifiers exist. A unification algorithm and logic programming interpreter are described and proved correct. Several examples of using L$\lambda$ as a meta-programming language are presented.",
+isbn="978-3-540-46879-0"
+}
+
+@book{Miller:2012:PHL:2331097,
+ author = {Miller, Dale and Nadathur, Gopalan},
+ title = {Programming with Higher-Order Logic},
+ year = {2012},
+ isbn = {052187940X, 9780521879408},
+ edition = {1st},
+ publisher = {Cambridge University Press},
+ address = {New York, NY, USA},
+} 
+
+@article{serrano_hage_2017, title={{Constraint handling rules with binders, patterns and generic quantification}}, volume={17}, DOI={10.1017/S1471068417000230}, number={5-6}, journal={Theory and Practice of Logic Programming}, publisher={Cambridge University Press}, author={Serrano, Alejandro and Hage, Jurriaan}, year={2017}, pages={992–1009}}
+
+@phdthesis{ serranoThesis,
+   author = "Alejandro Serrano",
+   school = "Universiteit Utrecht, The Netherlands",
+   title  = "Type Error Customization for Embedded Domain Specific Languages",
+   year   = "2018",
+   month  = apr,
+}
+
+@misc{SulzmannMartin2008TifG,
+author = {Sulzmann, Martin and Schrijvers, Tom and Stuckey, Peter J},
+url = {https://lirias.kuleuven.be/retrieve/10888},
+abstract = {Type inference for Hindley/Milner and variants is well understood as a constraint solving problem. Recent extensions to Hindley/Milner such as generalized algebraic data types (GADTs) force us to go beyond this approach to inference. In this paper we show how to perform type inference for GADTs using Herbrand constraint abduction, a solving method to infer missing facts in terms of Herbrand constraints, i.e. conjunctions of type equations. But typeinference for GADTs is very hard, we are the first to give example programs with an infinite number of maximal types. We propose to rule out several kinds of ``non-intuitive'' solutions and show that we can construct in this way a complete and decidable type inference approach for GADTs and sketch how to support type error diagnosis. Our results point out new direction how to perform type inference for expressive type systems.},
+journal = {CW Reports},
+publisher = {Department of Computer Science, K.U.Leuven; Leuven, Belgium},
+year = {2008},
+title = {{Type inference for GADTs via Herbrand constraint abduction}},
+}
+
+@article{Simonet:2007:CAG:1180475.1180476,
+ author = {Simonet, Vincent and Pottier, Fran\c{c}ois},
+ title = {{A Constraint-based Approach to Guarded Algebraic Data Types}},
+ journal = {ACM Trans. Program. Lang. Syst.},
+ issue_date = {January 2007},
+ volume = {29},
+ number = {1},
+ month = jan,
+ year = {2007},
+ issn = {0164-0925},
+ articleno = {1},
+ url = {http://doi.acm.org/10.1145/1180475.1180476},
+ doi = {10.1145/1180475.1180476},
+ acmid = {1180476},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {GADTs, Generalized algebraic data types, constraint-based type inference},
+} 
+
+@inproceedings{Lin:2010:PGA:1708016.1708024,
+ author = {Lin, Chuan-kai and Sheard, Tim},
+ title = {{Pointwise Generalized Algebraic Data Types}},
+ booktitle = {Proceedings of the 5th ACM SIGPLAN Workshop on Types in Language Design and Implementation},
+ series = {TLDI '10},
+ year = {2010},
+ isbn = {978-1-60558-891-9},
+ location = {Madrid, Spain},
+ pages = {51--62},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/1708016.1708024},
+ doi = {10.1145/1708016.1708024},
+ acmid = {1708024},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {gadts, pointwise baseline, pointwise unification, pointwise unifier},
+}
+
+@inproceedings{Serrano:2018:GIP:3192366.3192389,
+ author = {Serrano, Alejandro and Hage, Jurriaan and Vytiniotis, Dimitrios and Peyton Jones, Simon},
+ title = {{Guarded Impredicative Polymorphism}},
+ booktitle = {Proceedings of the 39th ACM SIGPLAN Conference on Programming Language Design and Implementation},
+ series = {PLDI 2018},
+ year = {2018},
+ isbn = {978-1-4503-5698-5},
+ location = {Philadelphia, PA, USA},
+ pages = {783--796},
+ numpages = {14},
+ url = {http://doi.acm.org/10.1145/3192366.3192389},
+ doi = {10.1145/3192366.3192389},
+ acmid = {3192389},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {Type systems, constraint-based inference, impredicative polymorphism},
+} 
+
+@INPROCEEDINGS{Yang00improvedtype,
+    author = {Jun Yang and Greg Michaelson and Phil Trinder and J. B. Wells},
+    title = {{Improved Type Error Reporting}},
+    booktitle = {In Proceedings of 12th International Workshop on Implementation of Functional Languages},
+    year = {2000},
+    pages = {71--86}
+}

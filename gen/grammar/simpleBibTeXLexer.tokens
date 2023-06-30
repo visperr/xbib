@@ -10,7 +10,8 @@ CommentType=9
 Type=10
 Name=11
 Number=12
-Spaces=13
+INACTIVE=13
+Spaces=14
 ','=1
 '}'=2
 '='=3
